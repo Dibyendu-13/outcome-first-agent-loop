@@ -1,0 +1,52 @@
+{
+  "workflow": "ks_cancel",
+  "changed_at": "2027-01-08T13:00:00+05:30",
+  "version": 5,
+  "actor": "controller_approved",
+  "approval_id": "apr_00006",
+  "approval_event": {
+    "type": "approval_decided",
+    "ts": "2027-01-08T11:53:00+05:30",
+    "approval_id": "apr_00006",
+    "workflow_id": "ks_cancel",
+    "status": "approved",
+    "reasons": [],
+    "event_id": 248101
+  },
+  "proposal_id": "d8e5a5a5dbe1c0655a0af9cce607ccce",
+  "summary": "Validate and replace prompt after sustained hallucination increase",
+  "diff": {
+    "prompt_version": "P1"
+  },
+  "rationale": "Validate and replace prompt after sustained hallucination increase; {\"baseline\": {\"connected\": 19957, \"dials\": 80209, \"engaged\": 9998, \"hallucinations\": 302}, \"candidate_selection\": \"prefer observed engagement lower bound among safety-passing candidates\", \"estimated_lift\": 0, \"recent\": {\"connected\": 337, \"dials\": 1600, \"engaged\": 143, \"hallucinations\": 23}, \"safety_only\": true, \"validation\": {\"validation_run_id\": \"val_00002\"}}",
+  "evidence": {
+    "method": "observed aggregate replay; no causal guarantee",
+    "evidence": {
+      "recent": {
+        "dials": 1600,
+        "connected": 337,
+        "engaged": 143,
+        "hallucinations": 23
+      },
+      "baseline": {
+        "dials": 80209,
+        "connected": 19957,
+        "engaged": 9998,
+        "hallucinations": 302
+      },
+      "validation": {
+        "validation_run_id": "val_00002"
+      },
+      "estimated_lift": 0,
+      "safety_only": true,
+      "candidate_selection": "prefer observed engagement lower bound among safety-passing candidates"
+    },
+    "affected_leads_method": "upper bound: unconcluded enrollments; includes expired cadence"
+  },
+  "subsequent_calls_on_version": {
+    "dials": 4800,
+    "connected": 950,
+    "engaged": 475,
+    "hallucination_flags": 12
+  }
+}

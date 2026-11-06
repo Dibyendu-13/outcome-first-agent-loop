@@ -1,0 +1,21 @@
+{
+  "scenario": "scenarios/public_02_incidents.yaml",
+  "finished": true,
+  "events": 324297,
+  "ingest_seconds": 4.471943752112566,
+  "ingest_events_per_second": 72518.13036485549,
+  "controller_wall_seconds": 10.93784279099782,
+  "wall_seconds_per_simulated_day": 1.093784279099782,
+  "database_bytes": 51785728,
+  "peak_controller_rss_bytes": 50692096,
+  "decision_lag_simulated_minutes_upper_bound": 60,
+  "integrity": "ok",
+  "duplicate_calls": 0,
+  "pending_at_end": 0,
+  "total_evaluation_seconds": 19.338144833018305,
+  "environment": {
+    "platform": "darwin",
+    "cpu_count": 8,
+    "python": "3.13.2 (main, Feb  4 2025, 14:51:09) [Clang 16.0.0 (clang-1600.0.26.6)]"
+  }
+}

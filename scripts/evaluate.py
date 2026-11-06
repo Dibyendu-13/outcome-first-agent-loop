@@ -84,7 +84,8 @@ def run(name,scenario,port,crash):
         metrics = {'scenario':scenario,'finished':state['finished'],'events':events,'ingest_seconds':ingest_seconds,'ingest_events_per_second':events/ingest_seconds,'controller_wall_seconds':elapsed,
             'wall_seconds_per_simulated_day':elapsed/(state['end_minute']/1440),'database_bytes':db.stat().st_size,
             'peak_controller_rss_bytes':runtime['peak_rss_platform_units']*(1 if sys.platform=='darwin' else 1024),
-            'decision_lag_simulated_minutes_upper_bound':60,'integrity':integrity,'duplicate_calls':duplicate_calls,'pending_at_end':pending,'total_evaluation_seconds':time.monotonic()-start,
+            'monitoring_evaluation_interval_simulated_minutes':60,'experiment_evaluation_interval_simulated_minutes':1440,
+            'decision_lag_note':'Evaluation intervals exclude startup ingestion, sample-size and governance delays; actual wall-clock lag not separately measured','integrity':integrity,'duplicate_calls':duplicate_calls,'pending_at_end':pending,'total_evaluation_seconds':time.monotonic()-start,
             'environment':{'platform':sys.platform,'cpu_count':os.cpu_count(),'python':sys.version}}
         (report/(name+'-metrics.json')).write_text(json.dumps(metrics,indent=2))
         if crash:

@@ -1,3 +1,24 @@
+# Controller implementation
+
+The controller is implemented in `controller/`. Start with [the runbook](docs/CONTROLLER.md),
+[design and scope decisions](SUBMISSION.md), and [evaluation evidence](reports/README.md).
+
+```bash
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python -m pytest -q tests
+# Terminal 1: start a fresh simulator
+.venv/bin/python -m sim serve --scenario scenarios/public_01_dev.yaml --run-dir runs/new-run
+# Terminal 2: run to completion; reuse this DB only to resume this same world
+CONTROLLER_DB=controller-data/new-run.sqlite ./run.sh http://127.0.0.1:8700
+# Optional local supervisor view
+.venv/bin/python -m controller serve --db controller-data/new-run.sqlite --port 8800
+```
+
+No external API keys are required. The original assignment follows below.
+
+---
+
 # Outcome-First Agent Loop — Senior Engineer Assignment
 
 **Formi · Agentic Universe** · Greenfield · Suggested effort 12–16 hours across 7 calendar days

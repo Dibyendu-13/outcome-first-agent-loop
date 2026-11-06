@@ -1,0 +1,23 @@
+{
+  "scenario": "scenarios/public_01_dev.yaml",
+  "finished": true,
+  "events": 297009,
+  "ingest_seconds": 3.952969123754883,
+  "ingest_events_per_second": 75135.67414811334,
+  "controller_wall_seconds": 9.237701209000079,
+  "wall_seconds_per_simulated_day": 1.1547126511250099,
+  "database_bytes": 47435776,
+  "peak_controller_rss_bytes": 71958528,
+  "integrity": "ok",
+  "duplicate_calls": 0,
+  "pending_at_end": 0,
+  "total_evaluation_seconds": 17.802652832993772,
+  "environment": {
+    "platform": "darwin",
+    "cpu_count": 8,
+    "python": "3.13.2 (main, Feb  4 2025, 14:51:09) [Clang 16.0.0 (clang-1600.0.26.6)]"
+  },
+  "monitoring_evaluation_interval_simulated_minutes": 60,
+  "experiment_evaluation_interval_simulated_minutes": 1440,
+  "decision_lag_note": "Evaluation intervals exclude startup ingestion, sample-size and governance delays; actual wall-clock lag not separately measured"
+}

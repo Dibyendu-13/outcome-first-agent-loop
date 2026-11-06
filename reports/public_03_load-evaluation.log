@@ -1,0 +1,21 @@
+{
+  "scenario": "scenarios/public_03_load.yaml",
+  "finished": true,
+  "events": 9737615,
+  "ingest_seconds": 979.7930698738201,
+  "ingest_events_per_second": 9938.440370122267,
+  "controller_wall_seconds": 1314.2305794580025,
+  "wall_seconds_per_simulated_day": 262.8461158916005,
+  "database_bytes": 1707778048,
+  "peak_controller_rss_bytes": 118030336,
+  "decision_lag_simulated_minutes_upper_bound": 60,
+  "integrity": "ok",
+  "duplicate_calls": 0,
+  "pending_at_end": 0,
+  "total_evaluation_seconds": 1619.5887048339937,
+  "environment": {
+    "platform": "darwin",
+    "cpu_count": 8,
+    "python": "3.13.2 (main, Feb  4 2025, 14:51:09) [Clang 16.0.0 (clang-1600.0.26.6)]"
+  }
+}

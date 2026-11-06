@@ -46,7 +46,7 @@ def test_lost_apply_response_reconciles_without_reapply(tmp_path):
     s = Store(tmp_path/'db')
     body = {'proposal_id':'pid','workflow_id':'w','base_version':1}
     with s.db:
-        s.db.execute('INSERT INTO proposals VALUES (?,?,?, ?,?,?,?)',('pid','w','approved','apr',json.dumps(body),'{}','2027-01-04T10:00:00+05:30'))
+        s.db.execute('INSERT INTO proposals VALUES (?,?,?, ?,?,?,?)',('pid','w','approved','apr',json.dumps(body),json.dumps({'dimension':'voice','stage':'exploring','baseline':{'V1':1}}),'2027-01-04T10:00:00+05:30'))
     calls = []
     def handler(request):
         calls.append(request.method+' '+request.url.path)
@@ -59,6 +59,7 @@ def test_lost_apply_response_reconciles_without_reapply(tmp_path):
     Engine('http://test',s,client).reconcile([{'workflow_id':'w'}],'2027-01-04T12:00:00+05:30')
     assert s.db.execute('SELECT status FROM proposals').fetchone()[0]=='applied'
     assert all(c.startswith('GET') for c in calls)
+    assert s.db.execute('SELECT dim,stage FROM experiments').fetchone()==('voice','exploring')
 
 
 def test_paid_unknown_never_double_charges(tmp_path):
