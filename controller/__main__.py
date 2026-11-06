@@ -3,24 +3,20 @@ import argparse
 import fcntl
 import json
 import resource
+import sqlite3
+from urllib.parse import urlsplit
 import time
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
 
 import httpx
 
+from .dashboard import Dashboard
 from .engine import Engine
 from .store import Store
 
 
-HTML = '''<!doctype html><html><head><meta charset="utf-8"><title>Outcome loop</title>
-<style>body{font:16px system-ui;max-width:1100px;margin:40px auto;background:#f4f6f8;color:#17232e}section{background:white;padding:20px;margin:16px 0;border-radius:12px}table{width:100%;border-collapse:collapse}td,th{text-align:left;padding:10px;border-bottom:1px solid #ddd}pre{white-space:pre-wrap;overflow-wrap:anywhere}h1{margin-bottom:4px}.muted{color:#596878}</style></head><body>
-<h1>Outcome loop</h1><p class="muted">Workflow health, experiments, approvals and decision evidence. Refreshes every 15 seconds.</p><div id="app">Loading…</div>
-<script>
-const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-function table(rows,keys){return '<table><tr>'+keys.map(k=>'<th>'+esc(k)+'</th>').join('')+'</tr>'+rows.map(r=>'<tr>'+keys.map(k=>'<td>'+esc(r[k])+'</td>').join('')+'</tr>').join('')+'</table>'}
-async function load(){try{let d=await(await fetch('/api/status')).json();document.getElementById('app').innerHTML='<section><h2>Loop health</h2><pre>'+esc(JSON.stringify({state:d.state,ingestion:d.ingestion,incidents:d.incidents,paid_operations:d.paid_operations.map(r=>({key:r.key,status:r.status}))},null,2))+'</pre></section><section><h2>KPIs · live period</h2>'+table(d.kpis.map(r=>({...r,pickup:(100*r.connected/Math.max(1,r.dials)).toFixed(1)+'%',engagement:(100*r.engaged/Math.max(1,r.connected)).toFixed(1)+'%'})),['workflow','dials','pickup','engagement','hallucinations'])+'</section><section><h2>Experiments</h2>'+table(d.experiments,['workflow','dimension','stage','started'])+'</section><section><h2>Approval queue and history</h2>'+table(d.proposals,['workflow','status','approval','created'])+'</section><section><h2>Recent decisions</h2>'+d.recent_decisions.map(r=>'<details><summary>'+esc(r.ts+' · '+r.workflow+' · '+r.kind)+'</summary><pre>'+esc(JSON.stringify(JSON.parse(r.evidence),null,2))+'</pre></details>').join('')+'</section>'}catch(e){document.getElementById('app').textContent='Unable to load controller state: '+e}}
-load();setInterval(load,15000);</script></body></html>'''
+WEB = Path(__file__).with_name('web')
 
 
 def main():
@@ -33,22 +29,46 @@ def main():
     ap.add_argument('--port',type=int,default=8800)
     args = ap.parse_args()
     if args.command=='serve':
+        if not Path(args.db).is_file():
+            raise SystemExit('Controller database not found: '+args.db)
+        dashboard = Dashboard(args.db)
+        assets = {'/':('index.html','text/html; charset=utf-8'),
+                  '/assets/dashboard.css':('dashboard.css','text/css; charset=utf-8'),
+                  '/assets/dashboard.js':('dashboard.js','text/javascript; charset=utf-8'),
+                  '/assets/favicon.svg':('favicon.svg','image/svg+xml')}
         class Handler(BaseHTTPRequestHandler):
             def do_GET(self):
-                if self.path not in ('/','/api/status'):
+                path = urlsplit(self.path).path
+                if path not in assets and path not in ('/api/status','/api/dashboard'):
                     self.send_error(404)
                     return
-                if self.path=='/':
-                    data,typ = HTML.encode(),'text/html; charset=utf-8'
-                else:
-                    s = Store(args.db)
-                    data,typ = json.dumps(s.view()).encode(),'application/json'
-                    s.db.close()
+                try:
+                    if path in assets:
+                        file,typ = assets[path]
+                        data = (WEB/file).read_bytes()
+                    elif path=='/api/dashboard':
+                        data,typ = json.dumps(dashboard.snapshot()).encode(),'application/json'
+                    else:
+                        store = Store(args.db,read_only=True)
+                        try:
+                            data,typ = json.dumps(store.view()).encode(),'application/json'
+                        finally:
+                            store.db.close()
+                except (sqlite3.Error,OSError,ValueError):
+                    self.send_response(503)
+                    self.send_header('Content-Type','application/json')
+                    self.send_header('Cache-Control','no-store')
+                    self.end_headers()
+                    self.wfile.write(b'{"error":"Controller snapshot unavailable; inspect the server log and database."}')
+                    return
                 self.send_response(200)
                 self.send_header('Content-Type',typ)
                 self.send_header('Cache-Control','no-store')
+                self.send_header('X-Content-Type-Options','nosniff')
+                self.send_header('Content-Security-Policy',"default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; frame-ancestors 'none'; base-uri 'none'")
                 self.end_headers()
                 self.wfile.write(data)
+        print(f'Outcome console: http://127.0.0.1:{args.port} · {args.db}',flush=True)
         HTTPServer(('127.0.0.1',args.port),Handler).serve_forever()
         return
     s = Store(args.db)

@@ -7,7 +7,12 @@ from pathlib import Path
 
 
 class Store:
-    def __init__(self, path):
+    def __init__(self, path, read_only=False):
+        if read_only:
+            self.db = sqlite3.connect(Path(path).resolve().as_uri()+'?mode=ro',uri=True)
+            self.db.execute('PRAGMA query_only=ON')
+            self.cache = OrderedDict()
+            return
         Path(path).parent.mkdir(parents=True, exist_ok=True)
         self.db = sqlite3.connect(path)
         self.db.execute('PRAGMA journal_mode=WAL')

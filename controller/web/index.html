@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light"><title>Formi · Outcome console</title>
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg"><link rel="stylesheet" href="/assets/dashboard.css"><script src="/assets/dashboard.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to workspace</a>
+<aside class="sidebar">
+<a href="#overview" class="brand" aria-label="Formi outcome console"><span class="brand-mark">f<span></span></span><strong>formi<span>OUTCOME CONSOLE</span></strong></a>
+<div class="workspace-label">WORKSPACE</div>
+<nav aria-label="Main navigation">
+<button class="nav active" data-page="overview" aria-current="page"><span class="nav-icon">◫</span>Overview</button>
+<button class="nav" data-page="experiments"><span class="nav-icon">◈</span>Experiments<span id="experiment-count" class="nav-count">—</span></button>
+<button class="nav" data-page="approvals"><span class="nav-icon">▤</span>Approvals<span id="approval-count" class="nav-count">—</span></button>
+<button class="nav" data-page="activity"><span class="nav-icon">↗</span><span class="nav-label-full">Decision history</span><span class="nav-label-short">History</span></button>
+</nav>
+<div class="sidebar-note"><span class="pulse"></span> GOVERNED AUTONOMY<p>Every change.<br>Evidence you can follow.</p></div>
+<div class="sidebar-bottom"><span class="avatar">OC</span><div>Supervisor workspace<small>Local · read-only</small></div></div>
+</aside>
+<div class="shell">
+<header class="topbar"><div class="breadcrumb">Workspace <span>/</span> <strong id="breadcrumb">Overview</strong></div><div class="top-actions"><span id="connection" class="connection"><i></i>Connecting</span><button id="refresh" class="icon-button" aria-label="Refresh data" title="Refresh data">↻</button><span class="top-avatar" aria-label="Supervisor workspace">S</span></div></header>
+<main id="main" tabindex="-1">
+<div id="error" class="error-banner" role="alert" hidden></div>
+<section class="page-heading"><div><div class="eyebrow">YOUR AGENTS. BETTER OUTCOMES.</div><h1 id="page-title">Workflow overview</h1><p id="page-description">Understand performance. Follow the evidence. Stay in control.</p></div><button class="button secondary" id="export"><span aria-hidden="true">↓</span> Export report</button></section>
+<div class="filterbar"><div class="filter-group"><label class="sr-only" for="tenant">Tenant</label><select id="tenant"><option value="">All tenants</option></select><label class="sr-only" for="workflow">Workflow</label><select id="workflow"><option value="">All workflows</option></select><label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Search lists…" aria-label="Search workflows and decisions" title="Search workflow cards and decision lists. KPI totals follow the tenant and workflow selectors."></label></div><span id="period" class="period">Waiting for a run</span></div>
+<div id="loading" class="loading-state"><span class="spinner"></span><h2>Connecting to your workspace</h2><p>Reading recorded outcomes and decision evidence.</p></div>
+<div id="content" hidden>
+<section id="overview-page" class="page">
+<div id="run-banner" class="run-banner"></div>
+<div id="kpi-cards" class="kpi-grid"></div><p class="footnote reference-note">Historical reference uses before-run calls. It is not a no-op control or a causal lift estimate.</p>
+<div class="overview-grid"><section class="panel chart-panel"><div class="panel-heading"><div><h2>Performance over time</h2><p>Daily rates across the selected workflows</p></div><div class="segmented" aria-label="Chart metric"><button data-chart="engagement_rate" class="selected" aria-pressed="true">Engagement</button><button data-chart="pickup_rate" aria-pressed="false">Pickup</button></div></div><div id="chart" class="chart"></div><div class="chart-footer"><span><i class="legend-dot"></i><span id="chart-label">Engagement rate</span></span><span>Run period · IST</span></div></section>
+<section class="panel attention-panel"><div class="panel-heading"><div><h2>Needs your attention</h2><p>Exceptions, not every event</p></div><span id="attention-count" class="badge neutral">0</span></div><div id="attention"></div></section></div>
+<div class="section-heading"><div><h2>Your workflows <span id="workflow-count" class="subtle-count"></span></h2><p>Separate KPIs. One clear picture of each workflow.</p></div><span class="subtle">Changes require policy or approval</span></div>
+<div id="workflow-cards" class="workflow-grid"></div>
+<section class="panel recent-panel"><div class="panel-heading"><div><h2>What changed</h2><p>Recent applied changes, linked to their evidence</p></div><button class="text-button" data-goto="activity">View decision history <span aria-hidden="true">→</span></button></div><div id="recent-changes"></div></section>
+</section>
+<section id="experiments-page" class="page" hidden><div class="context-note"><span aria-hidden="true">◈</span><p>Winners are selected by deterministic statistics. Each arm needs at least <strong>400 connected calls</strong>; reaching that sample alone does not establish a winner.</p></div><div id="experiment-list"></div></section>
+<section id="approvals-page" class="page" hidden><div class="panel"><div class="panel-heading"><div><h2>Proposal register</h2><p>What would change, who approved it, and what happened next.</p></div><label class="sr-only" for="proposal-status">Proposal status</label><select id="proposal-status"><option value="">All statuses</option><option value="pending">Pending review</option><option value="applied">Applied</option><option value="rejected">Rejected</option><option value="expired">Expired</option><option value="stale">Stale</option><option value="failed">Failed</option></select></div><div id="proposal-list" class="table-wrap"></div></div><p class="footnote">This console is read-only. Decisions from simulated client approvers are reconciled by the controller; buttons here do not approve or apply configurations.</p></section>
+<section id="activity-page" class="page" hidden><div class="panel"><div class="panel-heading"><div><h2>A decision trail you can follow</h2><p>Timestamped controller records · India Standard Time</p></div><label class="checkbox"><input type="checkbox" id="include-routine"> Include routine evaluations</label></div><div id="activity-list" class="timeline"></div><div id="activity-footnote" class="panel-bottom"></div></div></section>
+<footer class="footer"><span><span class="tiny-mark">f</span> Evidence before action.</span><span id="updated">Awaiting first snapshot</span></footer>
+</div>
+</main>
+</div>
+<div id="drawer-backdrop" class="drawer-backdrop" hidden></div><aside id="drawer" class="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title" hidden tabindex="-1"><div class="drawer-top"><span class="eyebrow">DECISION DETAILS</span><button id="close-drawer" class="icon-button" aria-label="Close details">×</button></div><div id="drawer-content"></div></aside>
+<div id="announcement" class="sr-only" role="status" aria-live="polite"></div>
+</body></html>

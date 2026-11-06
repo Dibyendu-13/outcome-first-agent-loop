@@ -34,8 +34,8 @@ world with the same scenario and larger time/event counters cannot be reliably d
 .venv/bin/python -m controller serve --db controller-data/my-first-run.sqlite --port 8800
 ```
 
-Open http://127.0.0.1:8800. The view shows separate KPIs, experiments, proposals, decisions and evidence.
-JSON is available at `/api/status`. This read-only local tool has no authentication and must remain bound
+Open http://127.0.0.1:8800. The responsive console shows campaign outcomes, separate call KPIs, daily trends, experiment samples, proposal details and a decision timeline. See [UI.md](UI.md) for measurement definitions and interaction details.
+The structured presentation API is `/api/dashboard`; raw backwards-compatible JSON is available at `/api/status`. This read-only local tool has no authentication and must remain bound
 to loopback; production access control is outside this submission.
 
 For terminal use:

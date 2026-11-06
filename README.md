@@ -1,7 +1,7 @@
 # Controller implementation
 
 The controller is implemented in `controller/`. Start with [the runbook](docs/CONTROLLER.md),
-[design and scope decisions](SUBMISSION.md), and [evaluation evidence](reports/README.md).
+[the supervisor UI](docs/UI.md), [design and scope decisions](SUBMISSION.md), and [evaluation evidence](reports/README.md).
 
 ```bash
 python3 -m venv .venv

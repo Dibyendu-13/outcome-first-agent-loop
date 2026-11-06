@@ -16,3 +16,8 @@ The grader reads simulator output solely for external evaluation. The controller
 Run directories and controller databases are ignored by git because they are large. Reproduce them with
 `scripts/evaluate.py` using fresh run names; dependency versions are in `requirements.lock`.
 Relative KPI deltas in official grade tables should not be interpreted as percentage-point changes.
+
+## Redesigned supervisor UI
+
+`ui-verification.md` records browser checks and their limits; `ui-tests.txt` contains the 20-test result.
+`ui-overview.jpg` and `ui-mobile.jpg` show the actual connected UI. See `docs/UI.md` for data definitions.
