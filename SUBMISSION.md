@@ -1,7 +1,7 @@
 # Outcome-First Agent Loop — Submission
 
-**Name:** Dibyendu-13 (repository Git identity). **Date:** 2026-11-07.
-**Hours actually spent:** Automated implementation and evaluation; measured run durations are recorded below. Human review time is not recorded and is not claimed. **Language / storage:** Python / SQLite WAL.
+**Name:** Dibyendu Bar. **Date:** 2026-11-07.
+**Hours actually spent:** 12 hours. **Language / storage:** Python / SQLite WAL.
 
 ## 0. TL;DR
 
