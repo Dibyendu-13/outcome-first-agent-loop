@@ -1,0 +1,16 @@
+{
+  "platform": "Linux-6.10.14-linuxkit-aarch64-with-glibc2.41",
+  "machine": "aarch64",
+  "physical_memory": "MemTotal:        4013480 kB",
+  "cpu_max": "400000 100000",
+  "memory_max": "8589934592",
+  "controller_algorithm_sha256": {
+    "engine": "993cf3fb8a6da14853c34bc277a52bdc3598a9c7552c715a7960940070329ad1",
+    "store": "c5004ca58bca917039f4566d3211deeea7328302b5ae183125454731931a91bb",
+    "statistics": "0e6d04ccffbfb50f58ccb373049b78082cdf11723acfb23cf447bc8d1d072da2",
+    "cohorts": "28faf31ffc52168678576fd16822aab54a552b017439b393c23a5fcbda3441c5",
+    "learning": "5681f227b56aa2fe2cad4bb0be852dfb454f82fa031664593c4301e8b1f210bb",
+    "evidence": "9021527f990a31fc763a52378f7fccb7138b1866f0dceb0b80acaadbf943f360",
+    "faults": "e286da850d644866a5ff7bdbaf2302cf531a96256a91105413ac2824d40923f2"
+  }
+}

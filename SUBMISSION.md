@@ -1,190 +1,125 @@
 # Outcome-First Agent Loop — Submission
 
-**Name:** Repository owner; implementation prepared with Codex assistance. **Date:** 2026-11-06.
-**Hours actually spent:** One automated implementation/evaluation session; human effort is not claimed.
-Recorded benchmark wall times are in `reports/*-metrics.json`. **Language / storage:** Python / SQLite WAL.
+**Name:** Dibyendu-13 (repository Git identity). **Date:** 2026-11-07.
+**Hours actually spent:** Automated implementation and evaluation; measured run durations are recorded below. Human review time is not recorded and is not claimed. **Language / storage:** Python / SQLite WAL.
 
 ## 0. TL;DR
 
-HTTP-only controller with atomic event ingestion, durable governance, bounded exploration and incident response.
-Public_01: +2.7% relative conclusion-rate lift; three changes, none graded harmful.
-Public_02: +9.9% relative conclusion-rate lift; seven changes, none graded harmful; 15 credits spent.
-Public_02 hallucinated calls fell from 431 to 196; prompt incident MTTR remained 1,530 simulated minutes.
-Scope prioritizes reliability and traceable decisions; personalized timing and feature-specific experiments are deferred.
+HTTP-only controller with durable event ingestion, shared language cohorts, governed experiments and incident response.
+Public_01: +4.9% relative conclusion-rate lift; three applied changes, none graded harmful.
+Public_02: +10.1% relative conclusion-rate lift; seven applied changes, none graded harmful; 15 credits spent.
+Public_02 prompt fix: 405 simulated minutes versus 1,530 in the previous implementation; 177 hallucinated calls versus 431 baseline.
+Exact cohort tests, a real-HTTP promotion/rollback proof, five SIGKILL recovery cases, and a read-only supervisor console.
+Personalized call-time optimization and factorial experiments are deliberately out of scope.
 
 ## 1. Assumptions
 
-1. The HTTP contract and per-workflow policies override stakeholder recollection. No controller code imports
-   `sim`, reads scenarios, or reads simulator run files. Evaluation scripts may invoke the official grader.
-2. One controller process drives one simulator world. A database file belongs to exactly one world. There is
-   no unique run identifier in the API; time/scenario/event regression catches many, but not all, world resets.
-3. Events/chunks obey the documented globally increasing event-ID ordering. Replay/overlap is possible
-   during recovery and is deduplicated. Out-of-order chunks are sorted before ingestion.
-4. SQLite is appropriate for one-machine evaluation. It is not the eventual shared production database.
-5. Guardrail drop values represent absolute rate differences, not relative percentages.
-6. Historical data provides context, not proof of current causal effects. Prompt validation measures safety,
-   never engagement. Returning people can create correlation between observations.
-7. A supervisor edit expresses current client intent. We pause experiments for 24 hours and protect any
-   allocation dimension they explicitly changed. Approved incident remediation can still change a prompt.
-8. Insufficient evidence means abstain. Neither elapsed time nor an LLM response is sufficient to promote.
-9. An unconcluded historical enrollment may already have exhausted cadence. Affected-lead count is therefore
-   an explicit upper bound, not a claim that every counted lead remains dialable.
-10. A paid request with a lost acknowledgement cannot be made exactly-once with this API. We persist an
-    uncertain intent and never repeat it blindly; an unavailable result remains a visible limitation.
-11. Scenarios end when the simulator says finished. Pending approvals at that boundary can remain unresolved;
-    neither advancing past the end nor applying new experiments without future observations is useful.
+1. The HTTP contract and workflow policies govern behavior. The controller never imports the simulator or reads scenario files, grader truth, or simulator output directories.
+2. One controller owns one world. Default `run.sh` selects a durable world database from public scenario/progress, preserves older runs, and resumes a known world. Explicit DB reuse rejects detected resets. The API does not expose a unique world ID; indistinguishable replacements cannot be detected reliably.
+3. Chunk and event IDs obey the documented increasing order. Entire chunks and their checkpoints commit atomically; overlapping event IDs are ignored.
+4. Guardrail drops are absolute percentage-point margins. Pickup and engagement are never blended. Campaign conclusion rate tracks the uploaded cohort, not all call conclusions occurring that day.
+5. Experiment inference assumes stable, exchangeable Bernoulli observations within a cohort and configuration epoch. An independent person is counted once per KPI stream. This removes repeated-call pseudoreplication, not every source of population drift.
+6. First dial measures pickup. First connected call measures conditional engagement. A DID can change who connects; conditional engagement remains the required guardrail, not a population-invariant causal quantity.
+7. Historical observations provide priors and contextual comparisons. No historical-only winner, no model-selected winner, and no estimate for an unobserved arm.
+8. Supervisor edits are authoritative. We protect edited allocation dimensions, suspend stale experiments, and require fresh evidence and approval for any subsequent relevant change.
+9. Affected enrollment counts exclude expired campaign cadence and concluded leads, but may include leads that exhausted today's attempts. Locked existing campaigns are unaffected by allocation-only changes; next batch size is a forecast.
+10. Paid requests have no idempotency key or result retrieval. A lost acknowledgement remains uncertain and is never blindly repeated. This is an API limitation, not a claimed successful recovery of the missing response.
+11. A terminal scenario stops time advancement. A healthy completed run can have inconclusive experiments. There is no obligation to force a winner.
 
 ## 2. Scope decisions
 
-| # | Capability | Built / Partial / Cut | Why | What it would take to finish |
-|---|---|---|---|---|
-| C1 | Event ingestion | Built | Transactional chunks, deduplication, history and restart | Partition ingestion for production |
-| C2 | Features/shared cohorts | Partial | Durable lead joins, one shared default cohort, language diagnostics | Feature-specific cohort registry and traffic budgets |
-| C3 | Historical bootstrap | Built | Every history chunk is consumed before decisions | Formal drift-weighted priors |
-| C4 | Call-time optimization | Cut | Observational hour effects and sparse personal samples risk false confidence | Randomized cohort schedules and returning-person evidence |
-| C5 | Caller-ID health | Built | Thresholded temporal degradation plus healthy contemporaneous alternative | Calibrated detector and safe exploration of previously unseen DIDs |
-| C6 | Welcome/voice experiments | Partial | One dimension at a time, bounded exposure, sample minimum and deterministic tests | Interactions, clustering and family-wide error calibration |
-| C7 | Promotion/decay/rollback | Partial | 20% sentinel traffic, recent comparisons and approved rollback code | More evidence on decay scenarios; attribution across multiple simultaneous changes |
-| C8 | Prompt incidents | Built | Persistent detection, suggestions, validation, approval and post-apply verification | Faster low-volume detection and engagement-aware canary prompts when API supports them |
-| C9 | Governance | Partial | Durable lifecycle, policy checks, request budgets, stale-base reconciliation | Dynamic tick sizing, optimal batching/TTL scheduling |
-| C10 | Impact/dry run | Partial | Explicit uncertainty, aggregate evidence, affected enrollment upper bound | A true historical replay engine and calibrated queue-value scores |
-| C11 | Supervisor view | Built | One local screen plus JSON endpoint and CLI | Authentication and hosted deployment |
-| C12 | Audit | Built | Decisions, proposals, approval events and individual call receipts | Retention/access controls and richer query UI |
-| C13 | Crash recovery | Built | Real SIGKILL while approval pending, restart and integrity checks | Exhaustive fault injection at every external boundary |
-| C14 | Observability | Partial | Ingestion metrics, state, audit alerts and benchmark evidence | Prometheus/pager integration and wall-clock lag histogram |
-| C15 | Fair resource allocation | Partial | Rotating workflow order, credit reserve, two-request cap | Tenant-weighted reservations and attention scheduling |
+| # | Capability | Status | Evidence / remaining boundary |
+|---|---|---|---|
+| C1 | Event ingestion | Built | Transactional streamed chunks, overlap suppression, indexed calls, public_03 and SIGKILL evidence |
+| C2 | Shared cohorts | Built | Ordered feature rules, language groups with sufficient historical people, actual cohort IDs in evaluation, monitoring and console |
+| C3 | Historical bootstrap | Built | All history ingested before the first decision; population and prior flag references |
+| C4 | Call-time optimization | Cut | Observational time-of-day comparisons and sparse personal histories cannot justify changes within this scope |
+| C5 | Caller-ID health | Built | Population thresholds, historical degradation plus a contemporaneous healthier alternative; public_02 rotation |
+| C6 | Variant experimentation | Built for selected scope | One dimension at a time, independent-person fixed prefixes, exact tests, multiple-comparison budget and null calibration; factorial interactions cut |
+| C7 | Promotion, decay, rollback | Built | Governed 80% promotion, 20% sentinel traffic, fresh 3-hour monitoring windows, cohort guardrail rollback; HTTP proof and tests |
+| C8 | Prompt incidents | Built | Fixed sample detection, durable incident, candidates, validation, human approval and post-apply evidence |
+| C9 | Governance | Built for selected scope | Durable lifecycle, short-window polling, batched cohort changes, approval reserve, stale/expired/lapsed tests; no optimal global queue scheduler |
+| C10 | Impact and dry run | Built for selected scope | Cohort reweighting of observed arm means, coverage and uncertainty, active-cadence population bounds; unsupported effects withheld |
+| C11 | Supervisor console | Built | Live SQLite projection, workflow/cohort evidence, approvals, incident history and read-only details |
+| C12 | Audit | Built | Decision, proposal, approval, configuration and per-call receipts in controller-owned SQLite |
+| C13 | Crash recovery | Built within protocol limits | Five real SIGKILL boundaries plus pending-approval restart; unknown paid receipt escalates without retry |
+| C14 | Observability | Built for selected scope | Measured cycle latency, call freshness, ingestion/credit health, alert records and `/metrics`; no production paging integration |
+| C15 | Resource fairness | Partial | Rotated workflow service, hard request caps and reserved critical slot; no strict tenant credit allocation |
 
-The selection principle is to make a small autonomous loop inspectable and recoverable before expanding its
-optimization surface. A local UI and historical evidence are valuable; per-person timing without credible
-samples is not. Partial capabilities are intentionally identified rather than represented as complete.
+Prioritize reliable, explainable changes and incident recovery over feature count. Personal timing, factorial welcome × voice experiments, a production identity layer, and tenant-wide optimal scheduling are deliberate cuts. They are not prerequisites for running the delivered scope.
 
 ## 3. Stakeholders
 
 ### 01 — Sales
 
-Accepted: clear client outcomes, fewer requests, and fast use of evidence. Declined blended KPI and automatic
-rollout based on another account's demo. API policy disproves both auto-apply claims: Kestrel permits schedule,
-caller ID, welcome and voice with max_shift 0.2; it does not permit prompts. Northwind KYC auto-apply is disabled.
+Accepted a client-level outcome with the separate KPIs alongside it. Declined blended KPI, instant promotion, and broad auto-apply. The Kestrel policy allows only certain dimensions and a 0.2 shift; it excludes prompts. Northwind KYC auto-apply is disabled. A prompt that looked good elsewhere is not evidence here.
 
-**Reply:** We can show conclusion-rate lift alongside separate pickup and engagement rates. We will not blend
-those KPIs. Kestrel's auto-apply excludes prompts and limits allocation movement; Northwind KYC requires
-approval. We batch attention through a two-request daily cap and a consolidated view. A demo prompt from
-another account is a hypothesis, not evidence. We will promote only what this workflow's calls support.
+**Reply:** We can report concluded leads over uploaded leads and show pickup and engagement separately. Kestrel's policy does not allow automatic prompt changes; Northwind KYC requires review. A variant earns promotion after its observed improvement and guardrail checks, within the client's approval window. We reserve reviewer capacity for critical fixes. A prompt from another tenant's demo remains a candidate for validation, not a proven winner.
 
 ### 02 — Client Compliance
 
-Accepted: human approval for customer-facing changes, validated scripts, per-call traceability and approver
-hours. Operational caller changes may use the signed auto policy. The memo's hours match the observed public
-API. No requirement is interpreted as a promise that exploration can never temporarily underperform.
+Accepted named-review expectations where supported, human approval for customer-facing experiments, script validation and per-call traceability. The API provides approval IDs and actors, not a named human identity. The observed approval hours match the memo. Exploration carries bounded risk, even when authorized.
 
-**Reply:** Every voice, opening-message and prompt change requests your approval. Prompt changes attach a
-validation run. Caller-ID changes can use your explicit operational policy and remain in the audit view.
-We retain each call's configuration version and variants, and connect changes to their proposal and approval.
-We limit exploration exposure and verify outcomes after changes. Evidence and uncertainty are visible; we
-cannot honestly promise zero temporary underperformance while learning.
+**Reply:** Every welcome, voice, and prompt change uses client review. A prompt change includes a passing validation receipt. Only explicitly permitted caller-ID shifts can use auto-apply. We can trace each call to its actual variant and version, then to the recorded proposal and approval. The simulator exposes an approval ID rather than a human name. Evidence limits and any rollback are visible in the supervisor console.
 
 ### 03 — Platform/SRE
 
-Accepted: recovery test, durable identities, actionable conditions, measured load and no new stateful service.
-SQLite adds a local file, not a cluster to operate. The production database would be the existing Postgres.
-Simulator clock control does not establish real-time production performance.
+Accepted crash proof, idempotency, measured capacity and actionable alerts. SQLite adds no hosted service. Production would move partitioned state to the existing Postgres and use an external monitoring stack. The paid API cannot provide exactly-once results without a stronger protocol.
 
-**Reply:** State is in SQLite WAL with atomic ingestion and durable proposal intent. The recovery harness
-kills the process while an approval is pending, restarts it and checks completion, duplicates and database
-integrity. There is no new hosted infrastructure. Load reports include actual-host throughput and memory;
-we do not claim a certified 4-vCPU Linux result. Production migration would use Postgres and partition by
-workflow. Unknown paid requests are visible rather than blindly charged again.
+**Reply:** The controller commits event data and cursors together and reconciles remote proposal IDs before repeating a mutation. Five real kill/restart cases cover ingestion and external calls. A lost paid result remains uncertain and is not charged again. We record ingestion throughput, observed call freshness, processing latency and peak memory, with Linux resource limits visible in the report. The console exposes metrics; production can scrape them and route actionable alerts.
 
 ### 04 — Client Operations Supervisor
 
-Accepted: no silent overwrite, two proposals per rolling day, no requests before 11:00, consolidated view,
-and engagement checks after safety fixes. The actual policy permits four requests and begins at 10:00; our
-controller voluntarily uses the stricter requested limits. Policy also permits mid-flight changes, so a
-proposal explicitly explains the change before approval; no out-of-band notification is sent.
+Accepted no silent overwrite, two requests per rolling day, no pre-11:00 Kestrel requests, one console and engagement-aware safety remediation. The public API permits four requests and starts at 10:00; the controller honors the stricter memo. Existing approval records cannot be withdrawn via the documented API, but stale ones never apply.
 
-**Reply:** You get one local view of experiments, approvals, changes and evidence. Requests start at 11:00
-and are capped at two per rolling day. Your allocation edits are protected from future automated experiments;
-other experiments pause for 24 hours after an edit. A safety incident may still produce a new prompt proposal
-for your approval. Validation alone does not establish engagement: observed engagement helps select among
-safe candidates, and post-change verification can propose rollback.
+**Reply:** You can see live experiment evidence, what changed, the approval receipt, and what happened next in one console. Kestrel requests start at 11:00 and never exceed two per rolling day; ordinary changes leave a slot for critical fixes. Your edits invalidate stale proposals, and the controller protects the dimensions you edited. Safety validation is not engagement evidence, so we prefer previously observed safe candidates and monitor both KPIs afterward.
 
 ### 05 — Product
 
-Accepted: distinct KPIs, common cohort ID, evidence from actual calls, proposal fields and workflow-local
-promotion. An expired approval is technically an `expired` state, not a `rejected` state; both close that
-proposal and require a fresh decision. Declined all three wishlist items as P0: caller health and a view
-were built, personalized timing was cut.
+Accepted separate KPIs, actual-call evidence, shared cohort definitions, local promotion, and honest proposal estimates. Expiry is a distinct API terminal state, with the same practical requirement for fresh evidence. Per-person timing is deferred; cohort voice/welcome and caller health are included.
 
-**Reply:** Pickup and engagement remain separate throughout. The shared decision cohort is currently default;
-language slices are diagnostics, not separate experiments. Unrun arms contribute no observations. Proposals
-show evidence and explicitly label unknown benefit; impact is a measured absolute rate lift when available,
-otherwise zero. Expired proposals close and need refreshed evidence. Caller health and one supervisor view
-are included. Personalized scheduling needs its own randomized design and is deferred.
+**Reply:** The same ordered cohort rules govern exposure, evaluation, and the console. People count once per KPI stream in an experiment; unrun arms add no evidence. A proposal shows an active-enrollment bound and a replay estimate only where observed arms support it. Closed proposals require fresh evidence and the current configuration. We built caller health and the supervisor view; personalized scheduling is outside this submission.
 
 ### 06 — CTO
 
-Accepted: outcome accountability, low credit spend, deliberate scope and operational documentation. No claims
-of production readiness or hidden-scenario performance are made from public results alone.
+Accepted calibrated conservative autonomy, credit discipline, explainability and honest scaling limits. Outcomes on public runs are evidence, not proof of hidden-scenario or production performance. A synthetic lifecycle proof exercises branches the short public workloads do not reliably power.
 
-**Reply:** We prioritized persistence, governance, caller health and prompt incident response over personalized
-scheduling and feature-specific optimization. Each applied change is explainable from our own store. Credits
-are reserved for sustained incidents and validated candidates, not routine variant selection. Public results,
-harm classifications and machine-specific load metrics are included with their limitations. Before production
-we would calibrate statistical error under repeated callers, test more crash boundaries, and migrate state to
-existing Postgres with per-tenant scheduling and operational monitoring.
+**Reply:** We prioritized governed learning, rollback, and recovery over per-person scheduling. Each promotion needs exact evidence and a separate guardrail pass; the approved change is traceable to actual observations. Prompt fixes spend credits only after population evidence. The reports distinguish official public outcomes, controlled lifecycle proof, statistical calibration, and Linux measurements. The remaining production work is authentication, partitioning, alert routing, and calibrating drift on live data.
 
 ## 4. Architecture
 
 ```text
-HTTP history/events -> streamed chunks -> atomic SQLite transaction
-                           |              leads + calls + hourly sufficient statistics
-                           v
-                   population detectors / experiment evaluator
-                           |
-                   durable proposal intent + evidence
-                           |
-                  governance policy + human approval
-                           |
-                  apply / reconcile remote history
-                           |
-                 post-change verification / rollback
-                           |
-                 audit CLI + supervisor HTML/JSON
+HTTP history/events -> streamed NDJSON -> SQLite atomic chunks + event cursor
+                             |          leads, call receipts, hourly cohort metrics
+                             v
+               incident / caller health / shared cohort learner
+                             |
+               fixed independent-person observations + evidence replay
+                             |
+              durable intent -> policy / approval -> reconcile -> apply
+                             |
+             fresh cohort monitoring -> governed rollback when justified
+                             |
+                   audit CLI + read-only console + metrics
 ```
 
-`controller/store.py` owns persistence and feature joins. `controller/statistics.py` contains deterministic
-rate/interval/winner functions. `controller/engine.py` owns HTTP orchestration and policy decisions.
-`controller/__main__.py` provides execution and views. The external `scripts/evaluate.py` launches separate
-processes and official evaluation; it is not imported by the controller.
-
-Restart first checks world identity regressions, ingests outstanding chunks, lists remote approvals and
-config history, then reconciles local proposal intent. A process lock protects the database from a second
-writer. Individual call receipts support customer-level traceability after aggregates are updated.
+`controller/store.py` owns durability. `cohorts.py` implements ordered AND/OR membership. `learning.py` owns epochs, fixed looks and rollback. `statistics.py` provides exact tests and bounds. `engine.py` owns the HTTP boundary, approvals and incident priority. `dashboard.py` projects actual stored observations. The default entrypoint preserves old world databases and locks the selected writer. Test harnesses and grading live outside the controller.
 
 ## 5. The learning loop
 
-- **Cohorts:** `default` is the single shared decision object. The lead join retains language, age, value
-  and city features. Language diagnostics do not pretend to be independently powered experiments.
-  Existing custom cohorts are left intact and variant experimentation abstains for those workflows.
-- **Experiment design:** one dimension at a time. 70% of allocation retains the incumbent mixture; 30%
-  is uniform across permitted options. Engagement workflows try voice, welcome and caller ID in order.
-  Pickup workflows focus on caller ID. Winner allocation is 80%, with 20% distributed over alternatives.
-  No welcome×voice interaction model is claimed.
-- **Winner:** >=400 connected calls per observed arm, at most seven daily looks per experiment epoch,
-  and nonoverlapping 3.5-z Wilson intervals. The primary metric is used for voice/welcome; caller ID uses
-  pickup. One-sided guardrail noninferiority must pass before a non-control winner is promoted.
-  A single interval's nominal tail coverage is approximately 99.95%; this is NOT a calibrated whole-run
-  false-winner rate. Multiple epochs, correlated callers and selection invalidate such a simple claim.
-- **Decay:** promoted arms are reevaluated using recent 48-hour evidence with sentinel alternatives.
-  Separate post-apply checks compare actual current-version outcomes with the previous version.
-  Substantial separated-interval degradation proposes rollback through governance; prompt rollback needs
-  validation too. Public_02 did not demonstrate a promoted winner's decay rollback. Coverage is code/tests,
-  not proof that this policy catches every hidden decay incident.
-- **Call time / caller ID:** call-time optimization is deferred. DID health requires >=300 recent dials,
-  >=600 prior dials, separated intervals with at least 5pp degradation, and a healthier concurrent option.
-- **Guardrail:** uses the workflow's absolute maximum drop, with a one-sided 1.645-z difference bound for
-  winner promotion. Exploration is an explicitly approved risk; post-apply monitoring is not a guarantee
-  that no temporary cohort harm can occur.
+**Cohorts.** Keep existing client definitions. If absent, form disjoint language cohorts only for languages with at least 400 observed distinct people, including history, with a default fallback. Use actual event cohort IDs and version. Old campaign-locked exposure and mismatched prompts are never credited to the active epoch.
+
+**Experiment design.** One workflow dimension at a time. Initial allocation is a 50% incumbent mixture plus 50% uniform exploration across allowed options, approved with its uncertainty visible. Pickup-focused workflows use caller ID; engagement workflows start with voice, then welcome as scope permits. Candidate versus incumbent comparisons use the first dial per person for pickup, and first connected call per person for engagement. No welcome × voice interaction estimate is claimed.
+
+**Decision rule.** Use event-ID prefixes of 200, 400, 800, 1,600, 3,200, 6,400, 12,800, 25,600, and 51,200 independent units per arm. Test one-sided Fisher exact primary improvement, followed by a separate exact Clopper–Pearson difference lower bound above the negative guardrail margin. Select the strongest eligible observed candidate deterministically; do not claim superiority over every alternative. Each look persists before an external mutation. Fresh evidence is needed after a declined, expired, or lapsed recommendation.
+
+**Error allocation.** The learner family spends at most 2% on false primary improvement, 2% on incorrect guardrail noninferiority, and 1% on erroneous decay/breach signals per workflow under its stationary independent-person model. Epoch weight `6/(π² j²)` sums to one. Divide by cohort count, candidate comparisons, and fixed looks. Half the guardrail budget is for promotion; the remainder is spread over fresh decay windows with `1/(r(r+1))` spending. Decay budget splits between primary reversal and guardrail breach. Between-epoch independence is not needed for the union bound. These budgets do not cover separate observational caller health, QA incidents or temporal post-apply checks.
+
+**Calibration and power.** `reports/statistical-calibration.json`: 3 of 1,000 simulated null families had a false *primary* signal (0.3%; one-sided 95% upper bound 0.77%). This exercises two epochs and the first three declared looks, before guardrails. The analytic spending covers all declared looks under the stated model. The simulated primary test found a 20 pp effect by 800 units in all 1,000 examples; that is not full promotion power. Exact 2 pp noninferiority with unchanged pickup needs tens of thousands of units. Low-volume cohorts therefore often remain inconclusive. The power grid shows where a 15 pp effect passes primary testing but the guardrail does not.
+
+**Promotion and decay.** Promote to 80%, retain 20% sentinel alternatives, and restore baseline for unpromoted cohorts. Evaluate fresh disjoint 3-hour windows to avoid burying decay beneath old successes. A significant reversal can restore the prior cohort allocation. A proven cohort guardrail breach can do so even if primary still wins. Other cohorts keep their promoted allocations and remaining monitoring budget. Changes require approval and the current base version. The real-HTTP fixture demonstrates the full sequence; public grades are separate.
+
+**Call time and caller ID.** Timing remains business-owned. Caller-ID health uses >=300 recent and >=600 earlier dials, separated pickup intervals, a 5 pp decline and a healthier simultaneous alternative. It can act independently of the learner and invalidates the affected experiment epoch if configuration changes.
 
 ## 6. Governance
 
@@ -192,190 +127,114 @@ writer. Individual call receipts support customer-level traceability after aggre
 prepared -> pending -> approved -> applied
                   |           -> stale / lapsed
                   -> rejected / expired
-prepared -> failed / stale
-unknown response -> remote approval/config-history reconciliation
+prepared -> stale / failed
+unknown response -> reconcile remote approval / configuration history
 ```
 
-The body and content-derived ID commit before submission. A response lost after apply is recovered from
-configuration history by proposal ID. Stale proposals close; fresh proposals use the current config and
-current evidence. Rejections and expiry never cause blind replay of the same old proposal.
+Proposal ID and body commit before the request. Apply recovery finds the actual remote version and proposal ID; it does not repeat a completed apply. A stale pending or approved base is closed immediately, so it cannot block a safety incident until human response. Expiry, lapse and rejection retire that learning snapshot and require a later fixed look or a fresh operational assessment. No API withdrawal endpoint is assumed.
 
-Requests are limited to min(policy limit, 2) per rolling 24h and to approver hours with one hour remaining;
-Kestrel starts no earlier than 11:00. The implementation sends one decision at a time rather than an optimal
-multi-change batch. Approval polling is hourly. Very short policy apply windows are a known weakness.
+Batch related cohort allocations in one proposal, never combine unrelated experiments. Cap requests at min(policy limit, 2) per workflow over 24 hours, with the last slot reserved for critical work where the limit allows it. Kestrel starts at 11:00. Ordinary requests leave one hour before close; critical fixes can use the last working hour. Poll every 15 minutes with pending work, active incidents, or dialling, and cap other steps by the shortest apply window. Policy expiry still governs; the 15-minute API tick prevents universal guarantees for sub-tick windows.
 
-Only pure caller-ID changes that satisfy enabled/allowed_dims/max_shift can auto-apply. Customer-facing
-changes always request approval, even where the API permits more latitude. All public changes used approval.
+Only pure caller-ID changes within enabled dimensions and total-variation shift can auto-apply. Cohort creation, prompts, voice and welcome remain reviewed. Scope never changes business cadence, capacity or dialling windows. Supervisor changes protect edited allocation dimensions, suspend the old epoch, and pause experiments for 24 hours.
 
-Impact score is observed absolute primary-rate improvement, clipped to [0,1], when measured; exploration
-and incident safety changes score zero because their conversion value is unknown. Affected leads count is
-unconcluded enrollments, explicitly an upper bound including cadence-expired leads. Dry-run fields include
-historical aggregates and uncertainty. They are not a full counterfactual replay, hence C10 is partial.
-
-Supervisor edits invalidate base versions. The controller resets experiments, pauses for 24h, and protects
-edited allocation dimensions. It preserves the latest full configuration when preparing any new proposal.
+The dry run reweights actual observed arm means under old and proposed allocations within each cohort. It withholds an estimate if a positive-weight arm is unobserved, reports coverage, and weights supported effects by active enrollment counts. A zero queue score can represent unknown benefit; the evidence retains a signed estimate when available. Existing campaign locks and forecast batch size are explicit. Temporal comparisons and population assumptions are not disguised as causal guarantees.
 
 ## 7. Incidents
 
-Hallucination detection requires >=200 connected calls in a four-hour window, >=4% flag rate, and a four-sigma
-score against max(2.5%, historical pre-change flag rate + 1.5pp). The detector is imperfect and repeated windows
-are correlated. A nominal one-sided normal tail at z=4 is about 0.0032% per look; the actual incident false
-positive rate has not been empirically calibrated and should not be advertised as that number.
+Require at least 200 connected calls and a 4% automated flag rate. Within each prompt episode, compare fixed doubling call prefixes against a bounded historical reference (floor 2%, historical rate +0.2 pp, cap 5%). Exact binomial upper tails use a 5% per-workflow alert budget across episodes and looks; validity assumes the conditional flag probability under the null does not exceed that reference. This is a flag-based decision, not a true-hallucination diagnosis. A longstanding prompt episode can dilute a late change; no universal change-point guarantee is made.
 
-Incident state persists overnight and blocks unrelated experiments. A suggestion costs 3 credits; up to
-three validations of 400 conversations cost 4 credits each. At least 20 credits must remain before starting
-an incident response. Unknown paid responses are never automatically repeated. Among safety-passing
-candidates, observed engagement lower bounds take precedence over small validation-score differences.
-Post-apply verification records both KPIs; an unsafe rollback is escalated, not applied.
+A durable incident blocks unrelated experiments. Spend 3 credits on suggestions and up to 12 on three 400-conversation validations. Start only with at least 20 remaining credits. Passing safety alone does not prove engagement. Prefer passing candidates with observed engagement evidence, then attach the validation ID and request human review. Post-apply observations record pickup, engagement and flag counts; unsafe prompt rollback requires a new passing validation and otherwise raises an alert.
 
-Public_02: DID flagged D2 10:00; degraded share reached zero on D3. Bad prompt supervisor edit D3 11:30;
-fix applied D4 13:00 (1,530 minutes later), with intervening evidence accumulation and approver closure.
-Three validations and one suggestion cost 15 credits. This MTTR is too slow for a serious live incident;
-a persistent incident was essential, but earlier low-volume detection and approver escalation remain work.
-See `reports/audit-example.json` for actual timestamp, approval and subsequent outcomes from our own store.
+Final public_02: supervisor prompt edit D3 11:30; a 400-call prefix met the exact threshold while reviewers were open; approved fix applied 405 minutes after the edit. The run used 15 credits and graded 177 hallucinated calls versus 431 baseline. See the actual approval and post-change rows in `reports/audit-example.json`. The earlier implementation took 1,530 minutes; permission and sample accumulation still dominate elapsed incident response.
 
 ## 8. Scale
 
-| Measurement | Result |
+| Linux measurement | Result |
 |---|---|
 | Events ingested, including history | 9,737,615 |
-| Ingestion work throughput | 9,938 events/s |
-| End-to-end controller throughput, including simulator waits | 7,409 events/s |
-| Controller wall time, including startup history | 1,314.2 s |
-| Wall time per simulated day, startup amortized | 262.8 s |
-| Peak controller RSS | 112.6 MiB |
-| Controller database size | 1.59 GiB |
-| Health / experiment evaluation intervals | 60 / 1,440 simulated minutes |
-| Duplicate call IDs / pending proposals | 0 / 0 |
-| SQLite integrity | ok |
+| Ingestion work throughput | 12,980 events/sec |
+| End-to-end throughput including simulator waits | 4,952 events/sec |
+| Controller wall time | 1,966.4 seconds |
+| Wall time per simulated day, startup history amortized | 393.3 seconds |
+| Simulator startup before controller | 98.0 seconds |
+| Peak controller RSS | 221.5 MiB |
+| SQLite size | 1.99 GiB |
+| Decision-cycle processing p50 / p95 | 2.647 / 7.088 seconds |
+| Observed call freshness p95 at first evaluation cycle | 15 simulated minutes |
+| Duplicate calls / stranded proposals | 0 / 0 |
+| Integrity | ok |
 
-Measured public_03 results are recorded in `reports/public_03_load-metrics.json` and summarized in
-`reports/LOAD.md`. Measurements include historical ingestion. Controller wall time includes startup history
-and waiting for simulator `/advance`; ingestion time includes JSON decoding and SQLite writes but excludes
-HTTP transfer. Peak RSS is for the controller process only; on crash runs it covers the final restarted process, not a sampled maximum across all segments. Simulator memory and disk are separate.
+`reports/LINUX.md` explains the final run, actual cgroup limits, physical VM memory, baseline provenance, and timing definitions. Native Linux volumes avoid benchmarking Mac shared-filesystem SQLite behavior. The 4-CPU quota and 8 GiB cap apply to the entire test container; the Docker VM physically exposes less than 8 GiB and hosts other services. No global Docker settings or other containers were changed. This is constrained Linux evidence, not a hardware-independent performance guarantee.
 
-The machine is an 8-logical-CPU macOS host running Python 3.13.2. This is not evidence of compliance on the
-specified 4-vCPU / 8GB Linux box. The baseline CLI log reports 1,420.5 seconds using time.time; controller and harness use time.monotonic.
-Those clocks can disagree across host suspension or time adjustment; durations must not be added or their
-difference treated as controller overhead.
-Monitoring evaluations run every 60 simulated minutes after startup ingestion; experiment looks run daily
-(every 1,440 minutes). Sample-size, approver-hour and quota delays are additional. These are scheduling
-intervals, not a measured end-to-end latency distribution. Wall-clock p95 decision lag is not instrumented.
-
-At 10×, random lead/call index I/O, one SQLite writer, feature-cache misses and retained call storage become
-bottlenecks. Use existing Postgres partitioned by tenant/workflow and date, bulk writes, immutable event
-cursors, per-workflow ownership and materialized aggregates. In production ingestion and decisions must run
-independently of the dialler clock; prioritize incidents without starving event consumption. Archived call
-receipts need explicit retention and access policies.
+At 10×, single-writer SQLite, random lead/index I/O, and per-person cohort sampling dominate. Partition by tenant/workflow/date using the existing Postgres, bulk writes and bounded feature caches. Decouple production ingestion and decision workers, allocate a workflow owner, and archive immutable receipts with retention controls. Simulation generation and permission wait are separate from processing latency.
 
 ## 9. Reliability
 
-`--crash` in the evaluation harness waits for a pending approval, sends real SIGKILL, restarts with the same
-database and simulator, and checks integrity and event uniqueness. Evidence is in
-`reports/public_02-recovery.json`. The pending proposal reconciled to applied; no duplicate calls were stored,
-no pending proposals remained, and `PRAGMA integrity_check` returned `ok`.
+`reports/fault-matrix.json` records real SIGKILL after a chunk transaction began, after proposal send, after apply send, after advance response, and after a paid response. Every restarted run finished; SQLite integrity was `ok`, call IDs were unique, and no proposal was stranded. The paid case preserved the open incident and uncertain charge, emitted one operator alert, and did not issue the same charge again. Missing paid evidence cannot be reconstructed from the documented API. The independent public_02 pending-approval recovery is in `reports/public_02-recovery.json`.
 
-A chunk is all-or-nothing. Content-derived proposal IDs survive response loss. Remote config history is the
-source for reconciling applied mutations, not for replacing the controller's audit evidence. Paid result
-loss remains unavoidable without a stronger API. GET/transport/5xx failures use bounded exponential backoff;
-mutation retries occur only after reconciliation. 4xx responses are audited; stale/lapsed requests close.
-Eight consecutive transport/5xx errors stop execution for operator investigation. SQLite/disk errors stop
-rather than advancing time and discarding data. No production process supervisor is bundled.
-
-Tests cover transactional rollback, replay/restart, nullable QA, statistical abstention, lost apply responses,
-stale approval after supervisor edit, uncertain paid calls, overnight incidents, and safety/engagement separation.
+Atomic chunk replay protects lead/call/aggregate/checkpoint consistency. Record proposal intent before network mutation; reconcile by remote IDs and history. Re-read state after an uncertain advance rather than repeating the same advance blindly. GET/transport/5xx use bounded exponential backoff; 4xx terminal states are recorded with reasons. Eight consecutive infrastructure failures stop the process for investigation. On disk failure, stop writes and preserve DB/WAL; do not advance and lose data.
 
 ## 10. Audit & observability
 
-A real query using only controller-owned records:
-
 ```bash
-.venv/bin/python scripts/audit_change.py --db controller-data/release_02.sqlite --workflow ks_cancel
+.venv/bin/python scripts/audit_change.py --db controller-data/final_public_02.sqlite --workflow ks_cancel
 ```
 
-Full output: `reports/audit-example.json`. The output links a prompt diff and rationale to `controller_approved`,
-an approval event and subsequent per-version calls. Supervisors see the same records at local port 8800;
-`controller status` exposes JSON. Individual lead receipts can be joined to their features and config events.
+The output shows `ks_cancel` changed to prompt P1 at 18:15 IST on Jan 7 (version 5,
+`controller_approved`). Approval `apr_00005` was recorded at 17:51 IST and the proposal referenced
+validation `val_00001`. Subsequent calls on v5: 7,600 dials, 1,472 connections, 731 engaged calls, and
+22 automated hallucination flags. `reports/audit-example.json` has the full output. The API does not
+identify a named human. The console shows the same controller records and actual per-cohort samples; raw evidence is expandable. `GET /metrics` exposes ingested events, event backlog, credits, proposal/paid states and a measured cycle latency histogram. `GET /api/dashboard` is read-only.
 
-Page-worthy audit conditions: sustained hallucination incident without a usable fix, repeated HTTP failure,
-unsafe rollback, exhausted incident credit reserve, and database/disk failure. A page should name workflow,
-incident/proposal, current version and the failed operation. Routine insufficient evidence, judgement-call
-rejection and expiry remain in the view and do not page by themselves. This implementation records alert
-conditions; actual pager delivery and metric export are not wired up.
+Page for sustained unresolved QA incidents, repeated simulator errors, unsafe rollback, uncertain paid work blocking incident recovery, and storage failure. Include workflow, current version, proposal/operation ID and next action. Routine insufficiency, judgement-call rejection and terminal expiry do not page alone. Production pager delivery is outside this submission.
 
 ## 11. Results
-
-The tables below are copied from the official grade reports; deltas are relative unless the report says
-otherwise. See `reports/public_01.md` and `reports/public_02.md` for full changes, governance and incidents.
 
 **Public_01**
 
 | workflow | conclusion rate | Δ | pickup | Δ | engagement | Δ | engagement gap captured | hallucinated calls (base) |
 |---|---|---|---|---|---|---|---|---|
-| ks_cancel | 0.355 | +3.9% | 0.246 | +0.4% | 0.504 | +2.5% | 4% | 46 (57) |
-| nw_kyc | 0.405 | +10.4% | 0.268 | +10.6% | 0.595 | -0.3% | 0% | 30 (21) |
-| nw_renewal | 0.404 | -2.9% | 0.259 | -2.0% | 0.538 | -0.7% | 0% | 39 (54) |
-| ALL | 0.382 | +2.7% | 0.254 | +1.4% | 0.534 | +0.9% | 2% | 115 (132) |
+| ks_cancel | 0.355 | +4.1% | 0.244 | -0.4% | 0.512 | +4.0% | 7% | 64 (57) |
+| nw_kyc | 0.424 | +15.6% | 0.283 | +17.0% | 0.586 | -1.9% | 0% | 25 (21) |
+| nw_renewal | 0.416 | -0.1% | 0.262 | -0.9% | 0.544 | +0.5% | 0% | 50 (54) |
+| ALL | 0.390 | +4.9% | 0.257 | +2.6% | 0.539 | +1.7% | 2% | 139 (132) |
 
 **Public_02**
 
 | workflow | conclusion rate | Δ | pickup | Δ | engagement | Δ | engagement gap captured | hallucinated calls (base) |
 |---|---|---|---|---|---|---|---|---|
-| ks_cancel | 0.282 | +19.6% | 0.201 | +10.9% | 0.493 | +5.4% | 26% | 103 (348) |
-| nw_kyc | 0.424 | +13.4% | 0.266 | +13.4% | 0.603 | -0.9% | 0% | 23 (29) |
-| nw_renewal | 0.437 | +0.8% | 0.264 | +0.8% | 0.553 | -0.2% | 6% | 70 (54) |
-| ALL | 0.363 | +9.9% | 0.235 | +7.2% | 0.540 | +1.5% | 13% | 196 (431) |
+| ks_cancel | 0.282 | +19.6% | 0.198 | +9.1% | 0.500 | +7.0% | 30% | 92 (348) |
+| nw_kyc | 0.451 | +20.6% | 0.278 | +18.6% | 0.608 | -0.1% | 0% | 29 (29) |
+| nw_renewal | 0.422 | -2.6% | 0.263 | +0.2% | 0.537 | -3.1% | -1% | 56 (54) |
+| ALL | 0.364 | +10.1% | 0.236 | +7.3% | 0.539 | +1.2% | 11% | 177 (431) |
 
-Public_01's aggregate lift is modest and Northwind renewal conclusion rate falls despite a neutral hidden-truth
-change classification. Public_02 improves all three workflows' conclusion rates; no applied change is graded
-harmful in the final run. These are single seeded public runs, not confidence intervals for causal lift.
-Kestrel still suffers exposure before the incident fix; 196 hallucinated calls remain across the platform.
-No global KPI is presented as a replacement for per-workflow primary and guardrail checks.
-
-Development evidence exposed two concrete failures: uniform exploration caused harmful changes, and choosing
-by validation score alone could pick a strict prompt with worse engagement. The final policy limits new-arm
-exposure and uses engagement evidence among safety-passing candidates. Earlier reports remain under
-`reports/development/` so these outcomes are not hidden. Further work should prioritize calibrated cohort-level
-learning and faster incidents rather than tuning to these public truth tables.
+These are seeded public runs, not confidence intervals or hidden-scenario predictions. The final public runs had no applied changes graded harmful. Short public trials still seldom satisfy the strict exact guardrail, so their lift comes largely from bounded exploration and operational fixes. Earlier development runs with harmful changes remain in `reports/development/`; they motivated exposure limits and separating safety evidence from engagement. The lifecycle proof uses synthetic signals deliberately strong enough to exercise promotion and rollback, not an official scenario score.
 
 ## 12. Trade-offs & rejected alternatives
 
-| Option | Why considered | Why rejected / what instead |
+| Option | Why considered | Why rejected / chosen approach |
 |---|---|---|
-| New Kafka/Redis services | Event throughput | Avoid infrastructure overhead; streaming HTTP and SQLite first |
-| LLM winner selection | Flexible explanations | Deterministic statistics; model only suggests prompt candidates |
-| Uniform full exploration | Faster evidence | Public development harm; retain 70% incumbent allocation |
-| Highest validation score wins | Simple safety ranking | Does not measure engagement; prefer observed engagement among safe candidates |
-| Per-person timing | Summit headline | Sparse observations and scheduling confounding; defer |
-| Cross-client transfer | Faster cold start | Policy/population mismatch; learning stays within workflow |
-| Immediate automatic prompt rollback | Fast incident recovery | Prompt validation and human approval still apply |
-| Fifty alerts | Easy implementation | One consolidated view with evidence and actionable audit conditions |
+| Call-level repeated z-tests | Fast results | Return-person correlation and repeated selection; fixed independent-person prefixes with exact spending |
+| Declare winner by observed mean | Easy to communicate | Insufficient sample and guardrail uncertainty; abstain until tests pass |
+| Cumulative decay monitoring forever | Reuses evidence | Early successes bury later damage; use fresh windows with a bounded budget |
+| Roll back only on primary reversal | Clear metric signal | Secondary KPI can breach while primary wins; monitor both |
+| Highest validation score wins | Convenient safety ranking | Safety is not engagement; prefer known engagement among safety-passing candidates |
+| Automatic retry after unknown paid acknowledgement | Faster recovery | Duplicate spend risk; mark uncertain, alert, and request API idempotency/result retrieval in production |
+| Per-person scheduling | Potential lift | Sparse observations and timing confounding; defer |
+| New Kafka/Redis cluster | Scale | Extra operations; SQLite first, existing Postgres for production |
 
 ## 13. Known weaknesses
 
-- Coarse shared default cohort cannot reliably capture heterogeneous language/age winners or protect every subgroup.
-- Winner tests use approximate independent-Bernoulli intervals on potentially correlated returning callers.
-  Whole-run false-winner probability is not calibrated. Not every allowed option is guaranteed enough exposure.
-- Explorations can remain inconclusive for the scenario duration and block the next dimension.
-- Sentinel and post-apply temporal comparisons may miss gradual decay or confound it with population changes.
-- The latest-change monitor can be superseded by a later change; it is not a complete causal change graph.
-- Incident latency is slow at low volumes and outside approver hours. No outbound escalation is implemented.
-- Affected leads and dry-run estimates are explicitly approximate. Queue scores undervalue safety incidents
-  because their conversion benefit is unknown; operational incident priority is handled separately.
-- Hourly polling can lapse short apply windows; batching/fairness are simple limits rather than optimal scheduling.
-- Exactly-once paid operations are impossible with the exposed API; uncertain results may require intervention.
-- SQLite single-writer behavior and retained per-call data constrain sustained growth. No authenticated hosted UI.
-- The API exposes approval IDs and actors, not a named human approver identity; we cannot fabricate that name.
-- 4-vCPU Linux certification, hidden scenarios, exhaustive fault injection and personalized call-time optimization
-  are not claimed as completed.
+- Model-dependent statistical guarantees do not survive arbitrary within-epoch temporal or selection drift. Calibration is synthetic, not empirical coverage for every tenant.
+- Exact guardrails sacrifice speed and power. Some low-volume cohorts do not earn a promotion before the run ends.
+- Temporal post-apply comparisons can be confounded. Subgroup decay detection still needs enough sentinel observations in a fresh window.
+- Broad language cohorts leave residual heterogeneity. Factorial interactions, personalized timing, tenant-wide quota optimization, authenticated hosting, and paging are cut.
+- The API lacks named approvers, unique world IDs, and paid-result retrieval. Sub-tick approval windows and lost paid results are protocol boundaries.
+- No claim about hidden-scenario outcomes or production certification. Personal review and interview defense remain the candidate's responsibility.
 
 ## 14. If this went to production at Formi next month
 
-1. Days 1–2: shadow production events, reconcile definitions and consent/policy ownership, establish authenticated
-   audit access, retention and exact run/workflow identity. No autonomous configuration writes yet.
-2. Days 3–4: move durable state to existing Postgres, partition ingestion, add event lag/credit/quota dashboards,
-   actionable incident routing and an operator playbook. Verify throughput on the actual 4-vCPU environment.
-3. Days 5–7: fault-inject every external boundary, require idempotency/retrieval for paid APIs, calibrate clustered
-   statistical error and drift detectors on replayed data. Make apply cadence policy-aware.
-4. Days 8–10: supervised canary on one tenant, verify subgroup guardrails and dry-run accuracy, exercise rollback
-   with compliance and operations, then expand only after an operational review. Personalized timing comes later.
+1. Shadow live ingestion, reconcile consent/policy ownership and the business denominators, and set retention and audit access before any write.
+2. Partition state in existing Postgres. Add a real world/run ID, durable paid idempotency and receipt lookup, and active-workflow scheduling. Install metrics scrape and actionable routing.
+3. Calibrate clustered inference and drift behavior on real randomized exposure. Stress test governance, expiry and every crash boundary with the actual provider.
+4. Canary one tenant with human review, inspect subgroup guardrails, rehearse rollback and expand only after operational evidence. Revisit personalization later.

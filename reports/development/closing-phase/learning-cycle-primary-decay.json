@@ -1,0 +1,519 @@
+{
+  "purpose": "HTTP contract fixture, not official simulator scoring",
+  "finished": true,
+  "applied_summaries": [
+    "Measure caller_id alternatives in shared cohorts",
+    "Promote measured cohort improvement: caller_id",
+    "Rollback after measured winner decay: caller_id"
+  ],
+  "governance": "Every apply matched an approved remote proposal and current base version",
+  "timeline": [
+    {
+      "ts": "2027-01-04T11:00:00+05:30",
+      "kind": "proposal_prepared",
+      "evidence": {
+        "auto": false,
+        "evidence": {
+          "cohorts": [
+            {
+              "id": "default",
+              "where": {}
+            }
+          ],
+          "estimated_lift": 0,
+          "milestones": [
+            200,
+            400,
+            800,
+            1600,
+            3200,
+            6400,
+            12800,
+            25600,
+            51200
+          ],
+          "population": {
+            "active_enrollments": 59210,
+            "method": "unconcluded enrollments within campaign cadence; exhausted attempts may still be included"
+          },
+          "replay": {
+            "cohorts": [],
+            "method": "reweight observed randomized-arm means within shared cohorts; assumes epoch stationarity and unchanged population",
+            "unsupported_arms_withhold_estimate": true,
+            "weighted_estimated_lift": null
+          },
+          "statistical_unit": "first observation per person per KPI per epoch",
+          "uncertainty": "50% incumbent mixture plus 50% exploration; no benefit claimed"
+        },
+        "proposal_id": "ddba7a11047a0a4daf346621290426dd",
+        "summary": "Measure caller_id alternatives in shared cohorts"
+      }
+    },
+    {
+      "ts": "2027-01-04T11:15:00+05:30",
+      "kind": "applied",
+      "evidence": {
+        "plan": {
+          "auto": false,
+          "baseline": {
+            "D1": 1
+          },
+          "dimension": "caller_id",
+          "learning": {
+            "baseline": {
+              "allocations": {
+                "default": {
+                  "caller_id": {
+                    "D1": 1
+                  },
+                  "voice": {
+                    "V1": 1
+                  },
+                  "welcome_message": {
+                    "W1": 1
+                  }
+                }
+              },
+              "cohorts": [],
+              "prompt_version": "P1",
+              "schedule": {
+                "hour_weights": {},
+                "lead_preferred_hour": {}
+              }
+            },
+            "cohorts": [
+              {
+                "id": "default",
+                "where": {}
+              }
+            ],
+            "controls": {
+              "default": "D1"
+            },
+            "created": "2027-01-04T11:00:00+05:30",
+            "dimension": "caller_id",
+            "epoch": 1,
+            "options": [
+              "D1",
+              "D2"
+            ],
+            "promoted": {},
+            "stage": "exploring",
+            "tested": {}
+          },
+          "previous_config": {
+            "allocations": {
+              "default": {
+                "caller_id": {
+                  "D1": 1
+                },
+                "voice": {
+                  "V1": 1
+                },
+                "welcome_message": {
+                  "W1": 1
+                }
+              }
+            },
+            "cohorts": [],
+            "prompt_version": "P1",
+            "schedule": {
+              "hour_weights": {},
+              "lead_preferred_hour": {}
+            }
+          },
+          "stage": "exploring"
+        },
+        "proposal_id": "ddba7a11047a0a4daf346621290426dd"
+      }
+    },
+    {
+      "ts": "2027-01-04T12:15:00+05:30",
+      "kind": "post_apply_verification",
+      "evidence": {
+        "after": {
+          "connected": 1253,
+          "dials": 2815,
+          "engaged": 653,
+          "hallucinations": 0
+        },
+        "before": {
+          "connected": 4392,
+          "dials": 14787,
+          "engaged": 893,
+          "hallucinations": 0
+        },
+        "harmful": false,
+        "method": "temporal comparison; confounding possible",
+        "proposal_id": "ddba7a11047a0a4daf346621290426dd"
+      }
+    },
+    {
+      "ts": "2027-01-05T00:00:00+05:30",
+      "kind": "post_apply_verification",
+      "evidence": {
+        "after": {
+          "connected": 18357,
+          "dials": 41661,
+          "engaged": 9365,
+          "hallucinations": 0
+        },
+        "before": {
+          "connected": 4392,
+          "dials": 14787,
+          "engaged": 893,
+          "hallucinations": 0
+        },
+        "harmful": false,
+        "method": "temporal comparison; confounding possible",
+        "proposal_id": "ddba7a11047a0a4daf346621290426dd"
+      }
+    },
+    {
+      "ts": "2027-01-05T11:00:00+05:30",
+      "kind": "proposal_prepared",
+      "evidence": {
+        "auto": false,
+        "evidence": {
+          "cohort_comparisons": [
+            {
+              "alpha": 0.0013509491152311703,
+              "arm_observations": {
+                "D1": {
+                  "n": 21509,
+                  "successes": 6520
+                },
+                "D2": {
+                  "n": 7069,
+                  "successes": 5999
+                }
+              },
+              "candidate": "D2",
+              "cohort": "default",
+              "control": "D1",
+              "dimension": "caller_id",
+              "epoch": 1,
+              "guardrail": {
+                "alpha": 0.0006754745576155851,
+                "lower_difference": 0.6266732001212545,
+                "margin": 0.02,
+                "metric": "engagement",
+                "n": 6400,
+                "passed": true
+              },
+              "n": 6400,
+              "p_value": 0.0,
+              "statistical_unit": "independent person",
+              "successes": [
+                5422,
+                1953
+              ]
+            }
+          ],
+          "estimated_lift": 0.54203125,
+          "method": "fixed independent-person milestones; exact Fisher with alpha spending; exact guardrail bounds",
+          "population": {
+            "active_enrollments": 106031,
+            "method": "unconcluded enrollments within campaign cadence; exhausted attempts may still be included"
+          },
+          "replay": {
+            "cohorts": [
+              {
+                "active_population": 106031,
+                "after": 0.739533692321606,
+                "after_coverage": 1.0,
+                "before": 0.439505413259354,
+                "before_coverage": 1.0,
+                "cohort": "default",
+                "estimated_lift": 0.30002827906225205
+              }
+            ],
+            "method": "reweight observed randomized-arm means within shared cohorts; assumes epoch stationarity and unchanged population",
+            "unsupported_arms_withhold_estimate": true,
+            "weighted_estimated_lift": 0.30002827906225205
+          }
+        },
+        "proposal_id": "ee1f50808df46a01e4ea5b673aba4564",
+        "summary": "Promote measured cohort improvement: caller_id"
+      }
+    },
+    {
+      "ts": "2027-01-05T11:15:00+05:30",
+      "kind": "applied",
+      "evidence": {
+        "plan": {
+          "auto": false,
+          "baseline": {
+            "D1": 1
+          },
+          "dimension": "caller_id",
+          "learning": {
+            "baseline": {
+              "allocations": {
+                "default": {
+                  "caller_id": {
+                    "D1": 1
+                  },
+                  "voice": {
+                    "V1": 1
+                  },
+                  "welcome_message": {
+                    "W1": 1
+                  }
+                }
+              },
+              "cohorts": [],
+              "prompt_version": "P1",
+              "schedule": {
+                "hour_weights": {},
+                "lead_preferred_hour": {}
+              }
+            },
+            "cohorts": [
+              {
+                "id": "default",
+                "where": {}
+              }
+            ],
+            "controls": {
+              "default": "D1"
+            },
+            "created": "2027-01-04T11:00:00+05:30",
+            "dimension": "caller_id",
+            "epoch": 1,
+            "options": [
+              "D1",
+              "D2"
+            ],
+            "promoted": {
+              "default": "D2"
+            },
+            "stage": "promoted",
+            "started": "2027-01-04T11:30:00+05:30",
+            "tested": {},
+            "version": 2
+          },
+          "previous_config": {
+            "allocations": {
+              "default": {
+                "caller_id": {
+                  "D1": 0.75,
+                  "D2": 0.25
+                },
+                "voice": {
+                  "V1": 1
+                },
+                "welcome_message": {
+                  "W1": 1
+                }
+              }
+            },
+            "cohorts": [],
+            "prompt_version": "P1",
+            "schedule": {
+              "hour_weights": {},
+              "lead_preferred_hour": {}
+            }
+          },
+          "stage": "promoted"
+        },
+        "proposal_id": "ee1f50808df46a01e4ea5b673aba4564"
+      }
+    },
+    {
+      "ts": "2027-01-05T12:15:00+05:30",
+      "kind": "post_apply_verification",
+      "evidence": {
+        "after": {
+          "connected": 1130,
+          "dials": 2655,
+          "engaged": 825,
+          "hallucinations": 0
+        },
+        "before": {
+          "connected": 25968,
+          "dials": 59074,
+          "engaged": 13402,
+          "hallucinations": 0
+        },
+        "harmful": false,
+        "method": "temporal comparison; confounding possible",
+        "proposal_id": "ee1f50808df46a01e4ea5b673aba4564"
+      }
+    },
+    {
+      "ts": "2027-01-05T16:00:00+05:30",
+      "kind": "proposal_prepared",
+      "evidence": {
+        "auto": false,
+        "evidence": {
+          "cohort_comparisons": [
+            {
+              "alpha": 0.00011257909293593085,
+              "arm_observations": {
+                "D1": {
+                  "n": 1582,
+                  "successes": 474
+                },
+                "D2": {
+                  "n": 6587,
+                  "successes": 270
+                }
+              },
+              "candidate": "D1",
+              "cohort": "default",
+              "control": "D2",
+              "dimension": "caller_id",
+              "epoch": 1,
+              "guardrail": {
+                "alpha": 0.00011257909293593085,
+                "lower_difference": 0.01917500585282808,
+                "margin": 0.02,
+                "metric": "engagement",
+                "n": 200,
+                "passed": true
+              },
+              "n": 800,
+              "p_value": 6.556433990759614e-50,
+              "statistical_unit": "independent person",
+              "successes": [
+                235,
+                27
+              ]
+            }
+          ],
+          "estimated_lift": 0.26,
+          "method": "fixed independent-person milestones; exact Fisher with alpha spending; exact guardrail bounds",
+          "population": {
+            "active_enrollments": 103085,
+            "method": "unconcluded enrollments within campaign cadence; exhausted attempts may still be included"
+          },
+          "replay": {
+            "cohorts": [
+              {
+                "active_population": 103085,
+                "after": 0.2996207332490518,
+                "after_coverage": 1,
+                "before": 0.09271600940979215,
+                "before_coverage": 1.0,
+                "cohort": "default",
+                "estimated_lift": 0.20690472383925967
+              }
+            ],
+            "method": "reweight observed randomized-arm means within shared cohorts; assumes epoch stationarity and unchanged population",
+            "unsupported_arms_withhold_estimate": true,
+            "weighted_estimated_lift": 0.20690472383925967
+          }
+        },
+        "proposal_id": "c742089dedf3b66e912dbc2eae2524d3",
+        "summary": "Rollback after measured winner decay: caller_id"
+      }
+    },
+    {
+      "ts": "2027-01-05T16:15:00+05:30",
+      "kind": "applied",
+      "evidence": {
+        "plan": {
+          "auto": false,
+          "baseline": {
+            "D1": 1
+          },
+          "dimension": "caller_id",
+          "learning": {
+            "baseline": {
+              "allocations": {
+                "default": {
+                  "caller_id": {
+                    "D1": 1
+                  },
+                  "voice": {
+                    "V1": 1
+                  },
+                  "welcome_message": {
+                    "W1": 1
+                  }
+                }
+              },
+              "cohorts": [],
+              "prompt_version": "P1",
+              "schedule": {
+                "hour_weights": {},
+                "lead_preferred_hour": {}
+              }
+            },
+            "cohorts": [
+              {
+                "id": "default",
+                "where": {}
+              }
+            ],
+            "controls": {
+              "default": "D1"
+            },
+            "created": "2027-01-04T11:00:00+05:30",
+            "dimension": "caller_id",
+            "epoch": 1,
+            "monitor_window": 2,
+            "options": [
+              "D1",
+              "D2"
+            ],
+            "promoted": {
+              "default": "D2"
+            },
+            "stage": "rolled_back",
+            "started": "2027-01-05T11:30:00+05:30",
+            "tested": {},
+            "version": 3
+          },
+          "previous_config": {
+            "allocations": {
+              "default": {
+                "caller_id": {
+                  "D1": 0.2,
+                  "D2": 0.8
+                },
+                "voice": {
+                  "V1": 1
+                },
+                "welcome_message": {
+                  "W1": 1
+                }
+              }
+            },
+            "cohorts": [],
+            "prompt_version": "P1",
+            "schedule": {
+              "hour_weights": {},
+              "lead_preferred_hour": {}
+            }
+          },
+          "stage": "rolled_back"
+        },
+        "proposal_id": "c742089dedf3b66e912dbc2eae2524d3"
+      }
+    },
+    {
+      "ts": "2027-01-05T17:15:00+05:30",
+      "kind": "post_apply_verification",
+      "evidence": {
+        "after": {
+          "connected": 701,
+          "dials": 2284,
+          "engaged": 132,
+          "hallucinations": 0
+        },
+        "before": {
+          "connected": 4962,
+          "dials": 25479,
+          "engaged": 2632,
+          "hallucinations": 0
+        },
+        "harmful": true,
+        "method": "temporal comparison; confounding possible",
+        "proposal_id": "c742089dedf3b66e912dbc2eae2524d3"
+      }
+    }
+  ],
+  "scope": "Strong joint-KPI effects intentionally exercise full-loop branches; public outcome reports are separate."
+}

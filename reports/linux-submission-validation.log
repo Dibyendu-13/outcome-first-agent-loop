@@ -1,0 +1,151 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 DONE 0.0s
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile:
+#1 transferring dockerfile: 276B 0.1s done
+#1 DONE 1.8s
+
+#2 [internal] load metadata for docker.io/library/python:3.12-slim
+#2 DONE 2.1s
+
+#3 [internal] load .dockerignore
+#3 transferring context:
+#3 transferring context: 128B 0.1s done
+#3 DONE 8.0s
+
+#4 [1/5] FROM docker.io/library/python:3.12-slim@sha256:cb33f7f771ecec2ef1225cf39b159591a040391bd73e4c01f00fdfc4c47611d2
+#4 resolve docker.io/library/python:3.12-slim@sha256:cb33f7f771ecec2ef1225cf39b159591a040391bd73e4c01f00fdfc4c47611d2 0.1s done
+#4 DONE 0.1s
+
+#5 [internal] load build context
+#5 transferring context: 807.77kB 0.2s done
+#5 DONE 0.2s
+
+#6 [3/5] COPY requirements.txt /app/requirements.txt
+#6 CACHED
+
+#7 [2/5] WORKDIR /app
+#7 CACHED
+
+#8 [4/5] RUN pip install --no-cache-dir -r requirements.txt
+#8 CACHED
+
+#9 [5/5] COPY . /app
+#9 DONE 0.5s
+
+#10 exporting to image
+#10 exporting layers
+#10 exporting layers 0.3s done
+#10 exporting manifest sha256:e3c06e899a0882e6fddac878440eef65cbbf4901780ac15c70e2f18efbc208af 0.0s done
+#10 exporting config sha256:cbc8c19b43554846fb390c89de90d203e5ed052d2a4ced59ece5377d6841ec59 0.0s done
+#10 exporting attestation manifest sha256:e1d71fa53d04407693528edd4a461388836ed3883973b1dd243e3634e9485695 0.0s done
+#10 exporting manifest list sha256:ba18312ca2ffe0f3954ed2b458d2e6163c703c0c6ef80d786a65e8fe8b45c80c
+#10 exporting manifest list sha256:ba18312ca2ffe0f3954ed2b458d2e6163c703c0c6ef80d786a65e8fe8b45c80c 0.0s done
+#10 naming to docker.io/library/outcome-loop:validation done
+#10 unpacking to docker.io/library/outcome-loop:validation
+#10 unpacking to docker.io/library/outcome-loop:validation 0.2s done
+#10 DONE 0.8s
+.....................................                                    [100%]
+37 passed in 13.97s
+{
+  "scenario": "scenarios/public_03_load.yaml",
+  "finished": true,
+  "events": 9737615,
+  "ingest_seconds": 750.2303388000728,
+  "ingest_events_per_second": 12979.500423262616,
+  "controller_wall_seconds": 1966.3801725660014,
+  "simulator_startup_seconds": 97.98264883700176,
+  "wall_seconds_per_simulated_day": 393.2760345132003,
+  "database_bytes": 2142097408,
+  "peak_controller_rss_bytes": 232300544,
+  "monitoring_evaluation_interval_simulated_minutes": 15,
+  "experiment_evaluation_interval_simulated_minutes": 60,
+  "decision_cycle_seconds": {
+    "count": 336,
+    "p50": 2.6468726680031978,
+    "p95": 7.088016669993522,
+    "max": 759.4762609749887
+  },
+  "observed_call_to_evaluation_lag_simulated_minutes": [
+    [
+      1.0,
+      231750
+    ],
+    [
+      2.0,
+      219375
+    ],
+    [
+      3.0,
+      221625
+    ],
+    [
+      4.0,
+      202500
+    ],
+    [
+      5.0,
+      214875
+    ],
+    [
+      6.0,
+      190125
+    ],
+    [
+      7.0,
+      221625
+    ],
+    [
+      8.0,
+      236250
+    ],
+    [
+      9.0,
+      225000
+    ],
+    [
+      10.0,
+      219375
+    ],
+    [
+      11.0,
+      211500
+    ],
+    [
+      12.0,
+      226125
+    ],
+    [
+      13.0,
+      195750
+    ],
+    [
+      14.0,
+      210375
+    ],
+    [
+      15.0,
+      213750
+    ]
+  ],
+  "baseline_reused": true,
+  "unknown_paid_operations": 0,
+  "decision_lag_note": "Cycle latency includes ingestion and evaluation, excludes remote advance; simulated call lag comes from actual call timestamps. Neither includes time to permission or evidence thresholds.",
+  "integrity": "ok",
+  "duplicate_calls": 0,
+  "pending_at_end": 0,
+  "total_evaluation_seconds": 2173.911442329001,
+  "resource_limits": {
+    "cpu_max": "400000 100000",
+    "memory_max": "8589934592",
+    "memory_peak": "2415644672"
+  },
+  "environment": {
+    "platform": "linux",
+    "cpu_count": 8,
+    "python": "3.12.15 (main, Oct 21 2026, 01:13:23) [GCC 14.2.0]"
+  }
+}

@@ -1,18 +1,18 @@
 [
   {
     "action": "SIGKILL",
-    "pending_proposal": "9e60ede18d03829153e6b21a598b1402",
+    "pending_proposal": "3e9e2adb399aefabdbf701a8bb667d9f",
     "checkpoint": 192153,
     "state": {
       "scenario": "public_02_incidents",
-      "sim_minute": 720,
-      "ts": "2027-01-04T12:00:00+05:30",
+      "sim_minute": 675,
+      "ts": "2027-01-04T11:15:00+05:30",
       "end_minute": 14400,
       "finished": false,
       "tick_minutes": 15,
       "credits_remaining": 200.0,
-      "chunks": 5,
-      "last_event_id": 193053
+      "chunks": 11,
+      "last_event_id": 192378
     }
   },
   {

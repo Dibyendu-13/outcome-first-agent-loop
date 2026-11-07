@@ -1,20 +1,92 @@
 {
   "scenario": "scenarios/public_02_incidents.yaml",
   "finished": true,
-  "events": 324297,
-  "ingest_seconds": 11.786702375859022,
-  "ingest_events_per_second": 27513.802390073928,
-  "controller_wall_seconds": 27.675939875014592,
-  "wall_seconds_per_simulated_day": 2.767593987501459,
-  "database_bytes": 51527680,
-  "peak_controller_rss_bytes": 45285376,
-  "monitoring_evaluation_interval_simulated_minutes": 60,
-  "experiment_evaluation_interval_simulated_minutes": 1440,
-  "decision_lag_note": "Evaluation intervals exclude startup ingestion, sample-size and governance delays; actual wall-clock lag not separately measured",
+  "events": 324296,
+  "ingest_seconds": 10.287543124024523,
+  "ingest_events_per_second": 31523.172840235373,
+  "controller_wall_seconds": 88.27122604098986,
+  "simulator_startup_seconds": 11.02858420900884,
+  "wall_seconds_per_simulated_day": 8.827122604098985,
+  "database_bytes": 65855488,
+  "peak_controller_rss_bytes": 92536832,
+  "monitoring_evaluation_interval_simulated_minutes": 15,
+  "experiment_evaluation_interval_simulated_minutes": 60,
+  "decision_cycle_seconds": {
+    "count": 636,
+    "p50": 0.056418416992528364,
+    "p95": 0.25746495797648095,
+    "max": 12.685473874997115
+  },
+  "observed_call_to_evaluation_lag_simulated_minutes": [
+    [
+      1.0,
+      6675
+    ],
+    [
+      2.0,
+      6950
+    ],
+    [
+      3.0,
+      6550
+    ],
+    [
+      4.0,
+      7425
+    ],
+    [
+      5.0,
+      5700
+    ],
+    [
+      6.0,
+      8175
+    ],
+    [
+      7.0,
+      6000
+    ],
+    [
+      8.0,
+      7200
+    ],
+    [
+      9.0,
+      7825
+    ],
+    [
+      10.0,
+      6675
+    ],
+    [
+      11.0,
+      5975
+    ],
+    [
+      12.0,
+      6250
+    ],
+    [
+      13.0,
+      7225
+    ],
+    [
+      14.0,
+      8425
+    ],
+    [
+      15.0,
+      6950
+    ]
+  ],
+  "baseline_reused": true,
+  "unknown_paid_operations": 0,
+  "decision_lag_note": "Cycle latency includes ingestion and evaluation, excludes remote advance; simulated call lag comes from actual call timestamps. Neither includes time to permission or evidence thresholds.",
   "integrity": "ok",
   "duplicate_calls": 0,
   "pending_at_end": 0,
-  "total_evaluation_seconds": 42.07586349998019,
+  "total_evaluation_seconds": 131.40582949999953,
+  "resource_limits": {},
   "environment": {
     "platform": "darwin",
     "cpu_count": 8,

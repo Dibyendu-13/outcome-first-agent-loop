@@ -1,0 +1,518 @@
+{
+  "purpose": "HTTP contract fixture, not official simulator scoring",
+  "finished": true,
+  "applied_summaries": [
+    "Measure voice alternatives in shared cohorts",
+    "Promote measured cohort improvement: voice",
+    "Rollback after cohort guardrail breach: voice"
+  ],
+  "governance": "Every apply matched an approved remote proposal and current base version",
+  "timeline": [
+    {
+      "ts": "2027-01-04T11:00:00+05:30",
+      "kind": "proposal_prepared",
+      "evidence": {
+        "auto": false,
+        "evidence": {
+          "cohorts": [
+            {
+              "id": "default",
+              "where": {}
+            }
+          ],
+          "estimated_lift": 0,
+          "milestones": [
+            200,
+            400,
+            800,
+            1600,
+            3200,
+            6400,
+            12800,
+            25600,
+            51200
+          ],
+          "population": {
+            "active_enrollments": 59210,
+            "method": "unconcluded enrollments within campaign cadence; exhausted attempts may still be included"
+          },
+          "replay": {
+            "cohorts": [],
+            "method": "reweight observed randomized-arm means within shared cohorts; assumes epoch stationarity and unchanged population",
+            "unsupported_arms_withhold_estimate": true,
+            "weighted_estimated_lift": null
+          },
+          "statistical_unit": "first observation per person per KPI per epoch",
+          "uncertainty": "50% incumbent mixture plus 50% exploration; no benefit claimed"
+        },
+        "proposal_id": "026e45fd8e3f35d65854d241d770fe1b",
+        "summary": "Measure voice alternatives in shared cohorts"
+      }
+    },
+    {
+      "ts": "2027-01-04T11:15:00+05:30",
+      "kind": "applied",
+      "evidence": {
+        "plan": {
+          "auto": false,
+          "baseline": {
+            "V1": 1
+          },
+          "dimension": "voice",
+          "learning": {
+            "baseline": {
+              "allocations": {
+                "default": {
+                  "caller_id": {
+                    "D1": 1
+                  },
+                  "voice": {
+                    "V1": 1
+                  },
+                  "welcome_message": {
+                    "W1": 1
+                  }
+                }
+              },
+              "cohorts": [],
+              "prompt_version": "P1",
+              "schedule": {
+                "hour_weights": {},
+                "lead_preferred_hour": {}
+              }
+            },
+            "cohorts": [
+              {
+                "id": "default",
+                "where": {}
+              }
+            ],
+            "controls": {
+              "default": "V1"
+            },
+            "created": "2027-01-04T11:00:00+05:30",
+            "dimension": "voice",
+            "epoch": 1,
+            "options": [
+              "V1",
+              "V2"
+            ],
+            "promoted": {},
+            "stage": "exploring",
+            "tested": {}
+          },
+          "previous_config": {
+            "allocations": {
+              "default": {
+                "caller_id": {
+                  "D1": 1
+                },
+                "voice": {
+                  "V1": 1
+                },
+                "welcome_message": {
+                  "W1": 1
+                }
+              }
+            },
+            "cohorts": [],
+            "prompt_version": "P1",
+            "schedule": {
+              "hour_weights": {},
+              "lead_preferred_hour": {}
+            }
+          },
+          "stage": "exploring"
+        },
+        "proposal_id": "026e45fd8e3f35d65854d241d770fe1b"
+      }
+    },
+    {
+      "ts": "2027-01-04T12:15:00+05:30",
+      "kind": "post_apply_verification",
+      "evidence": {
+        "after": {
+          "connected": 1253,
+          "dials": 2815,
+          "engaged": 653,
+          "hallucinations": 0
+        },
+        "before": {
+          "connected": 4392,
+          "dials": 14787,
+          "engaged": 893,
+          "hallucinations": 0
+        },
+        "harmful": false,
+        "method": "temporal comparison; confounding possible",
+        "proposal_id": "026e45fd8e3f35d65854d241d770fe1b"
+      }
+    },
+    {
+      "ts": "2027-01-05T00:00:00+05:30",
+      "kind": "post_apply_verification",
+      "evidence": {
+        "after": {
+          "connected": 18357,
+          "dials": 41661,
+          "engaged": 9365,
+          "hallucinations": 0
+        },
+        "before": {
+          "connected": 4392,
+          "dials": 14787,
+          "engaged": 893,
+          "hallucinations": 0
+        },
+        "harmful": false,
+        "method": "temporal comparison; confounding possible",
+        "proposal_id": "026e45fd8e3f35d65854d241d770fe1b"
+      }
+    },
+    {
+      "ts": "2027-01-05T11:00:00+05:30",
+      "kind": "proposal_prepared",
+      "evidence": {
+        "auto": false,
+        "evidence": {
+          "cohort_comparisons": [
+            {
+              "alpha": 0.0013509491152311703,
+              "arm_observations": {
+                "V1": {
+                  "n": 7404,
+                  "successes": 1433
+                },
+                "V2": {
+                  "n": 6835,
+                  "successes": 5822
+                }
+              },
+              "candidate": "V2",
+              "cohort": "default",
+              "control": "V1",
+              "dimension": "voice",
+              "epoch": 1,
+              "guardrail": {
+                "alpha": 0.0006754745576155851,
+                "lower_difference": 0.5043787194317747,
+                "margin": 0.02,
+                "metric": "pickup",
+                "n": 6400,
+                "passed": true
+              },
+              "n": 6400,
+              "p_value": 0.0,
+              "statistical_unit": "independent person",
+              "successes": [
+                5458,
+                1226
+              ]
+            }
+          ],
+          "estimated_lift": 0.66125,
+          "method": "fixed independent-person milestones; exact Fisher with alpha spending; exact guardrail bounds",
+          "population": {
+            "active_enrollments": 106031,
+            "method": "unconcluded enrollments within campaign cadence; exhausted attempts may still be included"
+          },
+          "replay": {
+            "cohorts": [
+              {
+                "active_population": 106031,
+                "after": 0.7201426026857505,
+                "after_coverage": 1.0,
+                "before": 0.3581060841388648,
+                "before_coverage": 1.0,
+                "cohort": "default",
+                "estimated_lift": 0.3620365185468857
+              }
+            ],
+            "method": "reweight observed randomized-arm means within shared cohorts; assumes epoch stationarity and unchanged population",
+            "unsupported_arms_withhold_estimate": true,
+            "weighted_estimated_lift": 0.3620365185468857
+          },
+          "rollback_requested": false
+        },
+        "proposal_id": "a99aaf46840b03777eec03045c126c9e",
+        "summary": "Promote measured cohort improvement: voice"
+      }
+    },
+    {
+      "ts": "2027-01-05T11:15:00+05:30",
+      "kind": "applied",
+      "evidence": {
+        "plan": {
+          "auto": false,
+          "baseline": {
+            "V1": 1
+          },
+          "dimension": "voice",
+          "learning": {
+            "baseline": {
+              "allocations": {
+                "default": {
+                  "caller_id": {
+                    "D1": 1
+                  },
+                  "voice": {
+                    "V1": 1
+                  },
+                  "welcome_message": {
+                    "W1": 1
+                  }
+                }
+              },
+              "cohorts": [],
+              "prompt_version": "P1",
+              "schedule": {
+                "hour_weights": {},
+                "lead_preferred_hour": {}
+              }
+            },
+            "cohorts": [
+              {
+                "id": "default",
+                "where": {}
+              }
+            ],
+            "controls": {
+              "default": "V1"
+            },
+            "created": "2027-01-04T11:00:00+05:30",
+            "dimension": "voice",
+            "epoch": 1,
+            "options": [
+              "V1",
+              "V2"
+            ],
+            "promoted": {
+              "default": "V2"
+            },
+            "stage": "promoted",
+            "started": "2027-01-04T11:30:00+05:30",
+            "tested": {},
+            "version": 2
+          },
+          "previous_config": {
+            "allocations": {
+              "default": {
+                "caller_id": {
+                  "D1": 1
+                },
+                "voice": {
+                  "V1": 0.75,
+                  "V2": 0.25
+                },
+                "welcome_message": {
+                  "W1": 1
+                }
+              }
+            },
+            "cohorts": [],
+            "prompt_version": "P1",
+            "schedule": {
+              "hour_weights": {},
+              "lead_preferred_hour": {}
+            }
+          },
+          "stage": "promoted"
+        },
+        "proposal_id": "a99aaf46840b03777eec03045c126c9e"
+      }
+    },
+    {
+      "ts": "2027-01-05T12:15:00+05:30",
+      "kind": "post_apply_verification",
+      "evidence": {
+        "after": {
+          "connected": 1130,
+          "dials": 2655,
+          "engaged": 825,
+          "hallucinations": 0
+        },
+        "before": {
+          "connected": 25968,
+          "dials": 59074,
+          "engaged": 13402,
+          "hallucinations": 0
+        },
+        "harmful": false,
+        "method": "temporal comparison; confounding possible",
+        "proposal_id": "a99aaf46840b03777eec03045c126c9e"
+      }
+    },
+    {
+      "ts": "2027-01-05T15:00:00+05:30",
+      "kind": "proposal_prepared",
+      "evidence": {
+        "auto": false,
+        "evidence": {
+          "cohort_comparisons": [
+            {
+              "alpha": 5.6289546467965425e-05,
+              "arm_observations": {
+                "V1": {
+                  "n": 209,
+                  "successes": 46
+                },
+                "V2": {
+                  "n": 121,
+                  "successes": 4
+                }
+              },
+              "candidate": "V1",
+              "cohort": "default",
+              "control": "V2",
+              "dimension": "voice",
+              "epoch": 1,
+              "guardrail_breach": true,
+              "guardrail_lower_recovery": 0.060123242635800433,
+              "guardrail_n": 200,
+              "margin": 0.02,
+              "n": 121,
+              "statistical_unit": "independent person",
+              "successes": [
+                26,
+                4
+              ]
+            }
+          ],
+          "estimated_lift": 0.18181818181818182,
+          "method": "fixed independent-person milestones; exact Fisher with alpha spending; exact guardrail bounds",
+          "population": {
+            "active_enrollments": 103140,
+            "method": "unconcluded enrollments within campaign cadence; exhausted attempts may still be included"
+          },
+          "replay": {
+            "cohorts": [
+              {
+                "active_population": 103140,
+                "after": 0.22009569377990432,
+                "after_coverage": 1,
+                "before": 0.0704654197477164,
+                "before_coverage": 1.0,
+                "cohort": "default",
+                "estimated_lift": 0.14963027403218793
+              }
+            ],
+            "method": "reweight observed randomized-arm means within shared cohorts; assumes epoch stationarity and unchanged population",
+            "unsupported_arms_withhold_estimate": true,
+            "weighted_estimated_lift": 0.14963027403218793
+          },
+          "rollback_requested": true
+        },
+        "proposal_id": "e0a317c72bf8c611fd7371358d7780c5",
+        "summary": "Rollback after cohort guardrail breach: voice"
+      }
+    },
+    {
+      "ts": "2027-01-05T15:15:00+05:30",
+      "kind": "applied",
+      "evidence": {
+        "plan": {
+          "auto": false,
+          "baseline": {
+            "V1": 1
+          },
+          "dimension": "voice",
+          "learning": {
+            "baseline": {
+              "allocations": {
+                "default": {
+                  "caller_id": {
+                    "D1": 1
+                  },
+                  "voice": {
+                    "V1": 1
+                  },
+                  "welcome_message": {
+                    "W1": 1
+                  }
+                }
+              },
+              "cohorts": [],
+              "prompt_version": "P1",
+              "schedule": {
+                "hour_weights": {},
+                "lead_preferred_hour": {}
+              }
+            },
+            "cohorts": [
+              {
+                "id": "default",
+                "where": {}
+              }
+            ],
+            "controls": {
+              "default": "V1"
+            },
+            "created": "2027-01-04T11:00:00+05:30",
+            "dimension": "voice",
+            "epoch": 1,
+            "monitor_window": 2,
+            "options": [
+              "V1",
+              "V2"
+            ],
+            "promoted": {},
+            "rolled_back_cohorts": [
+              "default"
+            ],
+            "stage": "rolled_back",
+            "started": "2027-01-05T11:30:00+05:30",
+            "tested": {},
+            "version": 3,
+            "window_offset": 2
+          },
+          "previous_config": {
+            "allocations": {
+              "default": {
+                "caller_id": {
+                  "D1": 1
+                },
+                "voice": {
+                  "V1": 0.2,
+                  "V2": 0.8
+                },
+                "welcome_message": {
+                  "W1": 1
+                }
+              }
+            },
+            "cohorts": [],
+            "prompt_version": "P1",
+            "schedule": {
+              "hour_weights": {},
+              "lead_preferred_hour": {}
+            }
+          },
+          "stage": "rolled_back"
+        },
+        "proposal_id": "e0a317c72bf8c611fd7371358d7780c5"
+      }
+    },
+    {
+      "ts": "2027-01-05T16:15:00+05:30",
+      "kind": "post_apply_verification",
+      "evidence": {
+        "after": {
+          "connected": 691,
+          "dials": 2367,
+          "engaged": 136,
+          "hallucinations": 0
+        },
+        "before": {
+          "connected": 4515,
+          "dials": 20655,
+          "engaged": 2579,
+          "hallucinations": 0
+        },
+        "harmful": true,
+        "method": "temporal comparison; confounding possible",
+        "proposal_id": "e0a317c72bf8c611fd7371358d7780c5"
+      }
+    }
+  ],
+  "scope": "Synthetic joint-KPI effects intentionally isolate the learner from caller-ID health intervention. These are contract test signals, not a real dialler model or official public score."
+}
