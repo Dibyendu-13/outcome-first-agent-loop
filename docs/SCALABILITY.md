@@ -1,0 +1,16 @@
+# Capacity and scaling
+
+| Quantity | Arithmetic and assumptions |
+|---|---|
+| Dial rate | 650,000 / 43,200 active seconds = 15.0/s average. 50,000/h = 13.9/s, below that average, so treat the quoted peak as a lower bound. Plan for twice active average, 30/s. |
+| Event rate | 850,000/day = 9.8/s all day or 19.7/s active if concentrated in 12 hours. Use 40/s sustained burst and 400/s at 10×, then validate on traffic. |
+| Evaluation budget | 850,000 / 600 = 1,417 live events/s amortized. With 9,737,615 events including history across five days, require 3,246/s end to end. Observed 4,952/s end to end and 12,980/s ingestion work in one controller process. These rates have different denominators. |
+| Storage | 1.99 GiB / 9.74M ≈ 219 B/event including current indexes and rollups averaged over the run. At 850k/day ≈ 177 MiB/day or 5.2 GiB/30 days. 10× ≈ 52 GiB/30 days. Budget 2× provisioned space for WAL, compaction and backups, then measure retention workload. |
+| Write amplification | Each call inserts one row and updates two secondary indexes, may update one lead, and contributes to five rollup slices. Chunk grouping collapses slice writes. Measure WAL bytes per event and fsync latency instead of inferring physical amplification from statements. |
+| Memory | Controller RSS 221.5 MiB observed. 100k cached feature entries at an assumed 512 B each cost ~49 MiB plus SQLite cache target 64 MiB. Person sets remain unbounded in current scans. Proposed spool and bounded working-set target under 512 MiB/controller, verify under burst. |
+| Polling | Current two full histories plus config and state per workflow is at least 4W calls per active cycle. W=300 yields ≥1,200/900s ≈1.33 req/s in wall-clock production at 15-minute cadence, excluding mutations and global reads. At five minutes it is 4 req/s. Cache versions from events and poll unresolved effects by deadline. |
+| Evaluation | Current repeated epoch scan cost is proportional to matching calls per hourly evaluation, multiplied by hours. Materialized first-person observations cost an indexed write per eligible KPI and limit decisions to new milestones. |
+| Lag and recovery | Observed cycle p95 7.088 wall seconds and observed call freshness p95 15 simulated minutes. Separate ingestion, statistical eligibility, approval and apply latency. At 400 events/s, a five-minute outage yields 120k events. At assumed catch-up 1,000/s, net 600/s drains backlog in 200s plus boot and reconciliation. |
+| Tenfold test | Fixed observed 4,952/s implies 97.4M events take ~19,664 seconds if throughput held, already above five-day evaluation target. Single writer and epoch scans likely bottleneck earlier. This is arithmetic, not measured 10× performance. |
+
+Today keep SQLite and one writer. At 10× use the existing PostgreSQL, bulk append facts, time partitions, indexed workflow ownership and concurrent workers with fencing. Run a single ingestion leader where the source cursor is global, then use durable DB-backed partitions for decision scheduling. Enforce tenant access in the service and database, deploy read replicas only when operator reads justify them, and add a broker only if measured backlog or independent consumers justify one. Redis, Kubernetes and a new distributed database add operational load without an established requirement. [Measured Linux run](../reports/LINUX.md)

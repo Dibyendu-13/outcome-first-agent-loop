@@ -105,6 +105,8 @@ HTTP history/events -> streamed NDJSON -> SQLite atomic chunks + event cursor
 
 `controller/store.py` owns durability. `cohorts.py` implements ordered AND/OR membership. `learning.py` owns epochs, fixed looks and rollback. `statistics.py` provides exact tests and bounds. `engine.py` owns the HTTP boundary, approvals and incident priority. `dashboard.py` projects actual stored observations. The default entrypoint preserves old world databases and locks the selected writer. Test harnesses and grading live outside the controller.
 
+The [architecture review](docs/SYSTEM_DESIGN.md) records the current implementation, findings and a prioritized redesign. The submitted controller keeps one HTTP-driven process and SQLite writer, with approval receipts and a separate read-only dashboard. We chose that structure over a broker and distributed workers because the measured Linux run processed 9.74 million events at 393.3 seconds per simulated day. The first redesign increment persists incident and rollback decisions independently of dispatch. Fresh public reruns reproduced the outcome results. The Linux figures below describe the baseline implementation. Personalized call scheduling and broader automatic application remain outside the selected scope. The measured results below describe the submitted implementation.
+
 ## 5. The learning loop
 
 **Cohorts.** Keep existing client definitions. If absent, form disjoint language cohorts only for languages with at least 400 observed distinct people, including history, with a default fallback. Use actual event cohort IDs and version. Old campaign-locked exposure and mismatched prompts are never credited to the active epoch.
