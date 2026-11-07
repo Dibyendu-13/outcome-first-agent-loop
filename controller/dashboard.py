@@ -151,7 +151,7 @@ class Dashboard:
                     minimum_connected=400,sample_ready=counts['connected']>=400,
                     interval=list(interval(counts,primary))))
             enough = bool(arms) and all(a['sample_ready'] for a in arms)
-            status = ('completed' if stage=='promoted' else 'ended_inconclusive') if finish else stage
+            status = ('completed' if stage=='promoted' else 'ended_inconclusive') if finish and stage not in ('rolled_back','abandoned') else stage
             last_evaluation = next((a for a in audits if a['workflow']==wf and a['evidence'].get('dimension')==dim and a['kind'] in ('insufficient_evidence','guardrail_blocked') and a['ts'][:13]>=started),None)
             if finish and stage=='promoted':
                 explanation = 'Promotion recorded; the run has finished.'
@@ -171,6 +171,38 @@ class Dashboard:
             experiments.append(dict(workflow=wf,dimension=dim,started=started,stage=stage,status=status,
                 explanation=explanation,last_evaluation=last_evaluation,baseline=decode(baseline,{}),metric=primary,arms=arms,
                 looks=len(meta.get(f'look:{wf}:{dim}:{started}',[])),maximum_looks=7))
+        # New learner projections use its durable independent-person evidence, not raw call sums.
+        from .statistics import MILESTONES
+        for w in workflows:
+            wf=w['workflow_id'];trial=meta.get('learning:'+wf);observed=meta.get('learning_evidence:'+wf)
+            if not trial:continue
+            experiments=[e for e in experiments if e['workflow']!=wf]
+            observations=observed.get('cohorts',{}) if observed and observed['epoch']==trial['epoch'] and observed.get('version')==trial['version'] else {}
+            primary='pickup' if w['objective']['primary']=='pickup_rate' else 'engagement'
+            allocation=(w.get('config') or {}).get('config',{}).get('allocations',{})
+            for c in trial['cohorts']:
+                cid=c['id'];streams=observations.get(cid,{})
+                arms=[]
+                for opt in trial['options']:
+                    pickup=streams.get('pickup',{}).get(opt,{'n':0,'successes':0})
+                    engagement=streams.get('engagement',{}).get(opt,{'n':0,'successes':0})
+                    distribution=allocation.get(cid,{}).get(trial['dimension'],allocation.get('default',{}).get(trial['dimension'],{}))
+                    arms.append(dict(option=opt,dials=pickup['n'],connected=engagement['n'],engaged=engagement['successes'],flags=None,
+                        pickup_rate=pickup['successes']/pickup['n'] if pickup['n'] else None,
+                        engagement_rate=engagement['successes']/engagement['n'] if engagement['n'] else None,
+                        allocation=distribution.get(opt,0),minimum_connected=MILESTONES[0],sample_ready=engagement['n']>=MILESTONES[0]))
+                promoted=cid in trial['promoted']
+                status=('completed' if promoted else 'ended_inconclusive') if finish else ('promoted' if promoted else trial['stage'])
+                if trial['stage']=='rolled_back' or cid in trial.get('rolled_back_cohorts',[]):status='rolled_back'
+                if (w.get('config') or {}).get('version',trial['version'])!=trial['version']:status='suspended'
+                tested={int(k.rsplit(':',1)[1]) for k in trial['tested'] if k.startswith(cid+':') and not k.startswith('guardrail:')}
+                experiments.append(dict(workflow=wf,cohort=cid,definition=c['where'],dimension=trial['dimension'],started=trial['started'],
+                    stage=trial['stage'],status=status,metric=primary,arms=arms,statistical_unit='independent person',
+                    looks=len(tested),maximum_looks=len(MILESTONES),milestones=list(MILESTONES),evidence_as_of=(observed or {}).get('ts'),
+                    explanation=('Configuration changed; evidence from this treatment epoch is suspended.' if status=='suspended' else
+                        'Approved rollback recorded after contemporaneous decay or guardrail evidence.' if status=='rolled_back' else
+                        'An improving arm passed the primary test and exact guardrail bounds.' if promoted else
+                        'No promotion recorded. Independent-person evidence and predeclared sample milestones govern this decision.'),baseline={}))
         total = blank()
         for counts in live.values():
             for k in total:

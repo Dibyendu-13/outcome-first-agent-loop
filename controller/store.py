@@ -5,6 +5,8 @@ import time
 from collections import Counter, OrderedDict
 from pathlib import Path
 
+from .faults import hit
+
 
 class Store:
     def __init__(self, path, read_only=False):
@@ -17,6 +19,8 @@ class Store:
         self.db = sqlite3.connect(path)
         self.db.execute('PRAGMA journal_mode=WAL')
         self.db.execute('PRAGMA synchronous=FULL')
+        self.db.execute('PRAGMA cache_size=-65536')
+        self.db.execute('PRAGMA temp_store=MEMORY')
         self.db.executescript('''
         CREATE TABLE IF NOT EXISTS meta(key TEXT PRIMARY KEY,value TEXT NOT NULL);
         CREATE TABLE IF NOT EXISTS chunks(id INTEGER PRIMARY KEY,kind TEXT,events INTEGER,seconds REAL);
@@ -28,6 +32,7 @@ class Store:
         CREATE TABLE IF NOT EXISTS calls(id INTEGER PRIMARY KEY,workflow TEXT,lead TEXT,person TEXT,ts TEXT,
           version INTEGER,cohort TEXT,prompt TEXT,voice TEXT,welcome TEXT,caller TEXT,connected INTEGER,engaged INTEGER,hallucination INTEGER);
         CREATE INDEX IF NOT EXISTS calls_lead ON calls(lead);
+        CREATE INDEX IF NOT EXISTS calls_workflow_time ON calls(workflow,ts,id);
         CREATE TABLE IF NOT EXISTS events(id INTEGER PRIMARY KEY,ts TEXT,workflow TEXT,type TEXT,payload TEXT);
         CREATE TABLE IF NOT EXISTS audit(id INTEGER PRIMARY KEY,ts TEXT,workflow TEXT,kind TEXT,payload TEXT);
         CREATE TABLE IF NOT EXISTS proposals(id TEXT PRIMARY KEY,workflow TEXT,status TEXT,approval TEXT,body TEXT,reason TEXT,created TEXT);
@@ -78,6 +83,10 @@ class Store:
                         if row is None:
                             raise ValueError('call without lead: '+e['lead_id'])
                         f = json.loads(row[0])
+                        self.cache[e['lead_id']]=f
+                        if len(self.cache)>100000:self.cache.popitem(last=False)
+                    else:
+                        self.cache.move_to_end(e['lead_id'])
                     if e['engaged']:
                         self.db.execute('UPDATE leads SET concluded=1 WHERE id=?',(e['lead_id'],))
                     v = e['variant']
@@ -102,13 +111,21 @@ class Store:
               [k+tuple(counts[k+(i,)] for i in range(4)) for k in keys])
             self.set('event_id',last)
             self.set('chunk:'+chunk['kind'],chunk['chunk'])
+            hit('ingest_before_commit')
             self.db.execute('INSERT INTO chunks VALUES (?,?,?,?)',
                 (chunk['chunk'],chunk['kind'],n,time.monotonic()-t0))
         return n
 
-    def stats(self, wf, dim='all', since='', until='9999', prompt=None, version=None):
-        args = [wf,dim,since[:13],until[:13]]
-        where = 'workflow=? AND dim=? AND hour>=? AND hour<? AND cohort="default"'
+    def stats(self, wf, dim='all', since='', until='9999', prompt=None, version=None, cohort=None):
+        until_hour=until[:13]
+        if len(until)>=16 and until[14:16]!='00':
+            from datetime import datetime,timedelta
+            until_hour=(datetime.fromisoformat(until)+timedelta(hours=1)).isoformat()[:13]
+        args = [wf,dim,since[:13],until_hour]
+        where = 'workflow=? AND dim=? AND hour>=? AND hour<?'
+        if cohort is not None:
+            where += ' AND cohort=?'
+            args.append(cohort)
         if prompt is not None:
             where += ' AND prompt=?'
             args.append(prompt)

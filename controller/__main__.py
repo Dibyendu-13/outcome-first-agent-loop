@@ -24,11 +24,13 @@ def main():
     ap.add_argument('command',choices=['run','status','why','serve'])
     ap.add_argument('--url',default='http://127.0.0.1:8700')
     ap.add_argument('--db',default='controller-data/state.sqlite')
+    ap.add_argument('--auto-db',action='store_true',help='Select/reuse state from public world progress; preserve completed worlds')
     ap.add_argument('--workflow')
     ap.add_argument('--since',default='')
     ap.add_argument('--port',type=int,default=8800)
     args = ap.parse_args()
     if args.command=='serve':
+        from .observability import metrics
         if not Path(args.db).is_file():
             raise SystemExit('Controller database not found: '+args.db)
         dashboard = Dashboard(args.db)
@@ -39,13 +41,15 @@ def main():
         class Handler(BaseHTTPRequestHandler):
             def do_GET(self):
                 path = urlsplit(self.path).path
-                if path not in assets and path not in ('/api/status','/api/dashboard'):
+                if path not in assets and path not in ('/api/status','/api/dashboard','/metrics'):
                     self.send_error(404)
                     return
                 try:
                     if path in assets:
                         file,typ = assets[path]
                         data = (WEB/file).read_bytes()
+                    elif path=='/metrics':
+                        data,typ = metrics(args.db).encode(),'text/plain; version=0.0.4; charset=utf-8'
                     elif path=='/api/dashboard':
                         data,typ = json.dumps(dashboard.snapshot()).encode(),'application/json'
                     else:
@@ -71,6 +75,12 @@ def main():
         print(f'Outcome console: http://127.0.0.1:{args.port} · {args.db}',flush=True)
         HTTPServer(('127.0.0.1',args.port),Handler).serve_forever()
         return
+    if args.command=='run' and args.auto_db:
+        from .lifecycle import state_path
+        with httpx.Client(base_url=args.url,timeout=180,trust_env=False) as client:
+            response=client.get('/sim/state');response.raise_for_status()
+            args.db=state_path(args.url,response.json())
+        print(json.dumps({'controller_database':args.db}),flush=True)
     s = Store(args.db)
     if args.command=='status':
         print(json.dumps(s.view(),indent=2))

@@ -1,0 +1,8 @@
+.git
+.venv
+runs
+controller-data
+__pycache__
+.pytest_cache
+reports/development
+*.sqlite*
