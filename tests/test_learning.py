@@ -75,6 +75,9 @@ def test_repeated_people_and_unapproved_versions_do_not_create_sample(tmp_path):
 
 def test_promotion_then_governed_decay_rollback(tmp_path,monkeypatch):
     s,e,w,cur,trial=setup(tmp_path)
+    trial['options'].append('V3')
+    with s.db:
+        s.set('learning:w',trial)
     rows(s,2,1,n=4000)
     proposed=[]
     def propose(w,cur,cfg,ts,summary,evidence,plan):
@@ -83,9 +86,9 @@ def test_promotion_then_governed_decay_rollback(tmp_path,monkeypatch):
     monkeypatch.setattr(e,'propose',propose)
     assert Learner(e).step(w,cur,{'ts':'2027-01-05T11:00:00+05:30'})
     cfg,summary,evidence,plan=proposed[-1]
-    assert 'Promote' in summary and cfg['allocations']['default']['voice']['V2']==.8
+    assert 'Promote' in summary and cfg['allocations']['default']['voice']=={'V1':.2,'V2':.8}
     assert evidence['cohort_comparisons'][0]['p_value']<evidence['cohort_comparisons'][0]['alpha']
-    next_trial=plan['learning'];next_trial.update(version=3,started='2027-01-05T00:00:00+05:30')
+    next_trial=plan['learning'];next_trial.update(version=3,started='2027-01-06T09:00:00+05:30')
     with s.db:s.set('learning:w',next_trial)
     rows(s,3,20000,n=20000,reverse=True,ts='2027-01-06T10:00:00+05:30')
     assert Learner(e).step(w,{'version':3,'config':cfg}, {'ts':'2027-01-06T11:00:00+05:30'})
@@ -109,8 +112,10 @@ def test_guardrail_breach_rolls_back_even_when_primary_still_wins(tmp_path,monke
             vals.append((len(vals)+1,'w',f'{arm}:{i}',f'{arm}:{i}','2027-01-06T10:00:00+05:30',3,'default','P1',arm,'W1','D1',int(connected),int(engaged),0))
     with s.db:s.db.executemany('INSERT INTO calls VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)',vals)
     proposals=[]
-    monkeypatch.setattr(e,'propose',lambda *args:proposals.append(args) or True)
-    assert Learner(e).step(w,dict(cur,version=3),{'ts':'2027-01-06T11:00:00+05:30'})
+    monkeypatch.setattr(e,'propose',lambda *args:proposals.append(args) or len(proposals)==2)
+    assert not Learner(e).step(w,dict(cur,version=3),{'ts':'2027-01-06T11:00:00+05:30'})
+    # The next window has no observations. Approval can still use the persisted recommendation.
+    assert Learner(e).step(w,dict(cur,version=3),{'ts':'2027-01-06T12:00:00+05:30'})
     assert 'guardrail breach' in proposals[-1][4]
     assert proposals[-1][5]['cohort_comparisons'][0]['guardrail_breach']
     e.c.close();s.db.close()

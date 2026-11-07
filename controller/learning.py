@@ -80,13 +80,14 @@ class Learner:
         monitor_window=1
         if trial['stage']=='promoted':
             age=(datetime.fromisoformat(ts)-datetime.fromisoformat(trial['started'])).total_seconds()/60
-            local_window=max(1,int(age//180)+1)
+            window_minutes=trial.get("monitor_minutes",180)
+            local_window=max(1,int(age//window_minutes)+1)
             monitor_window=trial.get('window_offset',0)+local_window
             if monitor_window!=trial.get('monitor_window'):
-                trial['monitor_window']=monitor_window;trial['tested']={};trial.pop('pending',None);trial.pop('rejected_looks',None)
+                trial['monitor_window']=monitor_window;trial['tested']={};trial.pop('rejected_looks',None)
                 with self.s.db:self.s.set('learning:'+wid,trial)
             analysis_trial=copy.deepcopy(trial)
-            analysis_trial['started']=plus(trial['started'],180*(local_window-1))
+            analysis_trial['started']=plus(trial['started'],window_minutes*(local_window-1))
         data=self.units(wid,analysis_trial,cur)
         dim=trial['dimension'];primary='pickup' if w['objective']['primary']=='pickup_rate' else 'engagement'
         other='engagement' if primary=='pickup' else 'pickup'
@@ -171,7 +172,7 @@ class Learner:
                     cfg['allocations'].setdefault(cohort,{})[dim]=old
                     changes.append((cohort,control,'rollback'))
                 else:
-                    allocation={o:.2/(len(trial['options'])-1) for o in trial['options'] if o!=candidate};allocation[candidate]=.8
+                    allocation={control:.2,candidate:.8}
                     cfg['allocations'].setdefault(cohort,{})[dim]=allocation
                     changes.append((cohort,candidate,'promote'))
                 evidence.append(row)
@@ -204,6 +205,16 @@ class Learner:
         else:
             next_trial['stage']='promoted'
             next_trial['promoted'].update({c:a for c,a,_ in pending['changes']})
+            elapsed = (datetime.fromisoformat(ts)-datetime.fromisoformat(trial['started'])).total_seconds()/60
+            # Forecast sentinel support using all observed eligible exposure, including quiet hours.
+            support = [
+                sum(len(arm) for arm in data[cohort][metric].values())
+                for cohort in next_trial['promoted']
+                for metric in ('pickup','engagement')
+            ]
+            minutes = MILESTONES[0]*max(60,elapsed)/(.2*max(1,min(support)))
+            next_trial['monitor_minutes'] = int(min(1440,max(180,60*((minutes+59)//60))))
+
         lift=max((r['successes'][0]-r['successes'][1])/r['n'] if r['n'] else 0 for r in pending['evidence'])
         return self.e.propose(w,cur,pending['config'],ts,
             ('Rollback after cohort guardrail breach: ' if any(r.get('guardrail_breach') for r in pending['evidence']) else 'Rollback after measured winner decay: ' if rollback else 'Promote measured cohort improvement: ')+dim,

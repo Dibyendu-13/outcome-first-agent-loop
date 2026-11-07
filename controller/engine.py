@@ -92,6 +92,10 @@ class Engine:
                     self.close_learning_snapshot(wid)
                     self.s.audit(ts,wid,'stale_proposal',{'proposal_id':pid,'current_version':cur['version'],'previous_status':status})
                 continue
+            incident = self.s.get('incident:'+wid)
+            plan = json.loads(reason)
+            if incident and incident['prompt']==cur['config']['prompt_version'] and not plan.get('prompt_remediation'):
+                continue
             if status in ('prepared','unknown') and not approval:
                 if cur['version']!=body['base_version']:
                     with self.s.db:
@@ -211,7 +215,7 @@ class Engine:
             self.s.audit(ts,wid,'credit_operation',{'key':key,'status':r.status_code,'result':r.json()})
         return r.json() if r.is_success else None
 
-    def incident(self,w,cur,state):
+    def incident(self,w,cur,state,detect_only=False):
         wid,ts = w['workflow_id'],state['ts']
         prompt = cur['config']['prompt_version']
         incident = self.s.get('incident:'+wid)
@@ -219,6 +223,7 @@ class Engine:
             with self.s.db:
                 self.s.audit(ts,wid,'incident_prompt_replaced',{'incident':incident,'new_prompt':prompt})
                 self.s.set('incident:'+wid,None)
+                self.s.set('credit_reservation:'+wid,None)
             incident = None
         if not incident:
             from math import log,exp,pi
@@ -258,18 +263,41 @@ class Engine:
                         fixed_sample=n,flagged=k,p_value=p_value,alpha=alpha,
                         method='exact binomial tail at fixed doubling sample prefixes; 5% per-workflow alert budget; assumes conditional flag probability <= reference bound')
                     break
-            with self.s.db:self.s.set('prompt_episode:'+wid,episode)
+            with self.s.db:
+                self.s.set('prompt_episode:'+wid,episode)
+                if detection is not None:
+                    self.s.set('incident:'+wid,detection)
+                    self.s.audit(ts,wid,'hallucination_incident',detection)
             if detection is None:return False
             incident=detection
-            with self.s.db:
-                self.s.set('incident:'+wid,incident)
-                self.s.audit(ts,wid,'hallucination_incident',incident)
+        if detect_only:
+            return True
+        active = self.s.db.execute(
+            'SELECT reason FROM proposals WHERE workflow=? AND status IN ("prepared","pending","approved","unknown")',
+            (wid,),
+        )
+        if any(json.loads(reason).get('prompt_remediation') for reason, in active):
+            return True
         key = f'incident:{wid}:{incident["detected"]}'
         if not incident.get('candidate'):
-            if state['credits_remaining']<20:
+            reservation = 'credit_reservation:'+wid
+            reserved = self.s.get(reservation)
+            other_reservations = [
+                json.loads(value) for name,value in self.s.db.execute(
+                    "SELECT key,value FROM meta WHERE key LIKE 'credit_reservation:%' AND key!=?",
+                    (reservation,),
+                ) if value != 'null'
+            ]
+            available = state['credits_remaining'] - sum(item['maximum'] for item in other_reservations)
+            tenant_busy = any(item['tenant']==w['tenant_id'] for item in other_reservations)
+            if (not reserved or reserved['incident']!=key) and (available<20 or tenant_busy):
                 with self.s.db:
                     self.s.audit(ts,wid,'alert_credit_reserve',{'credits_remaining':state['credits_remaining']})
                 return True
+            if not reserved or reserved['incident']!=key:
+                with self.s.db:
+                    self.s.set(reservation,{'incident':key,'tenant':w['tenant_id'],'maximum':15})
+                    self.s.audit(ts,wid,'incident_credits_reserved',{'key':key,'maximum':15})
             suggestions = self.paid(key,'/llm/suggest-fixes',{'workflow_id':wid,'problem':'Sustained hallucination increase: '+json.dumps(incident)},ts,wid)
             if not suggestions:
                 return True
@@ -285,6 +313,7 @@ class Engine:
                     observed = self.s.stats(wid,until=incident['detected'],prompt=candidate).get('all')
                     engagement_lower = interval(observed,'engagement')[0] if observed and observed['connected']>=400 else 0
                     safe.append((engagement_lower,validation['pass_rate'],candidate,validation))
+            with self.s.db:self.s.set(reservation,None)
             if not safe:
                 with self.s.db:
                     self.s.audit(ts,wid,'alert_no_validated_fix',{'incident':incident})
@@ -300,7 +329,7 @@ class Engine:
             'safety_only':True,'candidate_selection':'prefer observed engagement lower bound among safety-passing candidates',
             'latest_recent':self.s.stats(wid,since=shifted(ts,-4),until=ts,prompt=prompt).get('all'),
             'evidence_as_of':ts,'event_checkpoint':self.s.get('event_id',0)}
-        self.propose(w,cur,cfg,ts,'Validate and replace prompt after sustained hallucination increase',evidence,{})
+        self.propose(w,cur,cfg,ts,'Validate and replace prompt after sustained hallucination increase',evidence,{'prompt_remediation':True})
         # An open incident stays open outside approver hours and blocks unrelated experiments.
         return True
 
@@ -309,24 +338,29 @@ class Engine:
         monitor = self.s.get('monitor:'+wid)
         if not monitor or cur['version']!=monitor['version'] or cur['actor']=='supervisor':
             return False
-        after = self.s.stats(wid,since=shifted(monitor['applied'],1),until=ts,version=cur['version']).get('all')
-        before = self.s.stats(wid,since=shifted(monitor['applied'],-48),until=monitor['applied'],version=monitor['baseline_version']).get('all')
-        if not before or not after or min(before['connected'],after['connected'])<400:
-            return False
-        key = 'verify:'+monitor['proposal_id']+':'+ts[:10]
-        if self.s.get(key):
-            return False
-        primary = metric(w['objective']['primary'])
-        other = 'pickup' if primary=='engagement' else 'engagement'
-        drop = w['objective']['guardrail'].get(other+'_rate_max_drop',.02)
-        harmful = interval(after,primary)[1]<interval(before,primary)[0]-.03 or interval(after,other)[1]<interval(before,other)[0]-drop
-        with self.s.db:
-            self.s.set(key,True)
-            self.s.audit(ts,wid,'post_apply_verification',{'proposal_id':monitor['proposal_id'],'before':before,'after':after,'harmful':harmful,'method':'temporal comparison; confounding possible'})
-        if not harmful:
+        if 'rollback_evidence' not in monitor:
+            after = self.s.stats(wid,since=shifted(monitor['applied'],1),until=ts,version=cur['version']).get('all')
+            before = self.s.stats(wid,since=shifted(monitor['applied'],-48),until=monitor['applied'],version=monitor['baseline_version']).get('all')
+            if not before or not after or min(before['connected'],after['connected'])<400:
+                return False
+            key = 'verify:'+monitor['proposal_id']+':'+ts[:10]
+            if self.s.get(key):
+                return False
+            primary = metric(w['objective']['primary'])
+            other = 'pickup' if primary=='engagement' else 'engagement'
+            drop = w['objective']['guardrail'].get(other+'_rate_max_drop',.02)
+            harmful = interval(after,primary)[1]<interval(before,primary)[0]-.03 or interval(after,other)[1]<interval(before,other)[0]-drop
+            with self.s.db:
+                self.s.set(key,True)
+                if harmful:
+                    monitor['rollback_evidence']={'before':before,'after':after}
+                    self.s.set('monitor:'+wid,monitor)
+                self.s.audit(ts,wid,'post_apply_verification',{'proposal_id':monitor['proposal_id'],'before':before,'after':after,'harmful':harmful,'method':'temporal comparison; confounding possible'})
+        evidence = monitor.get('rollback_evidence')
+        if not evidence:
             return False
         cfg = copy.deepcopy(monitor['previous'])
-        evidence = {'before':before,'after':after,'estimated_lift':0,'rollback_of':monitor['proposal_id']}
+        evidence = dict(evidence,estimated_lift=0,rollback_of=monitor['proposal_id'])
         if cfg['prompt_version']!=cur['config']['prompt_version']:
             if state['credits_remaining']<24:
                 return False
@@ -340,36 +374,46 @@ class Engine:
 
     def caller_health(self,w,cur,state):
         wid,ts = w['workflow_id'],state['ts']
-        recent = self.s.stats(wid,'caller_id',since=shifted(ts,-4),until=ts)
-        past = self.s.stats(wid,'caller_id',since=shifted(ts,-72),until=shifted(ts,-4))
-        bad = []
-        for option,now in recent.items():
-            before = past.get(option)
-            if not before or now['dials']<300 or before['dials']<600:
-                continue
-            if interval(now,'pickup')[1] < interval(before,'pickup')[0]-.05:
-                bad.append(option)
-        if not bad:
-            return False
-        healthy = [o for o,v in recent.items() if o not in bad and v['dials']>=300]
-        if not healthy:
-            return False
-        # A healthy contemporaneous alternative is necessary; never blame a DID for a platform-wide drop.
-        if max(interval(recent[o],'pickup')[0] for o in healthy)<=max(interval(recent[o],'pickup')[1] for o in bad):
-            return False
         cfg = copy.deepcopy(cur['config'])
-        old = cfg['allocations']['default']['caller_id']
-        new = dict(old)
-        removed = 0
-        for o in bad:
-            removed += new.pop(o,0)
-        if not removed:
+        if 'caller_id' in self.s.get('protected:'+wid,[]):
             return False
-        for o in healthy:
-            new[o] = new.get(o,0)+removed/len(healthy)
-        cfg['allocations']['default']['caller_id'] = new
-        return self.propose(w,cur,cfg,ts,'Rotate degraded caller IDs: '+', '.join(bad),
-            {'recent':recent,'historical':past,'bad':bad,'estimated_lift':0,'detector':'3.5 sigma intervals; 5pp minimum degradation'}, {})
+        evidence = {}
+        cohorts = [cohort['id'] for cohort in cfg.get('cohorts',[])] + ['default']
+        default = dict(cfg['allocations']['default']['caller_id'])
+        for cohort in cohorts:
+            recent = self.s.stats(wid,'caller_id',since=shifted(ts,-4),until=ts,
+                                  version=cur['version'],cohort=cohort)
+            past = self.s.stats(wid,'caller_id',since=shifted(ts,-72),until=shifted(ts,-4),
+                                cohort=cohort)
+            allocation = cfg['allocations'].get(cohort,{}).get('caller_id',default)
+            bad = sorted(option for option, weight in allocation.items()
+                         if weight > 0 and option in recent and option in past
+                         and recent[option]['dials'] >= 300 and past[option]['dials'] >= 600
+                         and interval(recent[option],'pickup')[1] < interval(past[option],'pickup')[0]-.05)
+            if not bad:
+                continue
+            upper = max(interval(recent[option],'pickup')[1] for option in bad)
+            healthy = sorted(option for option in w['options']['caller_id']
+                             if option not in bad and option in recent and recent[option]['dials'] >= 300
+                             and interval(recent[option],'pickup')[0] > upper)
+            if not healthy:
+                continue
+            new = dict(allocation)
+            removed = sum(new.pop(option) for option in bad)
+            for option in healthy:
+                new[option] = new.get(option,0)+removed/len(healthy)
+            cfg['allocations'].setdefault(cohort,{})['caller_id'] = new
+            evidence[cohort] = {'bad':bad,'recent':recent,'historical':past,'alternatives':healthy}
+        if not evidence:
+            return False
+        if 'default' in evidence:
+            # Preserve the previous fallback in cohorts without evidence of degradation.
+            for cohort in cohorts:
+                if cohort not in evidence:
+                    cfg['allocations'].setdefault(cohort,{}).setdefault('caller_id',default)
+        return self.propose(w,cur,cfg,ts,'Rotate degraded caller IDs in affected cohorts',
+            {'bad':True,'cohorts':evidence,'estimated_lift':0,
+             'detector':'within-cohort 3.5 sigma intervals; 5pp minimum degradation'}, {})
 
     def decide(self,w,cur,state):
         wid,ts = w['workflow_id'],state['ts']
@@ -387,9 +431,9 @@ class Engine:
                 self.s.audit(ts,wid,'supervisor_reassessment',{'before':old,'after':cur,'pause_until':shifted(ts,24)})
         with self.s.db:
             self.s.set('config:'+wid,cur)
-        if self.s.db.execute('SELECT 1 FROM proposals WHERE workflow=? AND status IN ("prepared","pending","approved","unknown")',(wid,)).fetchone():
-            return
         if self.incident(w,cur,state):
+            return
+        if self.s.db.execute('SELECT 1 FROM proposals WHERE workflow=? AND status IN ("prepared","pending","approved","unknown")',(wid,)).fetchone():
             return
         if self.caller_health(w,cur,state):
             return
@@ -411,12 +455,24 @@ class Engine:
         with self.s.db:
             self.s.set('state',state)
             self.s.set('workflows',workflows)
+        if not state['finished']:
+            for workflow in workflows:
+                wid=workflow['workflow_id']
+                current=self.get(f'/workflows/{wid}/config')
+                self.incident(workflow,current,state,detect_only=True)
         self.reconcile(workflows,state['ts'])
         if state['finished']:
             return False
+        if not workflows:
+            self.request('POST','/sim/advance',{'minutes':state['tick_minutes']}).raise_for_status()
+            return True
         # Stable rotating order prevents the same tenant always spending incident credits first.
         offset = (state['sim_minute']//60)%len(workflows)
-        for w in workflows[offset:]+workflows[:offset]:
+        ordered = workflows[offset:]+workflows[:offset]
+        def decision_order(workflow):
+            incident = self.s.get('incident:'+workflow['workflow_id'])
+            return (0,incident['detected']) if incident else (1,'')
+        for w in sorted(ordered,key=decision_order):
             self.decide(w,self.get(f'/workflows/{w["workflow_id"]}/config'),self.get('/sim/state'))
         self.reconcile(workflows,state['ts'])
         with self.s.db:
