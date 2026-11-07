@@ -1,0 +1,172 @@
+[
+  {
+    "point": "ingest_before_commit",
+    "finished": true,
+    "duplicates": 0,
+    "integrity": "ok",
+    "pending": 0,
+    "unknown_paid": 0,
+    "operator_alerts": 0,
+    "recovery": [
+      {
+        "action": "SIGKILL",
+        "point": "ingest_before_commit",
+        "state": {
+          "scenario": "public_01_dev",
+          "sim_minute": 0,
+          "ts": "2027-01-04T00:00:00+05:30",
+          "end_minute": 11520,
+          "finished": false,
+          "tick_minutes": 15,
+          "credits_remaining": 200.0,
+          "chunks": 1,
+          "last_event_id": 187379
+        }
+      },
+      {
+        "action": "restart_completed",
+        "proposal_final_status": null,
+        "finished": true,
+        "integrity": "ok",
+        "duplicate_calls": 0,
+        "pending": 0
+      }
+    ]
+  },
+  {
+    "point": "proposal_after_send",
+    "finished": true,
+    "duplicates": 0,
+    "integrity": "ok",
+    "pending": 0,
+    "unknown_paid": 0,
+    "operator_alerts": 0,
+    "recovery": [
+      {
+        "action": "SIGKILL",
+        "point": "proposal_after_send",
+        "state": {
+          "scenario": "public_01_dev",
+          "sim_minute": 660,
+          "ts": "2027-01-04T11:00:00+05:30",
+          "end_minute": 11520,
+          "finished": false,
+          "tick_minutes": 15,
+          "credits_remaining": 200.0,
+          "chunks": 10,
+          "last_event_id": 192282
+        }
+      },
+      {
+        "action": "restart_completed",
+        "proposal_final_status": null,
+        "finished": true,
+        "integrity": "ok",
+        "duplicate_calls": 0,
+        "pending": 0
+      }
+    ]
+  },
+  {
+    "point": "apply_after_send",
+    "finished": true,
+    "duplicates": 0,
+    "integrity": "ok",
+    "pending": 0,
+    "unknown_paid": 0,
+    "operator_alerts": 0,
+    "recovery": [
+      {
+        "action": "SIGKILL",
+        "point": "apply_after_send",
+        "state": {
+          "scenario": "public_01_dev",
+          "sim_minute": 780,
+          "ts": "2027-01-04T13:00:00+05:30",
+          "end_minute": 11520,
+          "finished": false,
+          "tick_minutes": 15,
+          "credits_remaining": 200.0,
+          "chunks": 18,
+          "last_event_id": 194084
+        }
+      },
+      {
+        "action": "restart_completed",
+        "proposal_final_status": null,
+        "finished": true,
+        "integrity": "ok",
+        "duplicate_calls": 0,
+        "pending": 0
+      }
+    ]
+  },
+  {
+    "point": "advance_after_send",
+    "finished": true,
+    "duplicates": 0,
+    "integrity": "ok",
+    "pending": 0,
+    "unknown_paid": 0,
+    "operator_alerts": 0,
+    "recovery": [
+      {
+        "action": "SIGKILL",
+        "point": "advance_after_send",
+        "state": {
+          "scenario": "public_01_dev",
+          "sim_minute": 60,
+          "ts": "2027-01-04T01:00:00+05:30",
+          "end_minute": 11520,
+          "finished": false,
+          "tick_minutes": 15,
+          "credits_remaining": 200.0,
+          "chunks": 1,
+          "last_event_id": 187379
+        }
+      },
+      {
+        "action": "restart_completed",
+        "proposal_final_status": null,
+        "finished": true,
+        "integrity": "ok",
+        "duplicate_calls": 0,
+        "pending": 0
+      }
+    ]
+  },
+  {
+    "point": "paid_after_send",
+    "finished": true,
+    "duplicates": 0,
+    "integrity": "ok",
+    "pending": 0,
+    "unknown_paid": 1,
+    "operator_alerts": 1,
+    "recovery": [
+      {
+        "action": "SIGKILL",
+        "point": "paid_after_send",
+        "state": {
+          "scenario": "public_02_incidents",
+          "sim_minute": 5145,
+          "ts": "2027-01-07T13:45:00+05:30",
+          "end_minute": 14400,
+          "finished": false,
+          "tick_minutes": 15,
+          "credits_remaining": 197.0,
+          "chunks": 168,
+          "last_event_id": 235746
+        }
+      },
+      {
+        "action": "restart_completed",
+        "proposal_final_status": null,
+        "finished": true,
+        "integrity": "ok",
+        "duplicate_calls": 0,
+        "pending": 0
+      }
+    ]
+  }
+]

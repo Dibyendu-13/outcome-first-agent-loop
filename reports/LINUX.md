@@ -31,7 +31,7 @@ nor a guarantee that an experiment's next statistical milestone was reached.
 
 The existing official no-op baseline was reused by the **grader only**. It used the same scenario and
 NumPy version; baseline aggregate and log inputs remain unchanged. The controller's only world input was
-HTTP. Raw final data is retained in Docker volumes `outcome-loop-runs-native` and `outcome-loop-state-native`.
+HTTP. The raw baseline controller run and database are preserved in the verified `linux_submission_load-archive.zip` in Docker volume `outcome-loop-runs-native`. See `parity-prior-load-archive.log`.
 Earlier shared-filesystem and startup-timeout attempts were not counted as passes. Their logs and verified
 archives are preserved. The prior Mac load run is recoverable from `runs/mac-load-evidence.zip`; raw baseline
 chunks are in `runs/load-baseline-event-archive.zip`. The grader's baseline inputs remain in place.

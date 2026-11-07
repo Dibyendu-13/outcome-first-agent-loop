@@ -1,0 +1,152 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 30B 0.0s
+#1 transferring dockerfile: 276B 0.1s done
+#1 DONE 0.2s
+
+#2 [internal] load metadata for docker.io/library/python:3.12-slim
+#2 DONE 0.2s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 128B 0.0s done
+#3 DONE 0.2s
+
+#4 [internal] load build context
+#4 ...
+
+#5 [1/5] FROM docker.io/library/python:3.12-slim@sha256:cb33f7f771ecec2ef1225cf39b159591a040391bd73e4c01f00fdfc4c47611d2
+#5 resolve docker.io/library/python:3.12-slim@sha256:cb33f7f771ecec2ef1225cf39b159591a040391bd73e4c01f00fdfc4c47611d2 0.2s done
+#5 DONE 0.2s
+
+#4 [internal] load build context
+#4 transferring context: 159.17kB 0.4s done
+#4 DONE 1.0s
+
+#6 [3/5] COPY requirements.txt /app/requirements.txt
+#6 CACHED
+
+#7 [2/5] WORKDIR /app
+#7 CACHED
+
+#8 [4/5] RUN pip install --no-cache-dir -r requirements.txt
+#8 CACHED
+
+#9 [5/5] COPY . /app
+#9 DONE 2.1s
+
+#10 exporting to image
+#10 exporting layers
+#10 exporting layers 0.9s done
+#10 exporting manifest sha256:c4274c600eb0755bc1cc19f9dc546f8bb9194ffdc3f694406f72f2d2cf49d32b
+#10 exporting manifest sha256:c4274c600eb0755bc1cc19f9dc546f8bb9194ffdc3f694406f72f2d2cf49d32b 0.2s done
+#10 exporting config sha256:2566d086a40d905adaeb6608fcecef0fdb60ff6c4fde8fa61eed9b7fc4459351
+#10 exporting config sha256:2566d086a40d905adaeb6608fcecef0fdb60ff6c4fde8fa61eed9b7fc4459351 0.1s done
+#10 exporting attestation manifest sha256:36ae46affd8ab4ad2322bd746526ce96b6df4f286deaf6b7c4ec1dd9f27327a6 0.0s done
+#10 exporting manifest list sha256:2c147d586ca7776f6272fdb455f18f91c46a77a40db6fdb72a9155d33b6c3a76
+#10 exporting manifest list sha256:2c147d586ca7776f6272fdb455f18f91c46a77a40db6fdb72a9155d33b6c3a76 0.0s done
+#10 naming to docker.io/library/outcome-loop:validation done
+#10 unpacking to docker.io/library/outcome-loop:validation
+#10 unpacking to docker.io/library/outcome-loop:validation 0.3s done
+#10 DONE 1.7s
+..........................................                               [100%]
+42 passed in 15.50s
+{
+  "scenario": "scenarios/public_03_load.yaml",
+  "finished": true,
+  "events": 9737615,
+  "ingest_seconds": 968.4818239178567,
+  "ingest_events_per_second": 10054.514973350611,
+  "controller_wall_seconds": 2461.4311864710035,
+  "simulator_startup_seconds": 518.1044719869969,
+  "wall_seconds_per_simulated_day": 492.2862372942007,
+  "database_bytes": 2142093312,
+  "peak_controller_rss_bytes": 223879168,
+  "monitoring_evaluation_interval_simulated_minutes": 15,
+  "experiment_evaluation_interval_simulated_minutes": 60,
+  "decision_cycle_seconds": {
+    "count": 336,
+    "p50": 3.53435008499946,
+    "p95": 12.878428423005971,
+    "max": 701.174916450007
+  },
+  "observed_call_to_evaluation_lag_simulated_minutes": [
+    [
+      1.0,
+      231750
+    ],
+    [
+      2.0,
+      219375
+    ],
+    [
+      3.0,
+      221625
+    ],
+    [
+      4.0,
+      202500
+    ],
+    [
+      5.0,
+      214875
+    ],
+    [
+      6.0,
+      190125
+    ],
+    [
+      7.0,
+      221625
+    ],
+    [
+      8.0,
+      236250
+    ],
+    [
+      9.0,
+      225000
+    ],
+    [
+      10.0,
+      219375
+    ],
+    [
+      11.0,
+      211500
+    ],
+    [
+      12.0,
+      226125
+    ],
+    [
+      13.0,
+      195750
+    ],
+    [
+      14.0,
+      210375
+    ],
+    [
+      15.0,
+      213750
+    ]
+  ],
+  "baseline_reused": true,
+  "unknown_paid_operations": 0,
+  "decision_lag_note": "Cycle latency includes ingestion and evaluation, excludes remote advance; simulated call lag comes from actual call timestamps. Neither includes time to permission or evidence thresholds.",
+  "integrity": "ok",
+  "duplicate_calls": 0,
+  "pending_at_end": 0,
+  "total_evaluation_seconds": 3119.947529647994,
+  "resource_limits": {
+    "cpu_max": "400000 100000",
+    "memory_max": "8589934592",
+    "memory_peak": "2203582464"
+  },
+  "environment": {
+    "platform": "linux",
+    "cpu_count": 8,
+    "python": "3.12.15 (main, Oct 21 2026, 01:13:23) [GCC 14.2.0]"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "cpu_max": "400000 100000",
+  "memory_max": "8589934592",
+  "sha256": {
+    "controller/__init__.py": "15878ee31928cb1bccb09a3608114a6f531aadaaca99c1d62b9390722a2beb85",
+    "controller/__main__.py": "02108a0cbeb1e1fa834f4425ad546233dfd835a00ae678bc097bbdb8a211f68a",
+    "controller/cohorts.py": "28faf31ffc52168678576fd16822aab54a552b017439b393c23a5fcbda3441c5",
+    "controller/dashboard.py": "9fadc2bd81df71395ffb03750211373f4d27663ef1c82dd7faba04ac5455c99b",
+    "controller/engine.py": "13bc1fc36a68549c16d4ea639a5d27b0a94cb92730a209383eb6c6adcd7c8162",
+    "controller/evidence.py": "9021527f990a31fc763a52378f7fccb7138b1866f0dceb0b80acaadbf943f360",
+    "controller/faults.py": "e286da850d644866a5ff7bdbaf2302cf531a96256a91105413ac2824d40923f2",
+    "controller/learning.py": "87e56bdf517a0f8fd333adc20b9a0882957c21128b668536de41901f5acc5574",
+    "controller/lifecycle.py": "577ff884c9f86f4f2ca4da20ee7515fd2b415e904ef451ee7d54ec1706507d20",
+    "controller/observability.py": "fe630a98fe27f03b314ed5a0cfb03ecc7987123339d1dc22ee6671e4b97065c2",
+    "controller/statistics.py": "0e6d04ccffbfb50f58ccb373049b78082cdf11723acfb23cf447bc8d1d072da2",
+    "controller/store.py": "c5004ca58bca917039f4566d3211deeea7328302b5ae183125454731931a91bb",
+    "run.sh": "bea7710158ac9bf4b386d0dbb7bcfe12d2fc2cca72d701d235088de1afedff16"
+  }
+}
