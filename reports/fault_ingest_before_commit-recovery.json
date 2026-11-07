@@ -1,0 +1,25 @@
+[
+  {
+    "action": "SIGKILL",
+    "point": "ingest_before_commit",
+    "state": {
+      "scenario": "public_01_dev",
+      "sim_minute": 0,
+      "ts": "2027-01-04T00:00:00+05:30",
+      "end_minute": 11520,
+      "finished": false,
+      "tick_minutes": 15,
+      "credits_remaining": 200.0,
+      "chunks": 1,
+      "last_event_id": 187379
+    }
+  },
+  {
+    "action": "restart_completed",
+    "proposal_final_status": null,
+    "finished": true,
+    "integrity": "ok",
+    "duplicate_calls": 0,
+    "pending": 0
+  }
+]

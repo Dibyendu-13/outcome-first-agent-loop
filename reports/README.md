@@ -1,23 +1,20 @@
 # Evaluation evidence
 
-- `public_01.md`: official grade report, run `release_01`; controller DB `controller-data/release_01.sqlite`.
-- `public_02.md`: official grade report, run `release_02`; controller DB `controller-data/release_02.sqlite`.
-- `public_02-recovery.json`: real SIGKILL/restart while a proposal was pending in the same public_02 run.
-- `public_03_load.md` and `public_03_load-metrics.json`: full load scenario and machine-specific measurements.
-- `LOAD.md`: interpretation, throughput definition and production limits.
-- `audit-example.json`: why a real prompt changed, approval evidence and subsequent outcomes from our store.
-- `supervisor-example.json`: snapshot of the consolidated read-only supervisor API.
-- `tests.txt`: simulator and controller regression test output.
-- `release_01-*` and `release_02-*`: source logs/metrics for canonical public reports above.
-- `development/`: earlier iterations, including harmful changes and missed incidents. These are development
-  evidence, not the final result. Differences are discussed in SUBMISSION.md.
+- `FINAL.md`: technical acceptance checklist and its limits.
+- `public_01.md` and `public_02.md`: final official grade reports from `final_public_01` and `final_public_02`. The corresponding metrics and original run transcripts are included.
+- `public_02-recovery.json`: SIGKILL and restart while an official public_02 proposal was pending.
+- `public_03_load.md`, `public_03_load-metrics.json`, and `LINUX.md`: final five-day load evaluation, timing definitions, and machine limits. `linux-environment.json` records the source hashes and cgroup limits.
+- `complete-tests.txt` and `linux-submission-validation.log`: final test output on macOS and Linux.
+- `fault-matrix.json` and `fault_*`: the five actual crash and restart cases.
+- `learning-cycle-proof.json`: real HTTP contract fixture showing exploration, promotion, and rollback. It does not represent an official scenario score.
+- `statistical-calibration.json`: empirical primary-test calibration under the documented model.
+- `audit-example.json` and `supervisor-example.json`: evidence and console data from final public_02.
+- `development/`: earlier iterations, including failed or interrupted runs. `release_01-*` and `release_02-*` are earlier public runs.
 
-The grader reads simulator output solely for external evaluation. The controller itself consumes only HTTP.
-Run directories and controller databases are ignored by git because they are large. Reproduce them with
-`scripts/evaluate.py` using fresh run names; dependency versions are in `requirements.lock`.
-Relative KPI deltas in official grade tables should not be interpreted as percentage-point changes.
+The grader reads simulator output for external evaluation. The controller consumes only HTTP.
+Raw run directories and databases are kept locally and ignored by git. See `docs/VALIDATION.md`
+for reproduction commands. Relative KPI changes in official grade tables are distinct from
+percentage-point changes.
 
-## Redesigned supervisor UI
-
-`ui-verification.md` records browser checks and their limits; `ui-tests.txt` contains the 20-test result.
-`ui-overview.jpg` and `ui-mobile.jpg` show the actual connected UI. See `docs/UI.md` for data definitions.
+`ui-verification.md`, `ui-overview.jpg`, and `ui-mobile.jpg` document the original browser checks
+and screenshots on the earlier release_02 dataset. See `docs/UI.md` for final launch and data definitions.

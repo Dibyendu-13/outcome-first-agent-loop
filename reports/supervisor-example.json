@@ -7,37 +7,37 @@
     "finished": true,
     "tick_minutes": 15,
     "credits_remaining": 185.0,
-    "chunks": 131,
-    "last_event_id": 324297
+    "chunks": 491,
+    "last_event_id": 324296
   },
   "ingestion": {
-    "events": 324297,
-    "seconds": 11.786702375859022,
-    "chunks": 131,
-    "events_per_second": 27513.802390073928,
+    "events": 324296,
+    "seconds": 10.287543124024523,
+    "chunks": 491,
+    "events_per_second": 31523.172840235373,
     "event_lag": 0
   },
   "incidents": {},
   "paid_operations": [
     {
-      "key": "incident:ks_cancel:2027-01-07T19:00:00+05:30",
+      "key": "incident:ks_cancel:2027-01-07T16:15:00+05:30",
       "status": "complete",
-      "result": "{\"suggestions\": [{\"prompt_version\": \"P3\", \"summary\": \"Grounded: benefit claims restricted to policy-schedule fields; tighter objection handling\"}, {\"prompt_version\": \"P1\", \"summary\": \"Current production prompt\"}, {\"prompt_version\": \"P4\", \"summary\": \"Persuasive: freer objection handling and richer benefit explanations\"}], \"credits_remaining\": 197.0}"
+      "result": "{\"suggestions\": [{\"prompt_version\": \"P1\", \"summary\": \"Current production prompt\"}, {\"prompt_version\": \"P5\", \"summary\": \"Strict: near-verbatim compliance script\"}, {\"prompt_version\": \"P4\", \"summary\": \"Persuasive: freer objection handling and richer benefit explanations\"}], \"credits_remaining\": 197.0}"
     },
     {
-      "key": "incident:ks_cancel:2027-01-07T19:00:00+05:30:P3",
+      "key": "incident:ks_cancel:2027-01-07T16:15:00+05:30:P1",
       "status": "complete",
-      "result": "{\"validation_run_id\": \"val_00001\", \"workflow_id\": \"ks_cancel\", \"prompt_version\": \"P3\", \"n\": 400, \"failures\": 5, \"pass_rate\": 0.9875, \"ts\": \"2027-01-07T19:00:00+05:30\", \"credits_remaining\": 193.0}"
+      "result": "{\"validation_run_id\": \"val_00001\", \"workflow_id\": \"ks_cancel\", \"prompt_version\": \"P1\", \"n\": 400, \"failures\": 6, \"pass_rate\": 0.985, \"ts\": \"2027-01-07T16:15:00+05:30\", \"credits_remaining\": 193.0}"
     },
     {
-      "key": "incident:ks_cancel:2027-01-07T19:00:00+05:30:P1",
+      "key": "incident:ks_cancel:2027-01-07T16:15:00+05:30:P5",
       "status": "complete",
-      "result": "{\"validation_run_id\": \"val_00002\", \"workflow_id\": \"ks_cancel\", \"prompt_version\": \"P1\", \"n\": 400, \"failures\": 4, \"pass_rate\": 0.99, \"ts\": \"2027-01-07T19:00:00+05:30\", \"credits_remaining\": 189.0}"
+      "result": "{\"validation_run_id\": \"val_00002\", \"workflow_id\": \"ks_cancel\", \"prompt_version\": \"P5\", \"n\": 400, \"failures\": 3, \"pass_rate\": 0.9925, \"ts\": \"2027-01-07T16:15:00+05:30\", \"credits_remaining\": 189.0}"
     },
     {
-      "key": "incident:ks_cancel:2027-01-07T19:00:00+05:30:P4",
+      "key": "incident:ks_cancel:2027-01-07T16:15:00+05:30:P4",
       "status": "complete",
-      "result": "{\"validation_run_id\": \"val_00003\", \"workflow_id\": \"ks_cancel\", \"prompt_version\": \"P4\", \"n\": 400, \"failures\": 11, \"pass_rate\": 0.9725, \"ts\": \"2027-01-07T19:00:00+05:30\", \"credits_remaining\": 185.0}"
+      "result": "{\"validation_run_id\": \"val_00003\", \"workflow_id\": \"ks_cancel\", \"prompt_version\": \"P4\", \"n\": 400, \"failures\": 11, \"pass_rate\": 0.9725, \"ts\": \"2027-01-07T16:15:00+05:30\", \"credits_remaining\": 185.0}"
     }
   ],
   "workflows": [
@@ -301,7 +301,7 @@
     {
       "workflow": "nw_kyc",
       "dimension": "caller_id",
-      "started": "2027-01-04T14",
+      "started": "2027-01-05T11",
       "stage": "exploring",
       "baseline": "{\"D1\": 1.0}"
     },
@@ -310,629 +310,704 @@
       "dimension": "voice",
       "started": "2027-01-09T14",
       "stage": "exploring",
-      "baseline": "{\"V1\": 0.775, \"V2\": 0.07500000000000001, \"V3\": 0.07500000000000001, \"V4\": 0.07500000000000001}"
+      "baseline": "{\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}"
     },
     {
       "workflow": "nw_renewal",
       "dimension": "welcome_message",
-      "started": "2027-01-11T16",
+      "started": "2027-01-11T14",
       "stage": "exploring",
       "baseline": "{\"W1\": 1.0}"
     }
   ],
   "proposals": [
     {
-      "proposal_id": "659925753a8892daad9f5a90aaefea8c",
+      "proposal_id": "767e800516843f0eb9e16f351843d1d5",
       "workflow": "nw_renewal",
       "status": "applied",
-      "approval": "apr_00008",
-      "body": "{\"workflow_id\": \"nw_renewal\", \"base_version\": 3, \"proposed_config\": {\"cohorts\": [], \"allocations\": {\"default\": {\"welcome_message\": {\"W1\": 0.7999999999999999, \"W2\": 0.09999999999999999, \"W3\": 0.09999999999999999}, \"voice\": {\"V2\": 1.0}, \"caller_id\": {\"D1\": 0.5, \"D2\": 0.5}}}, \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}, \"change_summary\": \"Measure welcome_message alternatives with 30% exploration traffic\", \"diff\": {\"welcome_message\": {\"W1\": 0.7999999999999999, \"W2\": 0.09999999999999999, \"W3\": 0.09999999999999999}}, \"affected_leads\": 13277, \"dry_run\": {\"method\": \"observed aggregate replay; no causal guarantee\", \"evidence\": {\"estimated_lift\": 0, \"uncertainty\": \"exploration; benefit unknown\"}, \"affected_leads_method\": \"upper bound: unconcluded enrollments; includes expired cadence\"}, \"impact_score\": 0, \"rationale\": \"Measure welcome_message alternatives with 30% exploration traffic; {\\\"estimated_lift\\\": 0, \\\"uncertainty\\\": \\\"exploration; benefit unknown\\\"}\", \"evidence\": {}, \"proposal_id\": \"659925753a8892daad9f5a90aaefea8c\"}",
-      "reason": "{\"dimension\": \"welcome_message\", \"stage\": \"exploring\", \"baseline\": {\"W1\": 1.0}, \"auto\": false, \"previous_config\": {\"cohorts\": [], \"allocations\": {\"default\": {\"welcome_message\": {\"W1\": 1.0}, \"voice\": {\"V2\": 1.0}, \"caller_id\": {\"D1\": 0.5, \"D2\": 0.5}}}, \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}}",
+      "approval": "apr_00007",
+      "body": "{\"workflow_id\": \"nw_renewal\", \"base_version\": 3, \"proposed_config\": {\"cohorts\": [{\"id\": \"lang_en\", \"where\": {\"lang\": [\"en\"]}}, {\"id\": \"lang_hi\", \"where\": {\"lang\": [\"hi\"]}}, {\"id\": \"lang_ta\", \"where\": {\"lang\": [\"ta\"]}}], \"allocations\": {\"default\": {\"welcome_message\": {\"W1\": 0.6666666666666666, \"W2\": 0.16666666666666666, \"W3\": 0.16666666666666666}, \"voice\": {\"V2\": 1.0}, \"caller_id\": {\"D1\": 0.5, \"D2\": 0.5}}, \"lang_en\": {\"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}, \"welcome_message\": {\"W1\": 0.6666666666666666, \"W2\": 0.16666666666666666, \"W3\": 0.16666666666666666}}, \"lang_hi\": {\"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}, \"welcome_message\": {\"W1\": 0.6666666666666666, \"W2\": 0.16666666666666666, \"W3\": 0.16666666666666666}}, \"lang_ta\": {\"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}, \"welcome_message\": {\"W1\": 0.6666666666666666, \"W2\": 0.16666666666666666, \"W3\": 0.16666666666666666}}}, \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}, \"change_summary\": \"Measure welcome_message alternatives in shared cohorts\", \"diff\": {\"welcome_message\": {\"default\": {\"W1\": 0.6666666666666666, \"W2\": 0.16666666666666666, \"W3\": 0.16666666666666666}, \"lang_en\": {\"W1\": 0.6666666666666666, \"W2\": 0.16666666666666666, \"W3\": 0.16666666666666666}, \"lang_hi\": {\"W1\": 0.6666666666666666, \"W2\": 0.16666666666666666, \"W3\": 0.16666666666666666}, \"lang_ta\": {\"W1\": 0.6666666666666666, \"W2\": 0.16666666666666666, \"W3\": 0.16666666666666666}}}, \"affected_leads\": 2638, \"dry_run\": {\"method\": \"historical cohort evidence and proposed-allocation replay; causal assumptions stated in evidence\", \"evidence\": {\"estimated_lift\": 0, \"uncertainty\": \"50% incumbent mixture plus 50% exploration; no benefit claimed\", \"cohorts\": [{\"id\": \"lang_en\", \"where\": {\"lang\": [\"en\"]}}, {\"id\": \"lang_hi\", \"where\": {\"lang\": [\"hi\"]}}, {\"id\": \"lang_ta\", \"where\": {\"lang\": [\"ta\"]}}, {\"id\": \"default\", \"where\": {}}], \"statistical_unit\": \"first observation per person per KPI per epoch\", \"milestones\": [200, 400, 800, 1600, 3200, 6400, 12800, 25600, 51200], \"population\": {\"active_enrollments\": 2638, \"method\": \"unconcluded enrollments within campaign cadence; exhausted attempts may still be included\"}, \"replay\": {\"method\": \"reweight observed randomized-arm means within shared cohorts; assumes epoch stationarity and unchanged population\", \"cohorts\": [], \"weighted_estimated_lift\": null, \"unsupported_arms_withhold_estimate\": true}}, \"affected_leads_method\": \"upper bound: active-cadence unconcluded enrollments; excludes expired campaigns; may include exhausted attempts\"}, \"impact_score\": 0, \"rationale\": \"Measure welcome_message alternatives in shared cohorts; {\\\"cohorts\\\": [{\\\"id\\\": \\\"lang_en\\\", \\\"where\\\": {\\\"lang\\\": [\\\"en\\\"]}}, {\\\"id\\\": \\\"lang_hi\\\", \\\"where\\\": {\\\"lang\\\": [\\\"hi\\\"]}}, {\\\"id\\\": \\\"lang_ta\\\", \\\"where\\\": {\\\"lang\\\": [\\\"ta\\\"]}}, {\\\"id\\\": \\\"default\\\", \\\"where\\\": {}}], \\\"estimated_lift\\\": 0, \\\"milestones\\\": [200, 400, 800, 1600, 3200, 6400, 12800, 25600, 51200], \\\"population\\\": {\\\"active_enrollments\\\": 2638, \\\"method\\\": \\\"unconcluded enrollments within campaign cadence; exhausted attempts may still be included\\\"}, \\\"replay\\\": {\\\"cohorts\\\": [], \\\"method\\\": \\\"reweight observed randomized-arm means within shared cohorts; assumes epoch stationarity and unchanged population\\\", \\\"unsupported_arms_withhold_estimate\\\": true, \\\"weighted_estimated_lift\\\": null}, \\\"statistical_unit\\\": \\\"first observation per person per KPI per epoch\\\", \\\"uncertainty\\\": \\\"50% incumbent mixture plus 50% exploration; no benefit claimed\\\"}\", \"evidence\": {}, \"proposal_id\": \"767e800516843f0eb9e16f351843d1d5\"}",
+      "reason": "{\"dimension\": \"welcome_message\", \"stage\": \"exploring\", \"baseline\": {\"W1\": 1.0}, \"learning\": {\"epoch\": 2, \"dimension\": \"welcome_message\", \"cohorts\": [{\"id\": \"lang_en\", \"where\": {\"lang\": [\"en\"]}}, {\"id\": \"lang_hi\", \"where\": {\"lang\": [\"hi\"]}}, {\"id\": \"lang_ta\", \"where\": {\"lang\": [\"ta\"]}}, {\"id\": \"default\", \"where\": {}}], \"controls\": {\"lang_en\": \"W1\", \"lang_hi\": \"W1\", \"lang_ta\": \"W1\", \"default\": \"W1\"}, \"options\": [\"W1\", \"W2\", \"W3\"], \"baseline\": {\"cohorts\": [{\"id\": \"lang_en\", \"where\": {\"lang\": [\"en\"]}}, {\"id\": \"lang_hi\", \"where\": {\"lang\": [\"hi\"]}}, {\"id\": \"lang_ta\", \"where\": {\"lang\": [\"ta\"]}}], \"allocations\": {\"default\": {\"welcome_message\": {\"W1\": 1.0}, \"voice\": {\"V2\": 1.0}, \"caller_id\": {\"D1\": 0.5, \"D2\": 0.5}}, \"lang_en\": {\"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}}, \"lang_hi\": {\"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}}, \"lang_ta\": {\"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}}}, \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}, \"stage\": \"exploring\", \"tested\": {}, \"promoted\": {}, \"created\": \"2027-01-11T11:00:00+05:30\"}, \"auto\": false, \"previous_config\": {\"cohorts\": [{\"id\": \"lang_en\", \"where\": {\"lang\": [\"en\"]}}, {\"id\": \"lang_hi\", \"where\": {\"lang\": [\"hi\"]}}, {\"id\": \"lang_ta\", \"where\": {\"lang\": [\"ta\"]}}], \"allocations\": {\"default\": {\"welcome_message\": {\"W1\": 1.0}, \"voice\": {\"V2\": 1.0}, \"caller_id\": {\"D1\": 0.5, \"D2\": 0.5}}, \"lang_en\": {\"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}}, \"lang_hi\": {\"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}}, \"lang_ta\": {\"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}}}, \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}}",
       "created": "2027-01-11T11:00:00+05:30"
     },
     {
-      "proposal_id": "155cb99a06d1a0e2b975e7e4281e41e8",
-      "workflow": "ks_cancel",
-      "status": "applied",
-      "approval": "apr_00007",
-      "body": "{\"workflow_id\": \"ks_cancel\", \"base_version\": 5, \"proposed_config\": {\"cohorts\": [], \"allocations\": {\"default\": {\"welcome_message\": {\"W1\": 1.0}, \"voice\": {\"V1\": 0.6174999999999999, \"V2\": 0.1275, \"V3\": 0.1275, \"V4\": 0.1275}, \"caller_id\": {\"D1\": 1.0}}}, \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}, \"change_summary\": \"Measure voice alternatives with 30% exploration traffic\", \"diff\": {\"voice\": {\"V1\": 0.6174999999999999, \"V2\": 0.1275, \"V3\": 0.1275, \"V4\": 0.1275}}, \"affected_leads\": 19085, \"dry_run\": {\"method\": \"observed aggregate replay; no causal guarantee\", \"evidence\": {\"estimated_lift\": 0, \"uncertainty\": \"exploration; benefit unknown\"}, \"affected_leads_method\": \"upper bound: unconcluded enrollments; includes expired cadence\"}, \"impact_score\": 0, \"rationale\": \"Measure voice alternatives with 30% exploration traffic; {\\\"estimated_lift\\\": 0, \\\"uncertainty\\\": \\\"exploration; benefit unknown\\\"}\", \"evidence\": {}, \"proposal_id\": \"155cb99a06d1a0e2b975e7e4281e41e8\"}",
-      "reason": "{\"dimension\": \"voice\", \"stage\": \"exploring\", \"baseline\": {\"V1\": 0.775, \"V2\": 0.07500000000000001, \"V3\": 0.07500000000000001, \"V4\": 0.07500000000000001}, \"auto\": false, \"previous_config\": {\"cohorts\": [], \"allocations\": {\"default\": {\"welcome_message\": {\"W1\": 1.0}, \"voice\": {\"V1\": 0.775, \"V2\": 0.07500000000000001, \"V3\": 0.07500000000000001, \"V4\": 0.07500000000000001}, \"caller_id\": {\"D1\": 1.0}}}, \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}}",
-      "created": "2027-01-09T11:00:00+05:30"
-    },
-    {
-      "proposal_id": "d8e5a5a5dbe1c0655a0af9cce607ccce",
+      "proposal_id": "e5b4aca7f913c29b19be2d5e0c4ee882",
       "workflow": "ks_cancel",
       "status": "applied",
       "approval": "apr_00006",
-      "body": "{\"workflow_id\": \"ks_cancel\", \"base_version\": 4, \"proposed_config\": {\"cohorts\": [], \"allocations\": {\"default\": {\"welcome_message\": {\"W1\": 1.0}, \"voice\": {\"V1\": 0.775, \"V2\": 0.07500000000000001, \"V3\": 0.07500000000000001, \"V4\": 0.07500000000000001}, \"caller_id\": {\"D1\": 1.0}}}, \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}, \"change_summary\": \"Validate and replace prompt after sustained hallucination increase\", \"diff\": {\"prompt_version\": \"P1\"}, \"affected_leads\": 18045, \"dry_run\": {\"method\": \"observed aggregate replay; no causal guarantee\", \"evidence\": {\"recent\": {\"dials\": 1600, \"connected\": 337, \"engaged\": 143, \"hallucinations\": 23}, \"baseline\": {\"dials\": 80209, \"connected\": 19957, \"engaged\": 9998, \"hallucinations\": 302}, \"validation\": {\"validation_run_id\": \"val_00002\"}, \"estimated_lift\": 0, \"safety_only\": true, \"candidate_selection\": \"prefer observed engagement lower bound among safety-passing candidates\"}, \"affected_leads_method\": \"upper bound: unconcluded enrollments; includes expired cadence\"}, \"impact_score\": 0, \"rationale\": \"Validate and replace prompt after sustained hallucination increase; {\\\"baseline\\\": {\\\"connected\\\": 19957, \\\"dials\\\": 80209, \\\"engaged\\\": 9998, \\\"hallucinations\\\": 302}, \\\"candidate_selection\\\": \\\"prefer observed engagement lower bound among safety-passing candidates\\\", \\\"estimated_lift\\\": 0, \\\"recent\\\": {\\\"connected\\\": 337, \\\"dials\\\": 1600, \\\"engaged\\\": 143, \\\"hallucinations\\\": 23}, \\\"safety_only\\\": true, \\\"validation\\\": {\\\"validation_run_id\\\": \\\"val_00002\\\"}}\", \"evidence\": {\"validation_run_id\": \"val_00002\"}, \"proposal_id\": \"d8e5a5a5dbe1c0655a0af9cce607ccce\"}",
-      "reason": "{\"auto\": false, \"previous_config\": {\"cohorts\": [], \"allocations\": {\"default\": {\"welcome_message\": {\"W1\": 1.0}, \"voice\": {\"V1\": 0.775, \"V2\": 0.07500000000000001, \"V3\": 0.07500000000000001, \"V4\": 0.07500000000000001}, \"caller_id\": {\"D1\": 1.0}}}, \"prompt_version\": \"P2\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}}",
-      "created": "2027-01-08T11:00:00+05:30"
+      "body": "{\"workflow_id\": \"ks_cancel\", \"base_version\": 5, \"proposed_config\": {\"cohorts\": [{\"id\": \"lang_en\", \"where\": {\"lang\": [\"en\"]}}, {\"id\": \"lang_hi\", \"where\": {\"lang\": [\"hi\"]}}, {\"id\": \"lang_kn\", \"where\": {\"lang\": [\"kn\"]}}], \"allocations\": {\"default\": {\"welcome_message\": {\"W1\": 1.0}, \"voice\": {\"V1\": 0.4375, \"V2\": 0.1875, \"V3\": 0.1875, \"V4\": 0.1875}, \"caller_id\": {\"D1\": 1.0}}, \"lang_en\": {\"voice\": {\"V1\": 0.4375, \"V2\": 0.1875, \"V3\": 0.1875, \"V4\": 0.1875}}, \"lang_hi\": {\"voice\": {\"V1\": 0.4375, \"V2\": 0.1875, \"V3\": 0.1875, \"V4\": 0.1875}}, \"lang_kn\": {\"voice\": {\"V1\": 0.4375, \"V2\": 0.1875, \"V3\": 0.1875, \"V4\": 0.1875}}}, \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}, \"change_summary\": \"Measure voice alternatives in shared cohorts\", \"diff\": {\"voice\": {\"default\": {\"V1\": 0.4375, \"V2\": 0.1875, \"V3\": 0.1875, \"V4\": 0.1875}, \"lang_en\": {\"V1\": 0.4375, \"V2\": 0.1875, \"V3\": 0.1875, \"V4\": 0.1875}, \"lang_hi\": {\"V1\": 0.4375, \"V2\": 0.1875, \"V3\": 0.1875, \"V4\": 0.1875}, \"lang_kn\": {\"V1\": 0.4375, \"V2\": 0.1875, \"V3\": 0.1875, \"V4\": 0.1875}}}, \"affected_leads\": 3898, \"dry_run\": {\"method\": \"historical cohort evidence and proposed-allocation replay; causal assumptions stated in evidence\", \"evidence\": {\"estimated_lift\": 0, \"uncertainty\": \"50% incumbent mixture plus 50% exploration; no benefit claimed\", \"cohorts\": [{\"id\": \"lang_en\", \"where\": {\"lang\": [\"en\"]}}, {\"id\": \"lang_hi\", \"where\": {\"lang\": [\"hi\"]}}, {\"id\": \"lang_kn\", \"where\": {\"lang\": [\"kn\"]}}, {\"id\": \"default\", \"where\": {}}], \"statistical_unit\": \"first observation per person per KPI per epoch\", \"milestones\": [200, 400, 800, 1600, 3200, 6400, 12800, 25600, 51200], \"population\": {\"active_enrollments\": 3898, \"method\": \"unconcluded enrollments within campaign cadence; exhausted attempts may still be included\"}, \"replay\": {\"method\": \"reweight observed randomized-arm means within shared cohorts; assumes epoch stationarity and unchanged population\", \"cohorts\": [], \"weighted_estimated_lift\": null, \"unsupported_arms_withhold_estimate\": true}}, \"affected_leads_method\": \"upper bound: active-cadence unconcluded enrollments; excludes expired campaigns; may include exhausted attempts\"}, \"impact_score\": 0, \"rationale\": \"Measure voice alternatives in shared cohorts; {\\\"cohorts\\\": [{\\\"id\\\": \\\"lang_en\\\", \\\"where\\\": {\\\"lang\\\": [\\\"en\\\"]}}, {\\\"id\\\": \\\"lang_hi\\\", \\\"where\\\": {\\\"lang\\\": [\\\"hi\\\"]}}, {\\\"id\\\": \\\"lang_kn\\\", \\\"where\\\": {\\\"lang\\\": [\\\"kn\\\"]}}, {\\\"id\\\": \\\"default\\\", \\\"where\\\": {}}], \\\"estimated_lift\\\": 0, \\\"milestones\\\": [200, 400, 800, 1600, 3200, 6400, 12800, 25600, 51200], \\\"population\\\": {\\\"active_enrollments\\\": 3898, \\\"method\\\": \\\"unconcluded enrollments within campaign cadence; exhausted attempts may still be included\\\"}, \\\"replay\\\": {\\\"cohorts\\\": [], \\\"method\\\": \\\"reweight observed randomized-arm means within shared cohorts; assumes epoch stationarity and unchanged population\\\", \\\"unsupported_arms_withhold_estimate\\\": true, \\\"weighted_estimated_lift\\\": null}, \\\"statistical_unit\\\": \\\"first observation per person per KPI per epoch\\\", \\\"uncertainty\\\": \\\"50% incumbent mixture plus 50% exploration; no benefit claimed\\\"}\", \"evidence\": {}, \"proposal_id\": \"e5b4aca7f913c29b19be2d5e0c4ee882\"}",
+      "reason": "{\"dimension\": \"voice\", \"stage\": \"exploring\", \"baseline\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}, \"learning\": {\"epoch\": 2, \"dimension\": \"voice\", \"cohorts\": [{\"id\": \"lang_en\", \"where\": {\"lang\": [\"en\"]}}, {\"id\": \"lang_hi\", \"where\": {\"lang\": [\"hi\"]}}, {\"id\": \"lang_kn\", \"where\": {\"lang\": [\"kn\"]}}, {\"id\": \"default\", \"where\": {}}], \"controls\": {\"lang_en\": \"V1\", \"lang_hi\": \"V1\", \"lang_kn\": \"V1\", \"default\": \"V1\"}, \"options\": [\"V1\", \"V2\", \"V3\", \"V4\"], \"baseline\": {\"cohorts\": [{\"id\": \"lang_en\", \"where\": {\"lang\": [\"en\"]}}, {\"id\": \"lang_hi\", \"where\": {\"lang\": [\"hi\"]}}, {\"id\": \"lang_kn\", \"where\": {\"lang\": [\"kn\"]}}], \"allocations\": {\"default\": {\"welcome_message\": {\"W1\": 1.0}, \"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}, \"caller_id\": {\"D1\": 1.0}}, \"lang_en\": {\"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}}, \"lang_hi\": {\"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}}, \"lang_kn\": {\"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}}}, \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}, \"stage\": \"exploring\", \"tested\": {}, \"promoted\": {}, \"created\": \"2027-01-09T11:00:00+05:30\"}, \"auto\": false, \"previous_config\": {\"cohorts\": [{\"id\": \"lang_en\", \"where\": {\"lang\": [\"en\"]}}, {\"id\": \"lang_hi\", \"where\": {\"lang\": [\"hi\"]}}, {\"id\": \"lang_kn\", \"where\": {\"lang\": [\"kn\"]}}], \"allocations\": {\"default\": {\"welcome_message\": {\"W1\": 1.0}, \"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}, \"caller_id\": {\"D1\": 1.0}}, \"lang_en\": {\"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}}, \"lang_hi\": {\"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}}, \"lang_kn\": {\"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}}}, \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}}",
+      "created": "2027-01-09T11:00:00+05:30"
     },
     {
-      "proposal_id": "4b4c1fb553be6dc8707f7a8fb4212040",
+      "proposal_id": "f535080374c88e08030d78e72e806ca3",
       "workflow": "ks_cancel",
       "status": "applied",
       "approval": "apr_00005",
-      "body": "{\"workflow_id\": \"ks_cancel\", \"base_version\": 2, \"proposed_config\": {\"cohorts\": [], \"allocations\": {\"default\": {\"welcome_message\": {\"W1\": 1.0}, \"voice\": {\"V1\": 0.775, \"V2\": 0.07500000000000001, \"V3\": 0.07500000000000001, \"V4\": 0.07500000000000001}, \"caller_id\": {\"D1\": 1.0}}}, \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}, \"change_summary\": \"Rotate degraded caller IDs: D2\", \"diff\": {\"caller_id\": {\"D1\": 1.0}}, \"affected_leads\": 15804, \"dry_run\": {\"method\": \"observed aggregate replay; no causal guarantee\", \"evidence\": {\"recent\": {\"D1\": {\"dials\": 816, \"connected\": 179, \"engaged\": 88, \"hallucinations\": 3}, \"D2\": {\"dials\": 784, \"connected\": 58, \"engaged\": 33, \"hallucinations\": 0}}, \"historical\": {\"D1\": {\"dials\": 6389, \"connected\": 1532, \"engaged\": 742, \"hallucinations\": 28}, \"D2\": {\"dials\": 6411, \"connected\": 1486, \"engaged\": 762, \"hallucinations\": 21}}, \"bad\": [\"D2\"], \"estimated_lift\": 0, \"detector\": \"3.5 sigma intervals; 5pp minimum degradation\"}, \"affected_leads_method\": \"upper bound: unconcluded enrollments; includes expired cadence\"}, \"impact_score\": 0, \"rationale\": \"Rotate degraded caller IDs: D2; {\\\"bad\\\": [\\\"D2\\\"], \\\"detector\\\": \\\"3.5 sigma intervals; 5pp minimum degradation\\\", \\\"estimated_lift\\\": 0, \\\"historical\\\": {\\\"D1\\\": {\\\"connected\\\": 1532, \\\"dials\\\": 6389, \\\"engaged\\\": 742, \\\"hallucinations\\\": 28}, \\\"D2\\\": {\\\"connected\\\": 1486, \\\"dials\\\": 6411, \\\"engaged\\\": 762, \\\"hallucinations\\\": 21}}, \\\"recent\\\": {\\\"D1\\\": {\\\"connected\\\": 179, \\\"dials\\\": 816, \\\"engaged\\\": 88, \\\"hallucinations\\\": 3}, \\\"D2\\\": {\\\"connected\\\": 58, \\\"dials\\\": 784, \\\"engaged\\\": 33, \\\"hallucinations\\\": 0}}}\", \"evidence\": {}, \"proposal_id\": \"4b4c1fb553be6dc8707f7a8fb4212040\"}",
-      "reason": "{\"auto\": false, \"previous_config\": {\"cohorts\": [], \"allocations\": {\"default\": {\"welcome_message\": {\"W1\": 1.0}, \"voice\": {\"V1\": 0.775, \"V2\": 0.07500000000000001, \"V3\": 0.07500000000000001, \"V4\": 0.07500000000000001}, \"caller_id\": {\"D1\": 0.5, \"D2\": 0.5}}}, \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}}",
-      "created": "2027-01-06T16:00:00+05:30"
+      "body": "{\"workflow_id\": \"ks_cancel\", \"base_version\": 4, \"proposed_config\": {\"cohorts\": [{\"id\": \"lang_en\", \"where\": {\"lang\": [\"en\"]}}, {\"id\": \"lang_hi\", \"where\": {\"lang\": [\"hi\"]}}, {\"id\": \"lang_kn\", \"where\": {\"lang\": [\"kn\"]}}], \"allocations\": {\"default\": {\"welcome_message\": {\"W1\": 1.0}, \"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}, \"caller_id\": {\"D1\": 1.0}}, \"lang_en\": {\"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}}, \"lang_hi\": {\"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}}, \"lang_kn\": {\"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}}}, \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}, \"change_summary\": \"Validate and replace prompt after sustained hallucination increase\", \"diff\": {\"prompt_version\": \"P1\"}, \"affected_leads\": 3606, \"dry_run\": {\"method\": \"historical cohort evidence and proposed-allocation replay; causal assumptions stated in evidence\", \"evidence\": {\"recent\": {\"dials\": 1900, \"connected\": 405, \"engaged\": 176, \"hallucinations\": 18}, \"baseline\": {\"dials\": 80509, \"connected\": 20047, \"engaged\": 10095, \"hallucinations\": 311}, \"validation\": {\"validation_run_id\": \"val_00001\"}, \"estimated_lift\": 0, \"safety_only\": true, \"candidate_selection\": \"prefer observed engagement lower bound among safety-passing candidates\", \"latest_recent\": {\"dials\": 1700, \"connected\": 349, \"engaged\": 141, \"hallucinations\": 18}, \"evidence_as_of\": \"2027-01-07T16:15:00+05:30\", \"event_checkpoint\": 237996, \"population\": {\"active_enrollments\": 3606, \"method\": \"unconcluded enrollments within campaign cadence; exhausted attempts may still be included\"}, \"replay\": {\"method\": \"reweight observed randomized-arm means within shared cohorts; assumes epoch stationarity and unchanged population\", \"cohorts\": [], \"weighted_estimated_lift\": null, \"unsupported_arms_withhold_estimate\": true}}, \"affected_leads_method\": \"upper bound: active-cadence unconcluded enrollments; excludes expired campaigns; may include exhausted attempts\"}, \"impact_score\": 0, \"rationale\": \"Validate and replace prompt after sustained hallucination increase; {\\\"baseline\\\": {\\\"connected\\\": 20047, \\\"dials\\\": 80509, \\\"engaged\\\": 10095, \\\"hallucinations\\\": 311}, \\\"candidate_selection\\\": \\\"prefer observed engagement lower bound among safety-passing candidates\\\", \\\"estimated_lift\\\": 0, \\\"event_checkpoint\\\": 237996, \\\"evidence_as_of\\\": \\\"2027-01-07T16:15:00+05:30\\\", \\\"latest_recent\\\": {\\\"connected\\\": 349, \\\"dials\\\": 1700, \\\"engaged\\\": 141, \\\"hallucinations\\\": 18}, \\\"population\\\": {\\\"active_enrollments\\\": 3606, \\\"method\\\": \\\"unconcluded enrollments within campaign cadence; exhausted attempts may still be included\\\"}, \\\"recent\\\": {\\\"connected\\\": 405, \\\"dials\\\": 1900, \\\"engaged\\\": 176, \\\"hallucinations\\\": 18}, \\\"replay\\\": {\\\"cohorts\\\": [], \\\"method\\\": \\\"reweight observed randomized-arm means within shared cohorts; assumes epoch stationarity and unchanged population\\\", \\\"unsupported_arms_withhold_estimate\\\": true, \\\"weighted_estimated_lift\\\": null}, \\\"safety_only\\\": true, \\\"validation\\\": {\\\"validation_run_id\\\": \\\"val_00001\\\"}}\", \"evidence\": {\"validation_run_id\": \"val_00001\"}, \"proposal_id\": \"f535080374c88e08030d78e72e806ca3\"}",
+      "reason": "{\"auto\": false, \"previous_config\": {\"cohorts\": [{\"id\": \"lang_en\", \"where\": {\"lang\": [\"en\"]}}, {\"id\": \"lang_hi\", \"where\": {\"lang\": [\"hi\"]}}, {\"id\": \"lang_kn\", \"where\": {\"lang\": [\"kn\"]}}], \"allocations\": {\"default\": {\"welcome_message\": {\"W1\": 1.0}, \"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}, \"caller_id\": {\"D1\": 1.0}}, \"lang_en\": {\"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}}, \"lang_hi\": {\"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}}, \"lang_kn\": {\"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}}}, \"prompt_version\": \"P2\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}}",
+      "created": "2027-01-07T16:15:00+05:30"
     },
     {
-      "proposal_id": "1d678542a440db9c4671b2b2d809c66d",
+      "proposal_id": "0ddaa54bbd250e1f060009bc50b60c7e",
       "workflow": "ks_cancel",
-      "status": "rejected",
+      "status": "applied",
       "approval": "apr_00004",
-      "body": "{\"workflow_id\": \"ks_cancel\", \"base_version\": 2, \"proposed_config\": {\"cohorts\": [], \"allocations\": {\"default\": {\"welcome_message\": {\"W1\": 1.0}, \"voice\": {\"V1\": 0.775, \"V2\": 0.07500000000000001, \"V3\": 0.07500000000000001, \"V4\": 0.07500000000000001}, \"caller_id\": {\"D1\": 1.0}}}, \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}, \"change_summary\": \"Rotate degraded caller IDs: D2\", \"diff\": {\"caller_id\": {\"D1\": 1.0}}, \"affected_leads\": 15896, \"dry_run\": {\"method\": \"observed aggregate replay; no causal guarantee\", \"evidence\": {\"recent\": {\"D1\": {\"dials\": 787, \"connected\": 202, \"engaged\": 89, \"hallucinations\": 4}, \"D2\": {\"dials\": 813, \"connected\": 94, \"engaged\": 47, \"hallucinations\": 1}}, \"historical\": {\"D1\": {\"dials\": 6425, \"connected\": 1535, \"engaged\": 757, \"hallucinations\": 27}, \"D2\": {\"dials\": 6375, \"connected\": 1546, \"engaged\": 796, \"hallucinations\": 23}}, \"bad\": [\"D2\"], \"estimated_lift\": 0, \"detector\": \"3.5 sigma intervals; 5pp minimum degradation\"}, \"affected_leads_method\": \"upper bound: unconcluded enrollments; includes expired cadence\"}, \"impact_score\": 0, \"rationale\": \"Rotate degraded caller IDs: D2; {\\\"bad\\\": [\\\"D2\\\"], \\\"detector\\\": \\\"3.5 sigma intervals; 5pp minimum degradation\\\", \\\"estimated_lift\\\": 0, \\\"historical\\\": {\\\"D1\\\": {\\\"connected\\\": 1535, \\\"dials\\\": 6425, \\\"engaged\\\": 757, \\\"hallucinations\\\": 27}, \\\"D2\\\": {\\\"connected\\\": 1546, \\\"dials\\\": 6375, \\\"engaged\\\": 796, \\\"hallucinations\\\": 23}}, \\\"recent\\\": {\\\"D1\\\": {\\\"connected\\\": 202, \\\"dials\\\": 787, \\\"engaged\\\": 89, \\\"hallucinations\\\": 4}, \\\"D2\\\": {\\\"connected\\\": 94, \\\"dials\\\": 813, \\\"engaged\\\": 47, \\\"hallucinations\\\": 1}}}\", \"evidence\": {}, \"proposal_id\": \"1d678542a440db9c4671b2b2d809c66d\"}",
-      "reason": "{\"auto\": false, \"previous_config\": {\"cohorts\": [], \"allocations\": {\"default\": {\"welcome_message\": {\"W1\": 1.0}, \"voice\": {\"V1\": 0.775, \"V2\": 0.07500000000000001, \"V3\": 0.07500000000000001, \"V4\": 0.07500000000000001}, \"caller_id\": {\"D1\": 0.5, \"D2\": 0.5}}}, \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}}",
-      "created": "2027-01-06T13:00:00+05:30"
+      "body": "{\"workflow_id\": \"ks_cancel\", \"base_version\": 2, \"proposed_config\": {\"cohorts\": [{\"id\": \"lang_en\", \"where\": {\"lang\": [\"en\"]}}, {\"id\": \"lang_hi\", \"where\": {\"lang\": [\"hi\"]}}, {\"id\": \"lang_kn\", \"where\": {\"lang\": [\"kn\"]}}], \"allocations\": {\"default\": {\"welcome_message\": {\"W1\": 1.0}, \"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}, \"caller_id\": {\"D1\": 1.0}}, \"lang_en\": {\"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}}, \"lang_hi\": {\"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}}, \"lang_kn\": {\"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}}}, \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}, \"change_summary\": \"Rotate degraded caller IDs: D2\", \"diff\": {\"caller_id\": {\"default\": {\"D1\": 1.0}}}, \"affected_leads\": 3662, \"dry_run\": {\"method\": \"historical cohort evidence and proposed-allocation replay; causal assumptions stated in evidence\", \"evidence\": {\"recent\": {\"D1\": {\"dials\": 872, \"connected\": 210, \"engaged\": 114, \"hallucinations\": 1}, \"D2\": {\"dials\": 928, \"connected\": 118, \"engaged\": 61, \"hallucinations\": 1}}, \"historical\": {\"D1\": {\"dials\": 6629, \"connected\": 1554, \"engaged\": 797, \"hallucinations\": 26}, \"D2\": {\"dials\": 6571, \"connected\": 1584, \"engaged\": 813, \"hallucinations\": 22}}, \"bad\": [\"D2\"], \"estimated_lift\": 0, \"detector\": \"3.5 sigma intervals; 5pp minimum degradation\", \"population\": {\"active_enrollments\": 3662, \"method\": \"unconcluded enrollments within campaign cadence; exhausted attempts may still be included\"}, \"replay\": {\"method\": \"reweight observed randomized-arm means within shared cohorts; assumes epoch stationarity and unchanged population\", \"cohorts\": [], \"weighted_estimated_lift\": null, \"unsupported_arms_withhold_estimate\": true}}, \"affected_leads_method\": \"upper bound: active-cadence unconcluded enrollments; excludes expired campaigns; may include exhausted attempts\"}, \"impact_score\": 0, \"rationale\": \"Rotate degraded caller IDs: D2; {\\\"bad\\\": [\\\"D2\\\"], \\\"detector\\\": \\\"3.5 sigma intervals; 5pp minimum degradation\\\", \\\"estimated_lift\\\": 0, \\\"historical\\\": {\\\"D1\\\": {\\\"connected\\\": 1554, \\\"dials\\\": 6629, \\\"engaged\\\": 797, \\\"hallucinations\\\": 26}, \\\"D2\\\": {\\\"connected\\\": 1584, \\\"dials\\\": 6571, \\\"engaged\\\": 813, \\\"hallucinations\\\": 22}}, \\\"population\\\": {\\\"active_enrollments\\\": 3662, \\\"method\\\": \\\"unconcluded enrollments within campaign cadence; exhausted attempts may still be included\\\"}, \\\"recent\\\": {\\\"D1\\\": {\\\"connected\\\": 210, \\\"dials\\\": 872, \\\"engaged\\\": 114, \\\"hallucinations\\\": 1}, \\\"D2\\\": {\\\"connected\\\": 118, \\\"dials\\\": 928, \\\"engaged\\\": 61, \\\"hallucinations\\\": 1}}, \\\"replay\\\": {\\\"cohorts\\\": [], \\\"method\\\": \\\"reweight observed randomized-arm means within shared cohorts; assumes epoch stationarity and unchanged population\\\", \\\"unsupported_arms_withhold_estimate\\\": true, \\\"weighted_estimated_lift\\\": null}}\", \"evidence\": {}, \"proposal_id\": \"0ddaa54bbd250e1f060009bc50b60c7e\"}",
+      "reason": "{\"auto\": false, \"previous_config\": {\"cohorts\": [{\"id\": \"lang_en\", \"where\": {\"lang\": [\"en\"]}}, {\"id\": \"lang_hi\", \"where\": {\"lang\": [\"hi\"]}}, {\"id\": \"lang_kn\", \"where\": {\"lang\": [\"kn\"]}}], \"allocations\": {\"default\": {\"welcome_message\": {\"W1\": 1.0}, \"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}, \"caller_id\": {\"D1\": 0.5, \"D2\": 0.5}}, \"lang_en\": {\"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}}, \"lang_hi\": {\"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}}, \"lang_kn\": {\"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}}}, \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}}",
+      "created": "2027-01-06T13:30:00+05:30"
     },
     {
-      "proposal_id": "9e60ede18d03829153e6b21a598b1402",
+      "proposal_id": "3e9e2adb399aefabdbf701a8bb667d9f",
       "workflow": "ks_cancel",
       "status": "applied",
       "approval": "apr_00001",
-      "body": "{\"workflow_id\": \"ks_cancel\", \"base_version\": 1, \"proposed_config\": {\"cohorts\": [], \"allocations\": {\"default\": {\"welcome_message\": {\"W1\": 1.0}, \"voice\": {\"V1\": 0.7749999999999999, \"V2\": 0.075, \"V3\": 0.075, \"V4\": 0.075}, \"caller_id\": {\"D1\": 0.5, \"D2\": 0.5}}}, \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}, \"change_summary\": \"Measure voice alternatives with 30% exploration traffic\", \"diff\": {\"voice\": {\"V1\": 0.7749999999999999, \"V2\": 0.075, \"V3\": 0.075, \"V4\": 0.075}}, \"affected_leads\": 14128, \"dry_run\": {\"method\": \"observed aggregate replay; no causal guarantee\", \"evidence\": {\"estimated_lift\": 0, \"uncertainty\": \"exploration; benefit unknown\"}, \"affected_leads_method\": \"upper bound: unconcluded enrollments; includes expired cadence\"}, \"impact_score\": 0, \"rationale\": \"Measure voice alternatives with 30% exploration traffic; {\\\"estimated_lift\\\": 0, \\\"uncertainty\\\": \\\"exploration; benefit unknown\\\"}\", \"evidence\": {}, \"proposal_id\": \"9e60ede18d03829153e6b21a598b1402\"}",
-      "reason": "{\"dimension\": \"voice\", \"stage\": \"exploring\", \"baseline\": {\"V1\": 1.0}, \"auto\": false, \"previous_config\": {\"cohorts\": [], \"allocations\": {\"default\": {\"welcome_message\": {\"W1\": 1.0}, \"voice\": {\"V1\": 1.0}, \"caller_id\": {\"D1\": 0.5, \"D2\": 0.5}}}, \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}}",
+      "body": "{\"workflow_id\": \"ks_cancel\", \"base_version\": 1, \"proposed_config\": {\"cohorts\": [{\"id\": \"lang_en\", \"where\": {\"lang\": [\"en\"]}}, {\"id\": \"lang_hi\", \"where\": {\"lang\": [\"hi\"]}}, {\"id\": \"lang_kn\", \"where\": {\"lang\": [\"kn\"]}}], \"allocations\": {\"default\": {\"welcome_message\": {\"W1\": 1.0}, \"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}, \"caller_id\": {\"D1\": 0.5, \"D2\": 0.5}}, \"lang_en\": {\"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}}, \"lang_hi\": {\"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}}, \"lang_kn\": {\"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}}}, \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}, \"change_summary\": \"Measure voice alternatives in shared cohorts\", \"diff\": {\"voice\": {\"default\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}, \"lang_en\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}, \"lang_hi\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}, \"lang_kn\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}}, \"cohorts\": [{\"id\": \"lang_en\", \"where\": {\"lang\": [\"en\"]}}, {\"id\": \"lang_hi\", \"where\": {\"lang\": [\"hi\"]}}, {\"id\": \"lang_kn\", \"where\": {\"lang\": [\"kn\"]}}]}, \"affected_leads\": 3760, \"dry_run\": {\"method\": \"historical cohort evidence and proposed-allocation replay; causal assumptions stated in evidence\", \"evidence\": {\"estimated_lift\": 0, \"uncertainty\": \"50% incumbent mixture plus 50% exploration; no benefit claimed\", \"cohorts\": [{\"id\": \"lang_en\", \"where\": {\"lang\": [\"en\"]}}, {\"id\": \"lang_hi\", \"where\": {\"lang\": [\"hi\"]}}, {\"id\": \"lang_kn\", \"where\": {\"lang\": [\"kn\"]}}, {\"id\": \"default\", \"where\": {}}], \"statistical_unit\": \"first observation per person per KPI per epoch\", \"milestones\": [200, 400, 800, 1600, 3200, 6400, 12800, 25600, 51200], \"population\": {\"active_enrollments\": 3760, \"method\": \"unconcluded enrollments within campaign cadence; exhausted attempts may still be included\"}, \"replay\": {\"method\": \"reweight observed randomized-arm means within shared cohorts; assumes epoch stationarity and unchanged population\", \"cohorts\": [], \"weighted_estimated_lift\": null, \"unsupported_arms_withhold_estimate\": true}}, \"affected_leads_method\": \"upper bound: active-cadence unconcluded enrollments; excludes expired campaigns; may include exhausted attempts\"}, \"impact_score\": 0, \"rationale\": \"Measure voice alternatives in shared cohorts; {\\\"cohorts\\\": [{\\\"id\\\": \\\"lang_en\\\", \\\"where\\\": {\\\"lang\\\": [\\\"en\\\"]}}, {\\\"id\\\": \\\"lang_hi\\\", \\\"where\\\": {\\\"lang\\\": [\\\"hi\\\"]}}, {\\\"id\\\": \\\"lang_kn\\\", \\\"where\\\": {\\\"lang\\\": [\\\"kn\\\"]}}, {\\\"id\\\": \\\"default\\\", \\\"where\\\": {}}], \\\"estimated_lift\\\": 0, \\\"milestones\\\": [200, 400, 800, 1600, 3200, 6400, 12800, 25600, 51200], \\\"population\\\": {\\\"active_enrollments\\\": 3760, \\\"method\\\": \\\"unconcluded enrollments within campaign cadence; exhausted attempts may still be included\\\"}, \\\"replay\\\": {\\\"cohorts\\\": [], \\\"method\\\": \\\"reweight observed randomized-arm means within shared cohorts; assumes epoch stationarity and unchanged population\\\", \\\"unsupported_arms_withhold_estimate\\\": true, \\\"weighted_estimated_lift\\\": null}, \\\"statistical_unit\\\": \\\"first observation per person per KPI per epoch\\\", \\\"uncertainty\\\": \\\"50% incumbent mixture plus 50% exploration; no benefit claimed\\\"}\", \"evidence\": {}, \"proposal_id\": \"3e9e2adb399aefabdbf701a8bb667d9f\"}",
+      "reason": "{\"dimension\": \"voice\", \"stage\": \"exploring\", \"baseline\": {\"V1\": 1.0}, \"learning\": {\"epoch\": 1, \"dimension\": \"voice\", \"cohorts\": [{\"id\": \"lang_en\", \"where\": {\"lang\": [\"en\"]}}, {\"id\": \"lang_hi\", \"where\": {\"lang\": [\"hi\"]}}, {\"id\": \"lang_kn\", \"where\": {\"lang\": [\"kn\"]}}, {\"id\": \"default\", \"where\": {}}], \"controls\": {\"lang_en\": \"V1\", \"lang_hi\": \"V1\", \"lang_kn\": \"V1\", \"default\": \"V1\"}, \"options\": [\"V1\", \"V2\", \"V3\", \"V4\"], \"baseline\": {\"cohorts\": [], \"allocations\": {\"default\": {\"welcome_message\": {\"W1\": 1.0}, \"voice\": {\"V1\": 1.0}, \"caller_id\": {\"D1\": 0.5, \"D2\": 0.5}}}, \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}, \"stage\": \"exploring\", \"tested\": {}, \"promoted\": {}, \"created\": \"2027-01-04T11:00:00+05:30\"}, \"auto\": false, \"previous_config\": {\"cohorts\": [], \"allocations\": {\"default\": {\"welcome_message\": {\"W1\": 1.0}, \"voice\": {\"V1\": 1.0}, \"caller_id\": {\"D1\": 0.5, \"D2\": 0.5}}}, \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}}",
       "created": "2027-01-04T11:00:00+05:30"
     },
     {
-      "proposal_id": "6fba039702e970c92ebbdaae7d2f985f",
+      "proposal_id": "f1c02ac8755ed3f9aec8673f4aac1719",
       "workflow": "nw_renewal",
       "status": "applied",
       "approval": "apr_00002",
-      "body": "{\"workflow_id\": \"nw_renewal\", \"base_version\": 1, \"proposed_config\": {\"cohorts\": [], \"allocations\": {\"default\": {\"welcome_message\": {\"W1\": 1.0}, \"voice\": {\"V1\": 0.7749999999999999, \"V2\": 0.075, \"V3\": 0.075, \"V4\": 0.075}, \"caller_id\": {\"D1\": 0.5, \"D2\": 0.5}}}, \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}, \"change_summary\": \"Measure voice alternatives with 30% exploration traffic\", \"diff\": {\"voice\": {\"V1\": 0.7749999999999999, \"V2\": 0.075, \"V3\": 0.075, \"V4\": 0.075}}, \"affected_leads\": 9159, \"dry_run\": {\"method\": \"observed aggregate replay; no causal guarantee\", \"evidence\": {\"estimated_lift\": 0, \"uncertainty\": \"exploration; benefit unknown\"}, \"affected_leads_method\": \"upper bound: unconcluded enrollments; includes expired cadence\"}, \"impact_score\": 0, \"rationale\": \"Measure voice alternatives with 30% exploration traffic; {\\\"estimated_lift\\\": 0, \\\"uncertainty\\\": \\\"exploration; benefit unknown\\\"}\", \"evidence\": {}, \"proposal_id\": \"6fba039702e970c92ebbdaae7d2f985f\"}",
-      "reason": "{\"dimension\": \"voice\", \"stage\": \"exploring\", \"baseline\": {\"V1\": 1.0}, \"auto\": false, \"previous_config\": {\"cohorts\": [], \"allocations\": {\"default\": {\"welcome_message\": {\"W1\": 1.0}, \"voice\": {\"V1\": 1.0}, \"caller_id\": {\"D1\": 0.5, \"D2\": 0.5}}}, \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}}",
+      "body": "{\"workflow_id\": \"nw_renewal\", \"base_version\": 1, \"proposed_config\": {\"cohorts\": [{\"id\": \"lang_en\", \"where\": {\"lang\": [\"en\"]}}, {\"id\": \"lang_hi\", \"where\": {\"lang\": [\"hi\"]}}, {\"id\": \"lang_ta\", \"where\": {\"lang\": [\"ta\"]}}], \"allocations\": {\"default\": {\"welcome_message\": {\"W1\": 1.0}, \"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}, \"caller_id\": {\"D1\": 0.5, \"D2\": 0.5}}, \"lang_en\": {\"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}}, \"lang_hi\": {\"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}}, \"lang_ta\": {\"voice\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}}}, \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}, \"change_summary\": \"Measure voice alternatives in shared cohorts\", \"diff\": {\"voice\": {\"default\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}, \"lang_en\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}, \"lang_hi\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}, \"lang_ta\": {\"V1\": 0.625, \"V2\": 0.125, \"V3\": 0.125, \"V4\": 0.125}}, \"cohorts\": [{\"id\": \"lang_en\", \"where\": {\"lang\": [\"en\"]}}, {\"id\": \"lang_hi\", \"where\": {\"lang\": [\"hi\"]}}, {\"id\": \"lang_ta\", \"where\": {\"lang\": [\"ta\"]}}]}, \"affected_leads\": 2650, \"dry_run\": {\"method\": \"historical cohort evidence and proposed-allocation replay; causal assumptions stated in evidence\", \"evidence\": {\"estimated_lift\": 0, \"uncertainty\": \"50% incumbent mixture plus 50% exploration; no benefit claimed\", \"cohorts\": [{\"id\": \"lang_en\", \"where\": {\"lang\": [\"en\"]}}, {\"id\": \"lang_hi\", \"where\": {\"lang\": [\"hi\"]}}, {\"id\": \"lang_ta\", \"where\": {\"lang\": [\"ta\"]}}, {\"id\": \"default\", \"where\": {}}], \"statistical_unit\": \"first observation per person per KPI per epoch\", \"milestones\": [200, 400, 800, 1600, 3200, 6400, 12800, 25600, 51200], \"population\": {\"active_enrollments\": 2650, \"method\": \"unconcluded enrollments within campaign cadence; exhausted attempts may still be included\"}, \"replay\": {\"method\": \"reweight observed randomized-arm means within shared cohorts; assumes epoch stationarity and unchanged population\", \"cohorts\": [], \"weighted_estimated_lift\": null, \"unsupported_arms_withhold_estimate\": true}}, \"affected_leads_method\": \"upper bound: active-cadence unconcluded enrollments; excludes expired campaigns; may include exhausted attempts\"}, \"impact_score\": 0, \"rationale\": \"Measure voice alternatives in shared cohorts; {\\\"cohorts\\\": [{\\\"id\\\": \\\"lang_en\\\", \\\"where\\\": {\\\"lang\\\": [\\\"en\\\"]}}, {\\\"id\\\": \\\"lang_hi\\\", \\\"where\\\": {\\\"lang\\\": [\\\"hi\\\"]}}, {\\\"id\\\": \\\"lang_ta\\\", \\\"where\\\": {\\\"lang\\\": [\\\"ta\\\"]}}, {\\\"id\\\": \\\"default\\\", \\\"where\\\": {}}], \\\"estimated_lift\\\": 0, \\\"milestones\\\": [200, 400, 800, 1600, 3200, 6400, 12800, 25600, 51200], \\\"population\\\": {\\\"active_enrollments\\\": 2650, \\\"method\\\": \\\"unconcluded enrollments within campaign cadence; exhausted attempts may still be included\\\"}, \\\"replay\\\": {\\\"cohorts\\\": [], \\\"method\\\": \\\"reweight observed randomized-arm means within shared cohorts; assumes epoch stationarity and unchanged population\\\", \\\"unsupported_arms_withhold_estimate\\\": true, \\\"weighted_estimated_lift\\\": null}, \\\"statistical_unit\\\": \\\"first observation per person per KPI per epoch\\\", \\\"uncertainty\\\": \\\"50% incumbent mixture plus 50% exploration; no benefit claimed\\\"}\", \"evidence\": {}, \"proposal_id\": \"f1c02ac8755ed3f9aec8673f4aac1719\"}",
+      "reason": "{\"dimension\": \"voice\", \"stage\": \"exploring\", \"baseline\": {\"V1\": 1.0}, \"learning\": {\"epoch\": 1, \"dimension\": \"voice\", \"cohorts\": [{\"id\": \"lang_en\", \"where\": {\"lang\": [\"en\"]}}, {\"id\": \"lang_hi\", \"where\": {\"lang\": [\"hi\"]}}, {\"id\": \"lang_ta\", \"where\": {\"lang\": [\"ta\"]}}, {\"id\": \"default\", \"where\": {}}], \"controls\": {\"lang_en\": \"V1\", \"lang_hi\": \"V1\", \"lang_ta\": \"V1\", \"default\": \"V1\"}, \"options\": [\"V1\", \"V2\", \"V3\", \"V4\"], \"baseline\": {\"cohorts\": [], \"allocations\": {\"default\": {\"welcome_message\": {\"W1\": 1.0}, \"voice\": {\"V1\": 1.0}, \"caller_id\": {\"D1\": 0.5, \"D2\": 0.5}}}, \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}, \"stage\": \"exploring\", \"tested\": {}, \"promoted\": {}, \"created\": \"2027-01-04T11:00:00+05:30\"}, \"auto\": false, \"previous_config\": {\"cohorts\": [], \"allocations\": {\"default\": {\"welcome_message\": {\"W1\": 1.0}, \"voice\": {\"V1\": 1.0}, \"caller_id\": {\"D1\": 0.5, \"D2\": 0.5}}}, \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}}",
       "created": "2027-01-04T11:00:00+05:30"
     },
     {
-      "proposal_id": "6be7b881f26bbed134be69a8e04ca971",
+      "proposal_id": "c92e973582e369bad2893457fe4d31b5",
       "workflow": "nw_kyc",
       "status": "applied",
       "approval": "apr_00003",
-      "body": "{\"workflow_id\": \"nw_kyc\", \"base_version\": 1, \"proposed_config\": {\"cohorts\": [], \"allocations\": {\"default\": {\"welcome_message\": {\"W1\": 1.0}, \"voice\": {\"V1\": 1.0}, \"caller_id\": {\"D1\": 0.7999999999999999, \"D2\": 0.09999999999999999, \"D3\": 0.09999999999999999}}}, \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}, \"change_summary\": \"Measure caller_id alternatives with 30% exploration traffic\", \"diff\": {\"caller_id\": {\"D1\": 0.7999999999999999, \"D2\": 0.09999999999999999, \"D3\": 0.09999999999999999}}, \"affected_leads\": 6203, \"dry_run\": {\"method\": \"observed aggregate replay; no causal guarantee\", \"evidence\": {\"estimated_lift\": 0, \"uncertainty\": \"exploration; benefit unknown\"}, \"affected_leads_method\": \"upper bound: unconcluded enrollments; includes expired cadence\"}, \"impact_score\": 0, \"rationale\": \"Measure caller_id alternatives with 30% exploration traffic; {\\\"estimated_lift\\\": 0, \\\"uncertainty\\\": \\\"exploration; benefit unknown\\\"}\", \"evidence\": {}, \"proposal_id\": \"6be7b881f26bbed134be69a8e04ca971\"}",
-      "reason": "{\"dimension\": \"caller_id\", \"stage\": \"exploring\", \"baseline\": {\"D1\": 1.0}, \"auto\": false, \"previous_config\": {\"cohorts\": [], \"allocations\": {\"default\": {\"welcome_message\": {\"W1\": 1.0}, \"voice\": {\"V1\": 1.0}, \"caller_id\": {\"D1\": 1.0}}}, \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}}",
+      "body": "{\"workflow_id\": \"nw_kyc\", \"base_version\": 1, \"proposed_config\": {\"cohorts\": [{\"id\": \"lang_en\", \"where\": {\"lang\": [\"en\"]}}, {\"id\": \"lang_hi\", \"where\": {\"lang\": [\"hi\"]}}], \"allocations\": {\"default\": {\"welcome_message\": {\"W1\": 1.0}, \"voice\": {\"V1\": 1.0}, \"caller_id\": {\"D1\": 0.6666666666666666, \"D2\": 0.16666666666666666, \"D3\": 0.16666666666666666}}, \"lang_en\": {\"caller_id\": {\"D1\": 0.6666666666666666, \"D2\": 0.16666666666666666, \"D3\": 0.16666666666666666}}, \"lang_hi\": {\"caller_id\": {\"D1\": 0.6666666666666666, \"D2\": 0.16666666666666666, \"D3\": 0.16666666666666666}}}, \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}, \"change_summary\": \"Measure caller_id alternatives in shared cohorts\", \"diff\": {\"caller_id\": {\"default\": {\"D1\": 0.6666666666666666, \"D2\": 0.16666666666666666, \"D3\": 0.16666666666666666}, \"lang_en\": {\"D1\": 0.6666666666666666, \"D2\": 0.16666666666666666, \"D3\": 0.16666666666666666}, \"lang_hi\": {\"D1\": 0.6666666666666666, \"D2\": 0.16666666666666666, \"D3\": 0.16666666666666666}}, \"cohorts\": [{\"id\": \"lang_en\", \"where\": {\"lang\": [\"en\"]}}, {\"id\": \"lang_hi\", \"where\": {\"lang\": [\"hi\"]}}]}, \"affected_leads\": 0, \"dry_run\": {\"method\": \"historical cohort evidence and proposed-allocation replay; causal assumptions stated in evidence\", \"evidence\": {\"estimated_lift\": 0, \"uncertainty\": \"50% incumbent mixture plus 50% exploration; no benefit claimed\", \"cohorts\": [{\"id\": \"lang_en\", \"where\": {\"lang\": [\"en\"]}}, {\"id\": \"lang_hi\", \"where\": {\"lang\": [\"hi\"]}}, {\"id\": \"default\", \"where\": {}}], \"statistical_unit\": \"first observation per person per KPI per epoch\", \"milestones\": [200, 400, 800, 1600, 3200, 6400, 12800, 25600, 51200], \"population\": {\"active_enrollments\": 1723, \"method\": \"unconcluded enrollments within campaign cadence; exhausted attempts may still be included\", \"existing_campaigns_affected\": 0, \"next_campaign_forecast\": 700, \"forecast_is_not_observed\": true}, \"replay\": {\"method\": \"reweight observed randomized-arm means within shared cohorts; assumes epoch stationarity and unchanged population\", \"cohorts\": [], \"weighted_estimated_lift\": null, \"unsupported_arms_withhold_estimate\": true}}, \"affected_leads_method\": \"upper bound: active-cadence unconcluded enrollments; excludes expired campaigns; may include exhausted attempts\"}, \"impact_score\": 0, \"rationale\": \"Measure caller_id alternatives in shared cohorts; {\\\"cohorts\\\": [{\\\"id\\\": \\\"lang_en\\\", \\\"where\\\": {\\\"lang\\\": [\\\"en\\\"]}}, {\\\"id\\\": \\\"lang_hi\\\", \\\"where\\\": {\\\"lang\\\": [\\\"hi\\\"]}}, {\\\"id\\\": \\\"default\\\", \\\"where\\\": {}}], \\\"estimated_lift\\\": 0, \\\"milestones\\\": [200, 400, 800, 1600, 3200, 6400, 12800, 25600, 51200], \\\"population\\\": {\\\"active_enrollments\\\": 1723, \\\"existing_campaigns_affected\\\": 0, \\\"forecast_is_not_observed\\\": true, \\\"method\\\": \\\"unconcluded enrollments within campaign cadence; exhausted attempts may still be included\\\", \\\"next_campaign_forecast\\\": 700}, \\\"replay\\\": {\\\"cohorts\\\": [], \\\"method\\\": \\\"reweight observed randomized-arm means within shared cohorts; assumes epoch stationarity and unchanged population\\\", \\\"unsupported_arms_withhold_estimate\\\": true, \\\"weighted_estimated_lift\\\": null}, \\\"statistical_unit\\\": \\\"first observation per person per KPI per epoch\\\", \\\"uncertainty\\\": \\\"50% incumbent mixture plus 50% exploration; no benefit claimed\\\"}\", \"evidence\": {}, \"proposal_id\": \"c92e973582e369bad2893457fe4d31b5\"}",
+      "reason": "{\"dimension\": \"caller_id\", \"stage\": \"exploring\", \"baseline\": {\"D1\": 1.0}, \"learning\": {\"epoch\": 1, \"dimension\": \"caller_id\", \"cohorts\": [{\"id\": \"lang_en\", \"where\": {\"lang\": [\"en\"]}}, {\"id\": \"lang_hi\", \"where\": {\"lang\": [\"hi\"]}}, {\"id\": \"default\", \"where\": {}}], \"controls\": {\"lang_en\": \"D1\", \"lang_hi\": \"D1\", \"default\": \"D1\"}, \"options\": [\"D1\", \"D2\", \"D3\"], \"baseline\": {\"cohorts\": [], \"allocations\": {\"default\": {\"welcome_message\": {\"W1\": 1.0}, \"voice\": {\"V1\": 1.0}, \"caller_id\": {\"D1\": 1.0}}}, \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}, \"stage\": \"exploring\", \"tested\": {}, \"promoted\": {}, \"created\": \"2027-01-04T11:00:00+05:30\"}, \"auto\": false, \"previous_config\": {\"cohorts\": [], \"allocations\": {\"default\": {\"welcome_message\": {\"W1\": 1.0}, \"voice\": {\"V1\": 1.0}, \"caller_id\": {\"D1\": 1.0}}}, \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}}",
       "created": "2027-01-04T11:00:00+05:30"
     }
   ],
   "recent_decisions": [
     {
+      "ts": "2027-01-13T23:00:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.005319374991813675, \"tick_minutes\": 60}"
+    },
+    {
+      "ts": "2027-01-13T23:00:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 324296, \"seconds\": 0.10326195799279958, \"sim_minute\": 14340, \"simulated_lag_histogram\": []}"
+    },
+    {
+      "ts": "2027-01-13T22:00:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.0021857499959878623, \"tick_minutes\": 60}"
+    },
+    {
+      "ts": "2027-01-13T22:00:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 324296, \"seconds\": 0.14160045800963417, \"sim_minute\": 14280, \"simulated_lag_histogram\": []}"
+    },
+    {
+      "ts": "2027-01-13T21:00:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.0016887499950826168, \"tick_minutes\": 60}"
+    },
+    {
+      "ts": "2027-01-13T21:00:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 324296, \"seconds\": 0.10588604098302312, \"sim_minute\": 14220, \"simulated_lag_histogram\": [[6.0, 100], [9.0, 75]]}"
+    },
+    {
+      "ts": "2027-01-13T21:00:00+05:30",
+      "workflow": "ks_cancel",
+      "kind": "experiment_look",
+      "evidence": "{\"alpha\": 2.8144773233982716e-05, \"candidate\": \"V3\", \"cohort\": \"lang_hi\", \"control\": \"V1\", \"dimension\": \"voice\", \"epoch\": 2, \"n\": 400, \"p_value\": 0.144371026289371, \"result\": \"no promotion\", \"statistical_unit\": \"independent person\", \"successes\": [204, 188]}"
+    },
+    {
+      "ts": "2027-01-13T20:45:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.008595959021477029, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T20:45:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 324121, \"seconds\": 0.020301499986089766, \"sim_minute\": 14205, \"simulated_lag_histogram\": [[8.0, 75], [9.0, 100]]}"
+    },
+    {
+      "ts": "2027-01-13T20:30:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.007395958004053682, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T20:30:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 323946, \"seconds\": 0.02204045798862353, \"sim_minute\": 14190, \"simulated_lag_histogram\": [[2.0, 100], [14.0, 75]]}"
+    },
+    {
+      "ts": "2027-01-13T20:15:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.009771375014679506, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T20:15:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 323771, \"seconds\": 0.02066983300028369, \"sim_minute\": 14175, \"simulated_lag_histogram\": [[14.0, 75], [15.0, 100]]}"
+    },
+    {
+      "ts": "2027-01-13T20:00:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.013231083023129031, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T20:00:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 323596, \"seconds\": 0.11222229100530967, \"sim_minute\": 14160, \"simulated_lag_histogram\": [[1.0, 50], [11.0, 175]]}"
+    },
+    {
+      "ts": "2027-01-13T19:45:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.010259166010655463, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T19:45:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 323371, \"seconds\": 0.023673249990679324, \"sim_minute\": 14145, \"simulated_lag_histogram\": [[4.0, 50], [9.0, 175]]}"
+    },
+    {
+      "ts": "2027-01-13T19:30:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.016268499981379136, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T19:30:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 323146, \"seconds\": 0.027079541003331542, \"sim_minute\": 14130, \"simulated_lag_histogram\": [[1.0, 50], [12.0, 75], [15.0, 100]]}"
+    },
+    {
+      "ts": "2027-01-13T19:15:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.009043666010256857, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T19:15:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 322921, \"seconds\": 0.023087000008672476, \"sim_minute\": 14115, \"simulated_lag_histogram\": [[3.0, 75], [13.0, 150]]}"
+    },
+    {
+      "ts": "2027-01-13T19:00:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.007724791998043656, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T19:00:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 322696, \"seconds\": 0.1306171659962274, \"sim_minute\": 14100, \"simulated_lag_histogram\": [[4.0, 50], [8.0, 75], [9.0, 100]]}"
+    },
+    {
+      "ts": "2027-01-13T19:00:00+05:30",
+      "workflow": "nw_kyc",
+      "kind": "guardrail_blocked",
+      "evidence": "{\"alpha\": 0.00022515818587186173, \"arm_observations\": {\"D1\": {\"n\": 2195, \"successes\": 614}, \"D2\": {\"n\": 494, \"successes\": 181}, \"D3\": {\"n\": 512, \"successes\": 178}}, \"candidate\": \"D2\", \"cohort\": \"lang_en\", \"control\": \"D1\", \"dimension\": \"caller_id\", \"epoch\": 1, \"guardrail\": {\"alpha\": 0.00011257909293593086, \"lower_difference\": -0.1807496236152184, \"margin\": 0.02, \"metric\": \"engagement\", \"n\": 400, \"passed\": false}, \"n\": 400, \"p_value\": 1.7027837262400363e-05, \"statistical_unit\": \"independent person\", \"successes\": [151, 96]}"
+    },
+    {
+      "ts": "2027-01-13T18:45:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.00818691699532792, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T18:45:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 322471, \"seconds\": 0.02649395799380727, \"sim_minute\": 14085, \"simulated_lag_histogram\": [[5.0, 75], [12.0, 50], [14.0, 100]]}"
+    },
+    {
+      "ts": "2027-01-13T18:30:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.023390999995172024, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T18:30:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 322246, \"seconds\": 0.03831850001006387, \"sim_minute\": 14070, \"simulated_lag_histogram\": [[7.0, 50], [10.0, 100], [12.0, 75]]}"
+    },
+    {
+      "ts": "2027-01-13T18:15:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.011792083998443559, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T18:15:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 322021, \"seconds\": 0.027227040991419926, \"sim_minute\": 14055, \"simulated_lag_histogram\": [[4.0, 50], [7.0, 100], [13.0, 75]]}"
+    },
+    {
+      "ts": "2027-01-13T18:00:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.022897624992765486, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T18:00:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 321796, \"seconds\": 0.22112695800024085, \"sim_minute\": 14040, \"simulated_lag_histogram\": [[8.0, 100], [11.0, 50], [14.0, 75]]}"
+    },
+    {
+      "ts": "2027-01-13T17:45:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.01428012500400655, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T17:45:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 321571, \"seconds\": 0.0283103330002632, \"sim_minute\": 14025, \"simulated_lag_histogram\": [[2.0, 100], [4.0, 50], [14.0, 75]]}"
+    },
+    {
+      "ts": "2027-01-13T17:30:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.007620499993208796, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T17:30:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 321346, \"seconds\": 0.029090791998896748, \"sim_minute\": 14010, \"simulated_lag_histogram\": [[2.0, 175], [7.0, 50]]}"
+    },
+    {
+      "ts": "2027-01-13T17:15:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.01973279198864475, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T17:15:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 321121, \"seconds\": 0.044516207999549806, \"sim_minute\": 13995, \"simulated_lag_histogram\": [[5.0, 100], [12.0, 125]]}"
+    },
+    {
+      "ts": "2027-01-13T17:00:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.018413959012832493, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T17:00:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 320896, \"seconds\": 0.18246166699100286, \"sim_minute\": 13980, \"simulated_lag_histogram\": [[1.0, 100], [4.0, 75], [13.0, 50]]}"
+    },
+    {
+      "ts": "2027-01-13T16:45:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.010267999983625486, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T16:45:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 320671, \"seconds\": 0.030200041976058856, \"sim_minute\": 13965, \"simulated_lag_histogram\": [[6.0, 50], [10.0, 100], [13.0, 75]]}"
+    },
+    {
+      "ts": "2027-01-13T16:30:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.013980208983412012, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T16:30:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 320446, \"seconds\": 0.03182112501235679, \"sim_minute\": 13950, \"simulated_lag_histogram\": [[8.0, 75], [11.0, 100], [14.0, 50]]}"
+    },
+    {
+      "ts": "2027-01-13T16:15:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.012168416986241937, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T16:15:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 320221, \"seconds\": 0.02809554198756814, \"sim_minute\": 13935, \"simulated_lag_histogram\": [[9.0, 100], [12.0, 75], [14.0, 50]]}"
+    },
+    {
+      "ts": "2027-01-13T16:00:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.013483792019542307, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T16:00:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 319996, \"seconds\": 0.171941958979005, \"sim_minute\": 13920, \"simulated_lag_histogram\": [[4.0, 50], [7.0, 100], [14.0, 75]]}"
+    },
+    {
+      "ts": "2027-01-13T15:45:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.03126391701516695, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T15:45:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 319771, \"seconds\": 0.037619666021782905, \"sim_minute\": 13905, \"simulated_lag_histogram\": [[4.0, 50], [11.0, 100], [14.0, 75]]}"
+    },
+    {
+      "ts": "2027-01-13T15:30:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.013017499994020909, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T15:30:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 319546, \"seconds\": 0.02560020799865015, \"sim_minute\": 13890, \"simulated_lag_histogram\": [[9.0, 100], [13.0, 75], [14.0, 50]]}"
+    },
+    {
+      "ts": "2027-01-13T15:15:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.03152691602008417, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T15:15:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 319321, \"seconds\": 0.035147667018463835, \"sim_minute\": 13875, \"simulated_lag_histogram\": [[4.0, 75], [14.0, 100], [15.0, 50]]}"
+    },
+    {
+      "ts": "2027-01-13T15:00:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.01506666699424386, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T15:00:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 319096, \"seconds\": 0.10053570900345221, \"sim_minute\": 13860, \"simulated_lag_histogram\": [[8.0, 100], [12.0, 75], [14.0, 50]]}"
+    },
+    {
+      "ts": "2027-01-13T14:45:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.013420583010884002, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T14:45:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 318871, \"seconds\": 0.03824012499535456, \"sim_minute\": 13845, \"simulated_lag_histogram\": [[11.0, 50], [12.0, 75], [13.0, 100]]}"
+    },
+    {
+      "ts": "2027-01-13T14:30:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.011712584004271775, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T14:30:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 318646, \"seconds\": 0.028768750024028122, \"sim_minute\": 13830, \"simulated_lag_histogram\": [[5.0, 150], [11.0, 75]]}"
+    },
+    {
+      "ts": "2027-01-13T14:15:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.009078584000235423, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T14:15:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 318421, \"seconds\": 0.022345125005813316, \"sim_minute\": 13815, \"simulated_lag_histogram\": [[1.0, 75], [6.0, 50], [9.0, 100]]}"
+    },
+    {
+      "ts": "2027-01-13T14:00:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.01949962502112612, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T14:00:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 318196, \"seconds\": 0.08765841700369492, \"sim_minute\": 13800, \"simulated_lag_histogram\": [[3.0, 50], [6.0, 100], [9.0, 75]]}"
+    },
+    {
+      "ts": "2027-01-13T13:45:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.01345749999745749, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T13:45:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 317971, \"seconds\": 0.10138512498815544, \"sim_minute\": 13785, \"simulated_lag_histogram\": [[2.0, 50], [9.0, 75], [15.0, 100]]}"
+    },
+    {
+      "ts": "2027-01-13T13:30:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.011105792014859617, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T13:30:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 317746, \"seconds\": 0.023398332996293902, \"sim_minute\": 13770, \"simulated_lag_histogram\": [[10.0, 75], [11.0, 50], [13.0, 100]]}"
+    },
+    {
+      "ts": "2027-01-13T13:15:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.011963916011154652, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T13:15:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 317521, \"seconds\": 0.027920708991587162, \"sim_minute\": 13755, \"simulated_lag_histogram\": [[3.0, 50], [6.0, 75], [11.0, 100]]}"
+    },
+    {
+      "ts": "2027-01-13T13:00:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.011958334012888372, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T13:00:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 317296, \"seconds\": 0.09377649999805726, \"sim_minute\": 13740, \"simulated_lag_histogram\": [[4.0, 100], [10.0, 75], [13.0, 50]]}"
+    },
+    {
+      "ts": "2027-01-13T12:45:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.006008875003317371, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T12:45:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 317071, \"seconds\": 0.02186700000311248, \"sim_minute\": 13725, \"simulated_lag_histogram\": [[1.0, 125], [10.0, 100]]}"
+    },
+    {
+      "ts": "2027-01-13T12:30:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.005943708005361259, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T12:30:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 316846, \"seconds\": 0.05791099998168647, \"sim_minute\": 13710, \"simulated_lag_histogram\": [[10.0, 50], [14.0, 100], [15.0, 75]]}"
+    },
+    {
+      "ts": "2027-01-13T12:15:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.00621620801393874, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T12:15:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 316621, \"seconds\": 0.028606124978978187, \"sim_minute\": 13695, \"simulated_lag_histogram\": [[6.0, 75], [12.0, 50], [14.0, 100]]}"
+    },
+    {
+      "ts": "2027-01-13T12:00:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.005548999994061887, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T12:00:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 316396, \"seconds\": 0.09229750002850778, \"sim_minute\": 13680, \"simulated_lag_histogram\": [[2.0, 100], [13.0, 75], [15.0, 50]]}"
+    },
+    {
+      "ts": "2027-01-13T11:45:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.005559417011681944, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T11:45:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 316171, \"seconds\": 0.026489292009500787, \"sim_minute\": 13665, \"simulated_lag_histogram\": [[1.0, 50], [4.0, 100], [5.0, 75]]}"
+    },
+    {
+      "ts": "2027-01-13T11:30:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.006917583988979459, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T11:30:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 315946, \"seconds\": 0.029324584000278264, \"sim_minute\": 13650, \"simulated_lag_histogram\": [[3.0, 100], [7.0, 50], [10.0, 75]]}"
+    },
+    {
+      "ts": "2027-01-13T11:15:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.010899707995122299, \"tick_minutes\": 15}"
+    },
+    {
+      "ts": "2027-01-13T11:15:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 315721, \"seconds\": 0.1312254169897642, \"sim_minute\": 13635, \"simulated_lag_histogram\": [[1.0, 50], [3.0, 100], [9.0, 75]]}"
+    },
+    {
       "ts": "2027-01-13T11:00:00+05:30",
-      "workflow": "nw_renewal",
-      "kind": "insufficient_evidence",
-      "evidence": "{\"dimension\": \"welcome_message\", \"look\": 2, \"stage\": \"exploring\", \"stats\": {\"W1\": {\"connected\": 1209, \"dials\": 4562, \"engaged\": 676, \"hallucinations\": 30}, \"W2\": {\"connected\": 156, \"dials\": 564, \"engaged\": 92, \"hallucinations\": 0}, \"W3\": {\"connected\": 155, \"dials\": 574, \"engaged\": 106, \"hallucinations\": 2}}}"
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.016783416998805478, \"tick_minutes\": 15}"
     },
     {
       "ts": "2027-01-13T11:00:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "insufficient_evidence",
-      "evidence": "{\"dimension\": \"voice\", \"look\": 4, \"stage\": \"exploring\", \"stats\": {\"V1\": {\"connected\": 1937, \"dials\": 11073, \"engaged\": 975, \"hallucinations\": 26}, \"V2\": {\"connected\": 411, \"dials\": 2222, \"engaged\": 218, \"hallucinations\": 9}, \"V3\": {\"connected\": 413, \"dials\": 2392, \"engaged\": 202, \"hallucinations\": 8}, \"V4\": {\"connected\": 451, \"dials\": 2313, \"engaged\": 226, \"hallucinations\": 7}}}"
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 315496, \"seconds\": 0.10248650002176873, \"sim_minute\": 13620, \"simulated_lag_histogram\": [[5.0, 50], [10.0, 75], [14.0, 100]]}"
     },
     {
-      "ts": "2027-01-13T00:00:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "post_apply_verification",
-      "evidence": "{\"after\": {\"connected\": 3080, \"dials\": 17200, \"engaged\": 1544, \"hallucinations\": 50}, \"before\": {\"connected\": 950, \"dials\": 4800, \"engaged\": 475, \"hallucinations\": 12}, \"harmful\": false, \"method\": \"temporal comparison; confounding possible\", \"proposal_id\": \"155cb99a06d1a0e2b975e7e4281e41e8\"}"
+      "ts": "2027-01-13T10:45:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.016401583008700982, \"tick_minutes\": 15}"
     },
     {
-      "ts": "2027-01-13T00:00:00+05:30",
-      "workflow": "nw_kyc",
-      "kind": "post_apply_verification",
-      "evidence": "{\"after\": {\"connected\": 3908, \"dials\": 14197, \"engaged\": 2352, \"hallucinations\": 56}, \"before\": {\"connected\": 963, \"dials\": 4000, \"engaged\": 578, \"hallucinations\": 21}, \"harmful\": false, \"method\": \"temporal comparison; confounding possible\", \"proposal_id\": \"6be7b881f26bbed134be69a8e04ca971\"}"
+      "ts": "2027-01-13T10:45:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 315271, \"seconds\": 0.03234733300632797, \"sim_minute\": 13605, \"simulated_lag_histogram\": [[1.0, 75], [5.0, 50], [13.0, 100]]}"
     },
     {
-      "ts": "2027-01-13T00:00:00+05:30",
-      "workflow": "nw_renewal",
-      "kind": "post_apply_verification",
-      "evidence": "{\"after\": {\"connected\": 1347, \"dials\": 5100, \"engaged\": 777, \"hallucinations\": 29}, \"before\": {\"connected\": 1892, \"dials\": 7200, \"engaged\": 1063, \"hallucinations\": 29}, \"harmful\": false, \"method\": \"temporal comparison; confounding possible\", \"proposal_id\": \"659925753a8892daad9f5a90aaefea8c\"}"
+      "ts": "2027-01-13T10:30:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.010364082991145551, \"tick_minutes\": 15}"
     },
     {
-      "ts": "2027-01-12T11:00:00+05:30",
-      "workflow": "nw_renewal",
-      "kind": "insufficient_evidence",
-      "evidence": "{\"dimension\": \"welcome_message\", \"look\": 1, \"stage\": \"exploring\", \"stats\": {\"W1\": {\"connected\": 427, \"dials\": 1669, \"engaged\": 244, \"hallucinations\": 8}, \"W2\": {\"connected\": 52, \"dials\": 224, \"engaged\": 31, \"hallucinations\": 0}, \"W3\": {\"connected\": 49, \"dials\": 207, \"engaged\": 33, \"hallucinations\": 2}}}"
+      "ts": "2027-01-13T10:30:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 315046, \"seconds\": 0.02707274997374043, \"sim_minute\": 13590, \"simulated_lag_histogram\": [[9.0, 50], [10.0, 100], [13.0, 75]]}"
     },
     {
-      "ts": "2027-01-12T11:00:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "insufficient_evidence",
-      "evidence": "{\"dimension\": \"voice\", \"look\": 3, \"stage\": \"exploring\", \"stats\": {\"V1\": {\"connected\": 1458, \"dials\": 8098, \"engaged\": 726, \"hallucinations\": 23}, \"V2\": {\"connected\": 305, \"dials\": 1657, \"engaged\": 164, \"hallucinations\": 6}, \"V3\": {\"connected\": 322, \"dials\": 1754, \"engaged\": 156, \"hallucinations\": 7}, \"V4\": {\"connected\": 325, \"dials\": 1691, \"engaged\": 169, \"hallucinations\": 6}}}"
+      "ts": "2027-01-13T10:15:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.01432537499931641, \"tick_minutes\": 15}"
     },
     {
-      "ts": "2027-01-12T10:00:00+05:30",
-      "workflow": "nw_renewal",
-      "kind": "post_apply_verification",
-      "evidence": "{\"after\": {\"connected\": 447, \"dials\": 1800, \"engaged\": 262, \"hallucinations\": 8}, \"before\": {\"connected\": 1892, \"dials\": 7200, \"engaged\": 1063, \"hallucinations\": 29}, \"harmful\": false, \"method\": \"temporal comparison; confounding possible\", \"proposal_id\": \"659925753a8892daad9f5a90aaefea8c\"}"
+      "ts": "2027-01-13T10:15:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 314821, \"seconds\": 0.026338124996982515, \"sim_minute\": 13575, \"simulated_lag_histogram\": [[7.0, 75], [10.0, 100], [11.0, 50]]}"
     },
     {
-      "ts": "2027-01-12T00:00:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "post_apply_verification",
-      "evidence": "{\"after\": {\"connected\": 2245, \"dials\": 12400, \"engaged\": 1137, \"hallucinations\": 37}, \"before\": {\"connected\": 950, \"dials\": 4800, \"engaged\": 475, \"hallucinations\": 12}, \"harmful\": false, \"method\": \"temporal comparison; confounding possible\", \"proposal_id\": \"155cb99a06d1a0e2b975e7e4281e41e8\"}"
+      "ts": "2027-01-13T10:00:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.011192917008884251, \"tick_minutes\": 15}"
     },
     {
-      "ts": "2027-01-12T00:00:00+05:30",
-      "workflow": "nw_kyc",
-      "kind": "post_apply_verification",
-      "evidence": "{\"after\": {\"connected\": 3330, \"dials\": 12197, \"engaged\": 2028, \"hallucinations\": 48}, \"before\": {\"connected\": 963, \"dials\": 4000, \"engaged\": 578, \"hallucinations\": 21}, \"harmful\": false, \"method\": \"temporal comparison; confounding possible\", \"proposal_id\": \"6be7b881f26bbed134be69a8e04ca971\"}"
+      "ts": "2027-01-13T10:00:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 314596, \"seconds\": 0.1772017089824658, \"sim_minute\": 13560, \"simulated_lag_histogram\": [[2.0, 100], [7.0, 75]]}"
     },
     {
-      "ts": "2027-01-11T15:00:00+05:30",
-      "workflow": "nw_renewal",
-      "kind": "config_changed",
-      "evidence": "{\"actor\": \"controller_approved\", \"approval_id\": \"apr_00008\", \"changed_dims\": [\"welcome_message\"], \"event_id\": 291691, \"proposal_id\": \"659925753a8892daad9f5a90aaefea8c\", \"ts\": \"2027-01-11T15:00:00+05:30\", \"type\": \"config_changed\", \"version\": 4, \"workflow_id\": \"nw_renewal\"}"
+      "ts": "2027-01-13T09:45:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.018832041998393834, \"tick_minutes\": 15}"
     },
     {
-      "ts": "2027-01-11T15:00:00+05:30",
-      "workflow": "nw_renewal",
-      "kind": "applied",
-      "evidence": "{\"plan\": {\"auto\": false, \"baseline\": {\"W1\": 1.0}, \"dimension\": \"welcome_message\", \"previous_config\": {\"allocations\": {\"default\": {\"caller_id\": {\"D1\": 0.5, \"D2\": 0.5}, \"voice\": {\"V2\": 1.0}, \"welcome_message\": {\"W1\": 1.0}}}, \"cohorts\": [], \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}, \"stage\": \"exploring\"}, \"proposal_id\": \"659925753a8892daad9f5a90aaefea8c\"}"
+      "ts": "2027-01-13T09:45:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 314421, \"seconds\": 0.0339359590143431, \"sim_minute\": 13545, \"simulated_lag_histogram\": [[4.0, 100], [8.0, 75]]}"
     },
     {
-      "ts": "2027-01-11T14:28:00+05:30",
-      "workflow": "nw_renewal",
-      "kind": "approval_decided",
-      "evidence": "{\"approval_id\": \"apr_00008\", \"event_id\": 291465, \"reasons\": [], \"status\": \"approved\", \"ts\": \"2027-01-11T14:28:00+05:30\", \"type\": \"approval_decided\", \"workflow_id\": \"nw_renewal\"}"
+      "ts": "2027-01-13T09:30:00+05:30",
+      "workflow": "",
+      "kind": "loop_timing",
+      "evidence": "{\"advance_seconds\": 0.02380870797787793, \"tick_minutes\": 15}"
     },
     {
-      "ts": "2027-01-11T11:00:00+05:30",
-      "workflow": "nw_kyc",
-      "kind": "insufficient_evidence",
-      "evidence": "{\"dimension\": \"caller_id\", \"look\": 7, \"stage\": \"exploring\", \"stats\": {\"D1\": {\"connected\": 2764, \"dials\": 11293, \"engaged\": 1686, \"hallucinations\": 38}, \"D2\": {\"connected\": 355, \"dials\": 1069, \"engaged\": 219, \"hallucinations\": 3}, \"D3\": {\"connected\": 365, \"dials\": 1038, \"engaged\": 221, \"hallucinations\": 6}}}"
-    },
-    {
-      "ts": "2027-01-11T11:00:00+05:30",
-      "workflow": "nw_renewal",
-      "kind": "proposal_prepared",
-      "evidence": "{\"auto\": false, \"evidence\": {\"estimated_lift\": 0, \"uncertainty\": \"exploration; benefit unknown\"}, \"proposal_id\": \"659925753a8892daad9f5a90aaefea8c\", \"summary\": \"Measure welcome_message alternatives with 30% exploration traffic\"}"
-    },
-    {
-      "ts": "2027-01-11T11:00:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "insufficient_evidence",
-      "evidence": "{\"dimension\": \"voice\", \"look\": 2, \"stage\": \"exploring\", \"stats\": {\"V1\": {\"connected\": 965, \"dials\": 5178, \"engaged\": 477, \"hallucinations\": 15}, \"V2\": {\"connected\": 194, \"dials\": 1036, \"engaged\": 106, \"hallucinations\": 4}, \"V3\": {\"connected\": 216, \"dials\": 1126, \"engaged\": 108, \"hallucinations\": 5}, \"V4\": {\"connected\": 203, \"dials\": 1060, \"engaged\": 101, \"hallucinations\": 5}}}"
-    },
-    {
-      "ts": "2027-01-11T00:00:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "post_apply_verification",
-      "evidence": "{\"after\": {\"connected\": 1414, \"dials\": 7600, \"engaged\": 703, \"hallucinations\": 26}, \"before\": {\"connected\": 950, \"dials\": 4800, \"engaged\": 475, \"hallucinations\": 12}, \"harmful\": false, \"method\": \"temporal comparison; confounding possible\", \"proposal_id\": \"155cb99a06d1a0e2b975e7e4281e41e8\"}"
-    },
-    {
-      "ts": "2027-01-11T00:00:00+05:30",
-      "workflow": "nw_kyc",
-      "kind": "post_apply_verification",
-      "evidence": "{\"after\": {\"connected\": 2783, \"dials\": 10197, \"engaged\": 1702, \"hallucinations\": 38}, \"before\": {\"connected\": 963, \"dials\": 4000, \"engaged\": 578, \"hallucinations\": 21}, \"harmful\": false, \"method\": \"temporal comparison; confounding possible\", \"proposal_id\": \"6be7b881f26bbed134be69a8e04ca971\"}"
-    },
-    {
-      "ts": "2027-01-10T11:00:00+05:30",
-      "workflow": "nw_kyc",
-      "kind": "insufficient_evidence",
-      "evidence": "{\"dimension\": \"caller_id\", \"look\": 6, \"stage\": \"exploring\", \"stats\": {\"D1\": {\"connected\": 2363, \"dials\": 9698, \"engaged\": 1443, \"hallucinations\": 35}, \"D2\": {\"connected\": 288, \"dials\": 857, \"engaged\": 175, \"hallucinations\": 1}, \"D3\": {\"connected\": 307, \"dials\": 845, \"engaged\": 187, \"hallucinations\": 6}}}"
-    },
-    {
-      "ts": "2027-01-10T11:00:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "insufficient_evidence",
-      "evidence": "{\"dimension\": \"voice\", \"look\": 1, \"stage\": \"exploring\", \"stats\": {\"V1\": {\"connected\": 415, \"dials\": 2211, \"engaged\": 201, \"hallucinations\": 8}, \"V2\": {\"connected\": 85, \"dials\": 447, \"engaged\": 42, \"hallucinations\": 2}, \"V3\": {\"connected\": 82, \"dials\": 471, \"engaged\": 37, \"hallucinations\": 2}, \"V4\": {\"connected\": 88, \"dials\": 471, \"engaged\": 50, \"hallucinations\": 2}}}"
-    },
-    {
-      "ts": "2027-01-10T00:00:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "post_apply_verification",
-      "evidence": "{\"after\": {\"connected\": 508, \"dials\": 2800, \"engaged\": 252, \"hallucinations\": 11}, \"before\": {\"connected\": 950, \"dials\": 4800, \"engaged\": 475, \"hallucinations\": 12}, \"harmful\": false, \"method\": \"temporal comparison; confounding possible\", \"proposal_id\": \"155cb99a06d1a0e2b975e7e4281e41e8\"}"
-    },
-    {
-      "ts": "2027-01-10T00:00:00+05:30",
-      "workflow": "nw_kyc",
-      "kind": "post_apply_verification",
-      "evidence": "{\"after\": {\"connected\": 2245, \"dials\": 8197, \"engaged\": 1376, \"hallucinations\": 32}, \"before\": {\"connected\": 963, \"dials\": 4000, \"engaged\": 578, \"hallucinations\": 21}, \"harmful\": false, \"method\": \"temporal comparison; confounding possible\", \"proposal_id\": \"6be7b881f26bbed134be69a8e04ca971\"}"
-    },
-    {
-      "ts": "2027-01-09T20:00:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "post_apply_verification",
-      "evidence": "{\"after\": {\"connected\": 430, \"dials\": 2400, \"engaged\": 215, \"hallucinations\": 10}, \"before\": {\"connected\": 950, \"dials\": 4800, \"engaged\": 475, \"hallucinations\": 12}, \"harmful\": false, \"method\": \"temporal comparison; confounding possible\", \"proposal_id\": \"155cb99a06d1a0e2b975e7e4281e41e8\"}"
-    },
-    {
-      "ts": "2027-01-09T16:00:00+05:30",
-      "workflow": "nw_renewal",
-      "kind": "supervisor_reassessment",
-      "evidence": "{\"after\": {\"actor\": \"supervisor\", \"applied_at\": \"2027-01-09T15:00:00+05:30\", \"config\": {\"allocations\": {\"default\": {\"caller_id\": {\"D1\": 0.5, \"D2\": 0.5}, \"voice\": {\"V2\": 1.0}, \"welcome_message\": {\"W1\": 1.0}}}, \"cohorts\": [], \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}, \"version\": 3, \"workflow_id\": \"nw_renewal\"}, \"before\": {\"actor\": \"controller_approved\", \"applied_at\": \"2027-01-04T16:00:00+05:30\", \"config\": {\"allocations\": {\"default\": {\"caller_id\": {\"D1\": 0.5, \"D2\": 0.5}, \"voice\": {\"V1\": 0.775, \"V2\": 0.07500000000000001, \"V3\": 0.07500000000000001, \"V4\": 0.07500000000000001}, \"welcome_message\": {\"W1\": 1.0}}}, \"cohorts\": [], \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}, \"version\": 2, \"workflow_id\": \"nw_renewal\"}, \"pause_until\": \"2027-01-10T16:00:00+05:30\"}"
-    },
-    {
-      "ts": "2027-01-09T15:00:00+05:30",
-      "workflow": "nw_renewal",
-      "kind": "config_changed",
-      "evidence": "{\"actor\": \"supervisor\", \"approval_id\": null, \"changed_dims\": [\"voice\"], \"event_id\": 264283, \"proposal_id\": null, \"ts\": \"2027-01-09T15:00:00+05:30\", \"type\": \"config_changed\", \"version\": 3, \"workflow_id\": \"nw_renewal\"}"
-    },
-    {
-      "ts": "2027-01-09T13:00:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "config_changed",
-      "evidence": "{\"actor\": \"controller_approved\", \"approval_id\": \"apr_00007\", \"changed_dims\": [\"voice\"], \"event_id\": 262482, \"proposal_id\": \"155cb99a06d1a0e2b975e7e4281e41e8\", \"ts\": \"2027-01-09T13:00:00+05:30\", \"type\": \"config_changed\", \"version\": 6, \"workflow_id\": \"ks_cancel\"}"
-    },
-    {
-      "ts": "2027-01-09T13:00:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "applied",
-      "evidence": "{\"plan\": {\"auto\": false, \"baseline\": {\"V1\": 0.775, \"V2\": 0.07500000000000001, \"V3\": 0.07500000000000001, \"V4\": 0.07500000000000001}, \"dimension\": \"voice\", \"previous_config\": {\"allocations\": {\"default\": {\"caller_id\": {\"D1\": 1.0}, \"voice\": {\"V1\": 0.775, \"V2\": 0.07500000000000001, \"V3\": 0.07500000000000001, \"V4\": 0.07500000000000001}, \"welcome_message\": {\"W1\": 1.0}}}, \"cohorts\": [], \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}, \"stage\": \"exploring\"}, \"proposal_id\": \"155cb99a06d1a0e2b975e7e4281e41e8\"}"
-    },
-    {
-      "ts": "2027-01-09T12:02:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "approval_decided",
-      "evidence": "{\"approval_id\": \"apr_00007\", \"event_id\": 262031, \"reasons\": [], \"status\": \"approved\", \"ts\": \"2027-01-09T12:02:00+05:30\", \"type\": \"approval_decided\", \"workflow_id\": \"ks_cancel\"}"
-    },
-    {
-      "ts": "2027-01-09T11:00:00+05:30",
-      "workflow": "nw_kyc",
-      "kind": "insufficient_evidence",
-      "evidence": "{\"dimension\": \"caller_id\", \"look\": 5, \"stage\": \"exploring\", \"stats\": {\"D1\": {\"connected\": 1936, \"dials\": 8092, \"engaged\": 1197, \"hallucinations\": 28}, \"D2\": {\"connected\": 223, \"dials\": 651, \"engaged\": 136, \"hallucinations\": 1}, \"D3\": {\"connected\": 242, \"dials\": 657, \"engaged\": 152, \"hallucinations\": 5}}}"
-    },
-    {
-      "ts": "2027-01-09T11:00:00+05:30",
-      "workflow": "nw_renewal",
-      "kind": "insufficient_evidence",
-      "evidence": "{\"dimension\": \"voice\", \"look\": 5, \"stage\": \"exploring\", \"stats\": {\"V1\": {\"connected\": 3310, \"dials\": 12607, \"engaged\": 1773, \"hallucinations\": 54}, \"V2\": {\"connected\": 362, \"dials\": 1249, \"engaged\": 197, \"hallucinations\": 2}, \"V3\": {\"connected\": 295, \"dials\": 1186, \"engaged\": 153, \"hallucinations\": 5}, \"V4\": {\"connected\": 285, \"dials\": 1158, \"engaged\": 135, \"hallucinations\": 2}}}"
-    },
-    {
-      "ts": "2027-01-09T11:00:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "proposal_prepared",
-      "evidence": "{\"auto\": false, \"evidence\": {\"estimated_lift\": 0, \"uncertainty\": \"exploration; benefit unknown\"}, \"proposal_id\": \"155cb99a06d1a0e2b975e7e4281e41e8\", \"summary\": \"Measure voice alternatives with 30% exploration traffic\"}"
-    },
-    {
-      "ts": "2027-01-09T00:00:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "post_apply_verification",
-      "evidence": "{\"after\": {\"connected\": 520, \"dials\": 2800, \"engaged\": 241, \"hallucinations\": 7}, \"before\": {\"connected\": 1218, \"dials\": 5400, \"engaged\": 514, \"hallucinations\": 62}, \"harmful\": false, \"method\": \"temporal comparison; confounding possible\", \"proposal_id\": \"d8e5a5a5dbe1c0655a0af9cce607ccce\"}"
-    },
-    {
-      "ts": "2027-01-09T00:00:00+05:30",
-      "workflow": "nw_kyc",
-      "kind": "post_apply_verification",
-      "evidence": "{\"after\": {\"connected\": 1694, \"dials\": 6197, \"engaged\": 1066, \"hallucinations\": 25}, \"before\": {\"connected\": 963, \"dials\": 4000, \"engaged\": 578, \"hallucinations\": 21}, \"harmful\": false, \"method\": \"temporal comparison; confounding possible\", \"proposal_id\": \"6be7b881f26bbed134be69a8e04ca971\"}"
-    },
-    {
-      "ts": "2027-01-09T00:00:00+05:30",
-      "workflow": "nw_renewal",
-      "kind": "post_apply_verification",
-      "evidence": "{\"after\": {\"connected\": 4093, \"dials\": 15600, \"engaged\": 2177, \"hallucinations\": 61}, \"before\": {\"connected\": 1892, \"dials\": 7200, \"engaged\": 1019, \"hallucinations\": 26}, \"harmful\": false, \"method\": \"temporal comparison; confounding possible\", \"proposal_id\": \"6fba039702e970c92ebbdaae7d2f985f\"}"
-    },
-    {
-      "ts": "2027-01-08T20:00:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "post_apply_verification",
-      "evidence": "{\"after\": {\"connected\": 456, \"dials\": 2400, \"engaged\": 209, \"hallucinations\": 6}, \"before\": {\"connected\": 1218, \"dials\": 5400, \"engaged\": 514, \"hallucinations\": 62}, \"harmful\": false, \"method\": \"temporal comparison; confounding possible\", \"proposal_id\": \"d8e5a5a5dbe1c0655a0af9cce607ccce\"}"
-    },
-    {
-      "ts": "2027-01-08T13:00:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "config_changed",
-      "evidence": "{\"actor\": \"controller_approved\", \"approval_id\": \"apr_00006\", \"changed_dims\": [\"prompt_version\"], \"event_id\": 248777, \"proposal_id\": \"d8e5a5a5dbe1c0655a0af9cce607ccce\", \"ts\": \"2027-01-08T13:00:00+05:30\", \"type\": \"config_changed\", \"version\": 5, \"workflow_id\": \"ks_cancel\"}"
-    },
-    {
-      "ts": "2027-01-08T13:00:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "incident_prompt_replaced",
-      "evidence": "{\"incident\": {\"baseline\": {\"connected\": 19957, \"dials\": 80209, \"engaged\": 9998, \"hallucinations\": 302}, \"candidate\": \"P1\", \"detected\": \"2027-01-07T19:00:00+05:30\", \"prompt\": \"P2\", \"recent\": {\"connected\": 337, \"dials\": 1600, \"engaged\": 143, \"hallucinations\": 23}, \"threshold\": 0.030132534950142807, \"validation\": {\"credits_remaining\": 189.0, \"failures\": 4, \"n\": 400, \"pass_rate\": 0.99, \"prompt_version\": \"P1\", \"ts\": \"2027-01-07T19:00:00+05:30\", \"validation_run_id\": \"val_00002\", \"workflow_id\": \"ks_cancel\"}, \"z_score\": 4.093138866052736}, \"new_prompt\": \"P1\"}"
-    },
-    {
-      "ts": "2027-01-08T13:00:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "applied",
-      "evidence": "{\"plan\": {\"auto\": false, \"previous_config\": {\"allocations\": {\"default\": {\"caller_id\": {\"D1\": 1.0}, \"voice\": {\"V1\": 0.775, \"V2\": 0.07500000000000001, \"V3\": 0.07500000000000001, \"V4\": 0.07500000000000001}, \"welcome_message\": {\"W1\": 1.0}}}, \"cohorts\": [], \"prompt_version\": \"P2\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}}, \"proposal_id\": \"d8e5a5a5dbe1c0655a0af9cce607ccce\"}"
-    },
-    {
-      "ts": "2027-01-08T11:53:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "approval_decided",
-      "evidence": "{\"approval_id\": \"apr_00006\", \"event_id\": 248101, \"reasons\": [], \"status\": \"approved\", \"ts\": \"2027-01-08T11:53:00+05:30\", \"type\": \"approval_decided\", \"workflow_id\": \"ks_cancel\"}"
-    },
-    {
-      "ts": "2027-01-08T11:00:00+05:30",
-      "workflow": "nw_kyc",
-      "kind": "insufficient_evidence",
-      "evidence": "{\"dimension\": \"caller_id\", \"look\": 4, \"stage\": \"exploring\", \"stats\": {\"D1\": {\"connected\": 1527, \"dials\": 6513, \"engaged\": 929, \"hallucinations\": 23}, \"D2\": {\"connected\": 155, \"dials\": 452, \"engaged\": 95, \"hallucinations\": 1}, \"D3\": {\"connected\": 165, \"dials\": 435, \"engaged\": 104, \"hallucinations\": 3}}}"
-    },
-    {
-      "ts": "2027-01-08T11:00:00+05:30",
-      "workflow": "nw_renewal",
-      "kind": "insufficient_evidence",
-      "evidence": "{\"dimension\": \"voice\", \"look\": 4, \"stage\": \"exploring\", \"stats\": {\"V1\": {\"connected\": 2567, \"dials\": 9798, \"engaged\": 1371, \"hallucinations\": 46}, \"V2\": {\"connected\": 277, \"dials\": 969, \"engaged\": 148, \"hallucinations\": 2}, \"V3\": {\"connected\": 231, \"dials\": 912, \"engaged\": 115, \"hallucinations\": 2}, \"V4\": {\"connected\": 227, \"dials\": 921, \"engaged\": 101, \"hallucinations\": 2}}}"
-    },
-    {
-      "ts": "2027-01-08T11:00:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "proposal_prepared",
-      "evidence": "{\"auto\": false, \"evidence\": {\"baseline\": {\"connected\": 19957, \"dials\": 80209, \"engaged\": 9998, \"hallucinations\": 302}, \"candidate_selection\": \"prefer observed engagement lower bound among safety-passing candidates\", \"estimated_lift\": 0, \"recent\": {\"connected\": 337, \"dials\": 1600, \"engaged\": 143, \"hallucinations\": 23}, \"safety_only\": true, \"validation\": {\"validation_run_id\": \"val_00002\"}}, \"proposal_id\": \"d8e5a5a5dbe1c0655a0af9cce607ccce\", \"summary\": \"Validate and replace prompt after sustained hallucination increase\"}"
-    },
-    {
-      "ts": "2027-01-08T00:00:00+05:30",
-      "workflow": "nw_kyc",
-      "kind": "post_apply_verification",
-      "evidence": "{\"after\": {\"connected\": 1140, \"dials\": 4197, \"engaged\": 700, \"hallucinations\": 18}, \"before\": {\"connected\": 963, \"dials\": 4000, \"engaged\": 578, \"hallucinations\": 21}, \"harmful\": false, \"method\": \"temporal comparison; confounding possible\", \"proposal_id\": \"6be7b881f26bbed134be69a8e04ca971\"}"
-    },
-    {
-      "ts": "2027-01-08T00:00:00+05:30",
-      "workflow": "nw_renewal",
-      "kind": "post_apply_verification",
-      "evidence": "{\"after\": {\"connected\": 3147, \"dials\": 12000, \"engaged\": 1648, \"hallucinations\": 51}, \"before\": {\"connected\": 1892, \"dials\": 7200, \"engaged\": 1019, \"hallucinations\": 26}, \"harmful\": false, \"method\": \"temporal comparison; confounding possible\", \"proposal_id\": \"6fba039702e970c92ebbdaae7d2f985f\"}"
-    },
-    {
-      "ts": "2027-01-07T19:00:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "credit_operation",
-      "evidence": "{\"key\": \"incident:ks_cancel:2027-01-07T19:00:00+05:30:P4\", \"result\": {\"credits_remaining\": 185.0, \"failures\": 11, \"n\": 400, \"pass_rate\": 0.9725, \"prompt_version\": \"P4\", \"ts\": \"2027-01-07T19:00:00+05:30\", \"validation_run_id\": \"val_00003\", \"workflow_id\": \"ks_cancel\"}, \"status\": 200}"
-    },
-    {
-      "ts": "2027-01-07T19:00:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "credit_operation",
-      "evidence": "{\"key\": \"incident:ks_cancel:2027-01-07T19:00:00+05:30:P1\", \"result\": {\"credits_remaining\": 189.0, \"failures\": 4, \"n\": 400, \"pass_rate\": 0.99, \"prompt_version\": \"P1\", \"ts\": \"2027-01-07T19:00:00+05:30\", \"validation_run_id\": \"val_00002\", \"workflow_id\": \"ks_cancel\"}, \"status\": 200}"
-    },
-    {
-      "ts": "2027-01-07T19:00:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "credit_operation",
-      "evidence": "{\"key\": \"incident:ks_cancel:2027-01-07T19:00:00+05:30:P3\", \"result\": {\"credits_remaining\": 193.0, \"failures\": 5, \"n\": 400, \"pass_rate\": 0.9875, \"prompt_version\": \"P3\", \"ts\": \"2027-01-07T19:00:00+05:30\", \"validation_run_id\": \"val_00001\", \"workflow_id\": \"ks_cancel\"}, \"status\": 200}"
-    },
-    {
-      "ts": "2027-01-07T19:00:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "credit_operation",
-      "evidence": "{\"key\": \"incident:ks_cancel:2027-01-07T19:00:00+05:30\", \"result\": {\"credits_remaining\": 197.0, \"suggestions\": [{\"prompt_version\": \"P3\", \"summary\": \"Grounded: benefit claims restricted to policy-schedule fields; tighter objection handling\"}, {\"prompt_version\": \"P1\", \"summary\": \"Current production prompt\"}, {\"prompt_version\": \"P4\", \"summary\": \"Persuasive: freer objection handling and richer benefit explanations\"}]}, \"status\": 200}"
-    },
-    {
-      "ts": "2027-01-07T19:00:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "hallucination_incident",
-      "evidence": "{\"baseline\": {\"connected\": 19957, \"dials\": 80209, \"engaged\": 9998, \"hallucinations\": 302}, \"detected\": \"2027-01-07T19:00:00+05:30\", \"prompt\": \"P2\", \"recent\": {\"connected\": 337, \"dials\": 1600, \"engaged\": 143, \"hallucinations\": 23}, \"threshold\": 0.030132534950142807, \"z_score\": 4.093138866052736}"
-    },
-    {
-      "ts": "2027-01-07T12:00:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "supervisor_reassessment",
-      "evidence": "{\"after\": {\"actor\": \"supervisor\", \"applied_at\": \"2027-01-07T11:30:00+05:30\", \"config\": {\"allocations\": {\"default\": {\"caller_id\": {\"D1\": 1.0}, \"voice\": {\"V1\": 0.775, \"V2\": 0.07500000000000001, \"V3\": 0.07500000000000001, \"V4\": 0.07500000000000001}, \"welcome_message\": {\"W1\": 1.0}}}, \"cohorts\": [], \"prompt_version\": \"P2\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}, \"version\": 4, \"workflow_id\": \"ks_cancel\"}, \"before\": {\"actor\": \"controller_approved\", \"applied_at\": \"2027-01-06T18:00:00+05:30\", \"config\": {\"allocations\": {\"default\": {\"caller_id\": {\"D1\": 1.0}, \"voice\": {\"V1\": 0.775, \"V2\": 0.07500000000000001, \"V3\": 0.07500000000000001, \"V4\": 0.07500000000000001}, \"welcome_message\": {\"W1\": 1.0}}}, \"cohorts\": [], \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}, \"version\": 3, \"workflow_id\": \"ks_cancel\"}, \"pause_until\": \"2027-01-08T12:00:00+05:30\"}"
-    },
-    {
-      "ts": "2027-01-07T11:30:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "config_changed",
-      "evidence": "{\"actor\": \"supervisor\", \"approval_id\": null, \"changed_dims\": [\"prompt_version\"], \"event_id\": 233722, \"proposal_id\": null, \"ts\": \"2027-01-07T11:30:00+05:30\", \"type\": \"config_changed\", \"version\": 4, \"workflow_id\": \"ks_cancel\"}"
-    },
-    {
-      "ts": "2027-01-07T11:00:00+05:30",
-      "workflow": "nw_kyc",
-      "kind": "insufficient_evidence",
-      "evidence": "{\"dimension\": \"caller_id\", \"look\": 3, \"stage\": \"exploring\", \"stats\": {\"D1\": {\"connected\": 1125, \"dials\": 4924, \"engaged\": 692, \"hallucinations\": 18}, \"D2\": {\"connected\": 74, \"dials\": 236, \"engaged\": 39, \"hallucinations\": 1}, \"D3\": {\"connected\": 90, \"dials\": 240, \"engaged\": 60, \"hallucinations\": 2}}}"
-    },
-    {
-      "ts": "2027-01-07T11:00:00+05:30",
-      "workflow": "nw_renewal",
-      "kind": "insufficient_evidence",
-      "evidence": "{\"dimension\": \"voice\", \"look\": 3, \"stage\": \"exploring\", \"stats\": {\"V1\": {\"connected\": 1865, \"dials\": 6973, \"engaged\": 1001, \"hallucinations\": 36}, \"V2\": {\"connected\": 201, \"dials\": 715, \"engaged\": 108, \"hallucinations\": 0}, \"V3\": {\"connected\": 168, \"dials\": 652, \"engaged\": 79, \"hallucinations\": 2}, \"V4\": {\"connected\": 166, \"dials\": 660, \"engaged\": 76, \"hallucinations\": 1}}}"
-    },
-    {
-      "ts": "2027-01-07T11:00:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "insufficient_evidence",
-      "evidence": "{\"dimension\": \"voice\", \"look\": 3, \"stage\": \"exploring\", \"stats\": {\"V1\": {\"connected\": 2247, \"dials\": 10259, \"engaged\": 1120, \"hallucinations\": 38}, \"V2\": {\"connected\": 218, \"dials\": 1029, \"engaged\": 102, \"hallucinations\": 2}, \"V3\": {\"connected\": 217, \"dials\": 956, \"engaged\": 118, \"hallucinations\": 2}, \"V4\": {\"connected\": 222, \"dials\": 956, \"engaged\": 109, \"hallucinations\": 1}}}"
-    },
-    {
-      "ts": "2027-01-07T00:00:00+05:30",
-      "workflow": "nw_kyc",
-      "kind": "post_apply_verification",
-      "evidence": "{\"after\": {\"connected\": 589, \"dials\": 2197, \"engaged\": 373, \"hallucinations\": 11}, \"before\": {\"connected\": 963, \"dials\": 4000, \"engaged\": 578, \"hallucinations\": 21}, \"harmful\": false, \"method\": \"temporal comparison; confounding possible\", \"proposal_id\": \"6be7b881f26bbed134be69a8e04ca971\"}"
-    },
-    {
-      "ts": "2027-01-07T00:00:00+05:30",
-      "workflow": "nw_renewal",
-      "kind": "post_apply_verification",
-      "evidence": "{\"after\": {\"connected\": 2250, \"dials\": 8400, \"engaged\": 1178, \"hallucinations\": 33}, \"before\": {\"connected\": 1892, \"dials\": 7200, \"engaged\": 1019, \"hallucinations\": 26}, \"harmful\": false, \"method\": \"temporal comparison; confounding possible\", \"proposal_id\": \"6fba039702e970c92ebbdaae7d2f985f\"}"
-    },
-    {
-      "ts": "2027-01-06T18:00:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "config_changed",
-      "evidence": "{\"actor\": \"controller_approved\", \"approval_id\": \"apr_00005\", \"changed_dims\": [\"caller_id\"], \"event_id\": 225868, \"proposal_id\": \"4b4c1fb553be6dc8707f7a8fb4212040\", \"ts\": \"2027-01-06T18:00:00+05:30\", \"type\": \"config_changed\", \"version\": 3, \"workflow_id\": \"ks_cancel\"}"
-    },
-    {
-      "ts": "2027-01-06T18:00:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "applied",
-      "evidence": "{\"plan\": {\"auto\": false, \"previous_config\": {\"allocations\": {\"default\": {\"caller_id\": {\"D1\": 0.5, \"D2\": 0.5}, \"voice\": {\"V1\": 0.775, \"V2\": 0.07500000000000001, \"V3\": 0.07500000000000001, \"V4\": 0.07500000000000001}, \"welcome_message\": {\"W1\": 1.0}}}, \"cohorts\": [], \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}}, \"proposal_id\": \"4b4c1fb553be6dc8707f7a8fb4212040\"}"
-    },
-    {
-      "ts": "2027-01-06T17:08:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "approval_decided",
-      "evidence": "{\"approval_id\": \"apr_00005\", \"event_id\": 225417, \"reasons\": [], \"status\": \"approved\", \"ts\": \"2027-01-06T17:08:00+05:30\", \"type\": \"approval_decided\", \"workflow_id\": \"ks_cancel\"}"
-    },
-    {
-      "ts": "2027-01-06T16:00:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "proposal_prepared",
-      "evidence": "{\"auto\": false, \"evidence\": {\"bad\": [\"D2\"], \"detector\": \"3.5 sigma intervals; 5pp minimum degradation\", \"estimated_lift\": 0, \"historical\": {\"D1\": {\"connected\": 1532, \"dials\": 6389, \"engaged\": 742, \"hallucinations\": 28}, \"D2\": {\"connected\": 1486, \"dials\": 6411, \"engaged\": 762, \"hallucinations\": 21}}, \"recent\": {\"D1\": {\"connected\": 179, \"dials\": 816, \"engaged\": 88, \"hallucinations\": 3}, \"D2\": {\"connected\": 58, \"dials\": 784, \"engaged\": 33, \"hallucinations\": 0}}}, \"proposal_id\": \"4b4c1fb553be6dc8707f7a8fb4212040\", \"summary\": \"Rotate degraded caller IDs: D2\"}"
-    },
-    {
-      "ts": "2027-01-06T14:47:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "approval_decided",
-      "evidence": "{\"approval_id\": \"apr_00004\", \"event_id\": 223391, \"reasons\": [\"approver declined (judgement call)\"], \"status\": \"rejected\", \"ts\": \"2027-01-06T14:47:00+05:30\", \"type\": \"approval_decided\", \"workflow_id\": \"ks_cancel\"}"
-    },
-    {
-      "ts": "2027-01-06T15:00:00+05:30",
-      "workflow": "nw_kyc",
-      "kind": "post_apply_verification",
-      "evidence": "{\"after\": {\"connected\": 410, \"dials\": 1506, \"engaged\": 266, \"hallucinations\": 7}, \"before\": {\"connected\": 963, \"dials\": 4000, \"engaged\": 578, \"hallucinations\": 21}, \"harmful\": false, \"method\": \"temporal comparison; confounding possible\", \"proposal_id\": \"6be7b881f26bbed134be69a8e04ca971\"}"
-    },
-    {
-      "ts": "2027-01-06T13:00:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "proposal_prepared",
-      "evidence": "{\"auto\": false, \"evidence\": {\"bad\": [\"D2\"], \"detector\": \"3.5 sigma intervals; 5pp minimum degradation\", \"estimated_lift\": 0, \"historical\": {\"D1\": {\"connected\": 1535, \"dials\": 6425, \"engaged\": 757, \"hallucinations\": 27}, \"D2\": {\"connected\": 1546, \"dials\": 6375, \"engaged\": 796, \"hallucinations\": 23}}, \"recent\": {\"D1\": {\"connected\": 202, \"dials\": 787, \"engaged\": 89, \"hallucinations\": 4}, \"D2\": {\"connected\": 94, \"dials\": 813, \"engaged\": 47, \"hallucinations\": 1}}}, \"proposal_id\": \"1d678542a440db9c4671b2b2d809c66d\", \"summary\": \"Rotate degraded caller IDs: D2\"}"
-    },
-    {
-      "ts": "2027-01-06T11:00:00+05:30",
-      "workflow": "nw_kyc",
-      "kind": "insufficient_evidence",
-      "evidence": "{\"dimension\": \"caller_id\", \"look\": 2, \"stage\": \"exploring\", \"stats\": {\"D1\": {\"connected\": 731, \"dials\": 3217, \"engaged\": 442, \"hallucinations\": 10}, \"D2\": {\"connected\": 27, \"dials\": 84, \"engaged\": 18, \"hallucinations\": 0}, \"D3\": {\"connected\": 40, \"dials\": 99, \"engaged\": 27, \"hallucinations\": 1}}}"
-    },
-    {
-      "ts": "2027-01-06T11:00:00+05:30",
-      "workflow": "nw_renewal",
-      "kind": "insufficient_evidence",
-      "evidence": "{\"dimension\": \"voice\", \"look\": 2, \"stage\": \"exploring\", \"stats\": {\"V1\": {\"connected\": 1140, \"dials\": 4183, \"engaged\": 617, \"hallucinations\": 24}, \"V2\": {\"connected\": 130, \"dials\": 422, \"engaged\": 73, \"hallucinations\": 0}, \"V3\": {\"connected\": 99, \"dials\": 412, \"engaged\": 46, \"hallucinations\": 2}, \"V4\": {\"connected\": 99, \"dials\": 383, \"engaged\": 47, \"hallucinations\": 1}}}"
-    },
-    {
-      "ts": "2027-01-06T11:00:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "insufficient_evidence",
-      "evidence": "{\"dimension\": \"voice\", \"look\": 2, \"stage\": \"exploring\", \"stats\": {\"V1\": {\"connected\": 1555, \"dials\": 6513, \"engaged\": 764, \"hallucinations\": 32}, \"V2\": {\"connected\": 155, \"dials\": 668, \"engaged\": 69, \"hallucinations\": 1}, \"V3\": {\"connected\": 152, \"dials\": 597, \"engaged\": 81, \"hallucinations\": 1}, \"V4\": {\"connected\": 162, \"dials\": 622, \"engaged\": 83, \"hallucinations\": 1}}}"
-    },
-    {
-      "ts": "2027-01-06T00:00:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "post_apply_verification",
-      "evidence": "{\"after\": {\"connected\": 1850, \"dials\": 7600, \"engaged\": 919, \"hallucinations\": 33}, \"before\": {\"connected\": 2307, \"dials\": 9600, \"engaged\": 1169, \"hallucinations\": 35}, \"harmful\": false, \"method\": \"temporal comparison; confounding possible\", \"proposal_id\": \"9e60ede18d03829153e6b21a598b1402\"}"
-    },
-    {
-      "ts": "2027-01-06T00:00:00+05:30",
-      "workflow": "nw_renewal",
-      "kind": "post_apply_verification",
-      "evidence": "{\"after\": {\"connected\": 1304, \"dials\": 4800, \"engaged\": 687, \"hallucinations\": 26}, \"before\": {\"connected\": 1892, \"dials\": 7200, \"engaged\": 1019, \"hallucinations\": 26}, \"harmful\": false, \"method\": \"temporal comparison; confounding possible\", \"proposal_id\": \"6fba039702e970c92ebbdaae7d2f985f\"}"
-    },
-    {
-      "ts": "2027-01-05T11:00:00+05:30",
-      "workflow": "nw_kyc",
-      "kind": "insufficient_evidence",
-      "evidence": "{\"dimension\": \"caller_id\", \"look\": 1, \"stage\": \"exploring\", \"stats\": {\"D1\": {\"connected\": 280, \"dials\": 1380, \"engaged\": 157, \"hallucinations\": 3}, \"D2\": {\"connected\": 4, \"dials\": 6, \"engaged\": 3, \"hallucinations\": 0}, \"D3\": {\"connected\": 7, \"dials\": 14, \"engaged\": 4, \"hallucinations\": 0}}}"
-    },
-    {
-      "ts": "2027-01-05T11:00:00+05:30",
-      "workflow": "nw_renewal",
-      "kind": "insufficient_evidence",
-      "evidence": "{\"dimension\": \"voice\", \"look\": 1, \"stage\": \"exploring\", \"stats\": {\"V1\": {\"connected\": 356, \"dials\": 1382, \"engaged\": 188, \"hallucinations\": 5}, \"V2\": {\"connected\": 51, \"dials\": 155, \"engaged\": 27, \"hallucinations\": 0}, \"V3\": {\"connected\": 35, \"dials\": 134, \"engaged\": 16, \"hallucinations\": 0}, \"V4\": {\"connected\": 31, \"dials\": 129, \"engaged\": 12, \"hallucinations\": 0}}}"
-    },
-    {
-      "ts": "2027-01-05T11:00:00+05:30",
-      "workflow": "nw_renewal",
-      "kind": "post_apply_verification",
-      "evidence": "{\"after\": {\"connected\": 473, \"dials\": 1800, \"engaged\": 243, \"hallucinations\": 5}, \"before\": {\"connected\": 1892, \"dials\": 7200, \"engaged\": 1019, \"hallucinations\": 26}, \"harmful\": false, \"method\": \"temporal comparison; confounding possible\", \"proposal_id\": \"6fba039702e970c92ebbdaae7d2f985f\"}"
-    },
-    {
-      "ts": "2027-01-05T11:00:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "insufficient_evidence",
-      "evidence": "{\"dimension\": \"voice\", \"look\": 1, \"stage\": \"exploring\", \"stats\": {\"V1\": {\"connected\": 665, \"dials\": 2770, \"engaged\": 330, \"hallucinations\": 16}, \"V2\": {\"connected\": 70, \"dials\": 286, \"engaged\": 32, \"hallucinations\": 1}, \"V3\": {\"connected\": 80, \"dials\": 263, \"engaged\": 37, \"hallucinations\": 1}, \"V4\": {\"connected\": 76, \"dials\": 281, \"engaged\": 42, \"hallucinations\": 0}}}"
-    },
-    {
-      "ts": "2027-01-05T00:00:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "post_apply_verification",
-      "evidence": "{\"after\": {\"connected\": 684, \"dials\": 2800, \"engaged\": 333, \"hallucinations\": 7}, \"before\": {\"connected\": 2307, \"dials\": 9600, \"engaged\": 1169, \"hallucinations\": 35}, \"harmful\": false, \"method\": \"temporal comparison; confounding possible\", \"proposal_id\": \"9e60ede18d03829153e6b21a598b1402\"}"
-    },
-    {
-      "ts": "2027-01-04T19:00:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "post_apply_verification",
-      "evidence": "{\"after\": {\"connected\": 496, \"dials\": 2000, \"engaged\": 243, \"hallucinations\": 6}, \"before\": {\"connected\": 2307, \"dials\": 9600, \"engaged\": 1169, \"hallucinations\": 35}, \"harmful\": false, \"method\": \"temporal comparison; confounding possible\", \"proposal_id\": \"9e60ede18d03829153e6b21a598b1402\"}"
-    },
-    {
-      "ts": "2027-01-04T16:00:00+05:30",
-      "workflow": "nw_renewal",
-      "kind": "config_changed",
-      "evidence": "{\"actor\": \"controller_approved\", \"approval_id\": \"apr_00002\", \"changed_dims\": [\"voice\"], \"event_id\": 196659, \"proposal_id\": \"6fba039702e970c92ebbdaae7d2f985f\", \"ts\": \"2027-01-04T16:00:00+05:30\", \"type\": \"config_changed\", \"version\": 2, \"workflow_id\": \"nw_renewal\"}"
-    },
-    {
-      "ts": "2027-01-04T16:00:00+05:30",
-      "workflow": "nw_renewal",
-      "kind": "applied",
-      "evidence": "{\"plan\": {\"auto\": false, \"baseline\": {\"V1\": 1.0}, \"dimension\": \"voice\", \"previous_config\": {\"allocations\": {\"default\": {\"caller_id\": {\"D1\": 0.5, \"D2\": 0.5}, \"voice\": {\"V1\": 1.0}, \"welcome_message\": {\"W1\": 1.0}}}, \"cohorts\": [], \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}, \"stage\": \"exploring\"}, \"proposal_id\": \"6fba039702e970c92ebbdaae7d2f985f\"}"
-    },
-    {
-      "ts": "2027-01-04T15:00:00+05:30",
-      "workflow": "nw_renewal",
-      "kind": "approval_decided",
-      "evidence": "{\"approval_id\": \"apr_00002\", \"event_id\": 195983, \"reasons\": [], \"status\": \"approved\", \"ts\": \"2027-01-04T15:00:00+05:30\", \"type\": \"approval_decided\", \"workflow_id\": \"nw_renewal\"}"
-    },
-    {
-      "ts": "2027-01-04T13:00:00+05:30",
-      "workflow": "nw_kyc",
-      "kind": "config_changed",
-      "evidence": "{\"actor\": \"controller_approved\", \"approval_id\": \"apr_00003\", \"changed_dims\": [\"caller_id\"], \"event_id\": 193957, \"proposal_id\": \"6be7b881f26bbed134be69a8e04ca971\", \"ts\": \"2027-01-04T13:00:00+05:30\", \"type\": \"config_changed\", \"version\": 2, \"workflow_id\": \"nw_kyc\"}"
-    },
-    {
-      "ts": "2027-01-04T13:00:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "config_changed",
-      "evidence": "{\"actor\": \"controller_approved\", \"approval_id\": \"apr_00001\", \"changed_dims\": [\"voice\"], \"event_id\": 193956, \"proposal_id\": \"9e60ede18d03829153e6b21a598b1402\", \"ts\": \"2027-01-04T13:00:00+05:30\", \"type\": \"config_changed\", \"version\": 2, \"workflow_id\": \"ks_cancel\"}"
-    },
-    {
-      "ts": "2027-01-04T13:00:00+05:30",
-      "workflow": "nw_kyc",
-      "kind": "applied",
-      "evidence": "{\"plan\": {\"auto\": false, \"baseline\": {\"D1\": 1.0}, \"dimension\": \"caller_id\", \"previous_config\": {\"allocations\": {\"default\": {\"caller_id\": {\"D1\": 1.0}, \"voice\": {\"V1\": 1.0}, \"welcome_message\": {\"W1\": 1.0}}}, \"cohorts\": [], \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}, \"stage\": \"exploring\"}, \"proposal_id\": \"6be7b881f26bbed134be69a8e04ca971\"}"
-    },
-    {
-      "ts": "2027-01-04T13:00:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "applied",
-      "evidence": "{\"plan\": {\"auto\": false, \"baseline\": {\"V1\": 1.0}, \"dimension\": \"voice\", \"previous_config\": {\"allocations\": {\"default\": {\"caller_id\": {\"D1\": 0.5, \"D2\": 0.5}, \"voice\": {\"V1\": 1.0}, \"welcome_message\": {\"W1\": 1.0}}}, \"cohorts\": [], \"prompt_version\": \"P1\", \"schedule\": {\"hour_weights\": {}, \"lead_preferred_hour\": {}}}, \"stage\": \"exploring\"}, \"proposal_id\": \"9e60ede18d03829153e6b21a598b1402\"}"
-    },
-    {
-      "ts": "2027-01-04T12:28:00+05:30",
-      "workflow": "nw_kyc",
-      "kind": "approval_decided",
-      "evidence": "{\"approval_id\": \"apr_00003\", \"event_id\": 193730, \"reasons\": [], \"status\": \"approved\", \"ts\": \"2027-01-04T12:28:00+05:30\", \"type\": \"approval_decided\", \"workflow_id\": \"nw_kyc\"}"
-    },
-    {
-      "ts": "2027-01-04T12:04:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "approval_decided",
-      "evidence": "{\"approval_id\": \"apr_00001\", \"event_id\": 193504, \"reasons\": [], \"status\": \"approved\", \"ts\": \"2027-01-04T12:04:00+05:30\", \"type\": \"approval_decided\", \"workflow_id\": \"ks_cancel\"}"
-    },
-    {
-      "ts": "2027-01-04T11:00:00+05:30",
-      "workflow": "nw_kyc",
-      "kind": "proposal_prepared",
-      "evidence": "{\"auto\": false, \"evidence\": {\"estimated_lift\": 0, \"uncertainty\": \"exploration; benefit unknown\"}, \"proposal_id\": \"6be7b881f26bbed134be69a8e04ca971\", \"summary\": \"Measure caller_id alternatives with 30% exploration traffic\"}"
-    },
-    {
-      "ts": "2027-01-04T11:00:00+05:30",
-      "workflow": "nw_renewal",
-      "kind": "proposal_prepared",
-      "evidence": "{\"auto\": false, \"evidence\": {\"estimated_lift\": 0, \"uncertainty\": \"exploration; benefit unknown\"}, \"proposal_id\": \"6fba039702e970c92ebbdaae7d2f985f\", \"summary\": \"Measure voice alternatives with 30% exploration traffic\"}"
-    },
-    {
-      "ts": "2027-01-04T11:00:00+05:30",
-      "workflow": "ks_cancel",
-      "kind": "proposal_prepared",
-      "evidence": "{\"auto\": false, \"evidence\": {\"estimated_lift\": 0, \"uncertainty\": \"exploration; benefit unknown\"}, \"proposal_id\": \"9e60ede18d03829153e6b21a598b1402\", \"summary\": \"Measure voice alternatives with 30% exploration traffic\"}"
+      "ts": "2027-01-13T09:30:00+05:30",
+      "workflow": "",
+      "kind": "decision_latency",
+      "evidence": "{\"event_checkpoint\": 314246, \"seconds\": 0.03381575000821613, \"sim_minute\": 13530, \"simulated_lag_histogram\": [[4.0, 75], [5.0, 100]]}"
     }
   ],
   "kpis": [
     {
       "workflow": "ks_cancel",
       "dials": 48000,
-      "connected": 9643,
-      "engaged": 4753,
-      "hallucinations": 189
+      "connected": 9485,
+      "engaged": 4745,
+      "hallucinations": 172
     },
     {
       "workflow": "nw_kyc",
       "dials": 20000,
-      "connected": 5317,
-      "engaged": 3206,
-      "hallucinations": 71
+      "connected": 5561,
+      "engaged": 3379,
+      "hallucinations": 91
     },
     {
       "workflow": "nw_renewal",
       "dials": 36000,
-      "connected": 9513,
-      "engaged": 5264,
-      "hallucinations": 152
+      "connected": 9457,
+      "engaged": 5081,
+      "hallucinations": 138
     }
   ]
 }

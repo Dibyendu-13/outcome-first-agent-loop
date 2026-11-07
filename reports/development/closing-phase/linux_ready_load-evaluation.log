@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/app/scripts/evaluate.py", line 138, in <module>
+    run(a.name,a.scenario,a.port,a.crash,a.reuse_baseline,a.fault_point)
+  File "/app/scripts/evaluate.py", line 48, in run
+    raise RuntimeError('simulator startup timeout')
+RuntimeError: simulator startup timeout

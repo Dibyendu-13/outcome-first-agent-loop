@@ -1,52 +1,70 @@
 {
   "workflow": "ks_cancel",
-  "changed_at": "2027-01-08T13:00:00+05:30",
+  "changed_at": "2027-01-07T18:15:00+05:30",
   "version": 5,
   "actor": "controller_approved",
-  "approval_id": "apr_00006",
+  "approval_id": "apr_00005",
   "approval_event": {
     "type": "approval_decided",
-    "ts": "2027-01-08T11:53:00+05:30",
-    "approval_id": "apr_00006",
+    "ts": "2027-01-07T17:51:00+05:30",
+    "approval_id": "apr_00005",
     "workflow_id": "ks_cancel",
     "status": "approved",
     "reasons": [],
-    "event_id": 248101
+    "event_id": 239797
   },
-  "proposal_id": "d8e5a5a5dbe1c0655a0af9cce607ccce",
+  "proposal_id": "f535080374c88e08030d78e72e806ca3",
   "summary": "Validate and replace prompt after sustained hallucination increase",
   "diff": {
     "prompt_version": "P1"
   },
-  "rationale": "Validate and replace prompt after sustained hallucination increase; {\"baseline\": {\"connected\": 19957, \"dials\": 80209, \"engaged\": 9998, \"hallucinations\": 302}, \"candidate_selection\": \"prefer observed engagement lower bound among safety-passing candidates\", \"estimated_lift\": 0, \"recent\": {\"connected\": 337, \"dials\": 1600, \"engaged\": 143, \"hallucinations\": 23}, \"safety_only\": true, \"validation\": {\"validation_run_id\": \"val_00002\"}}",
+  "rationale": "Validate and replace prompt after sustained hallucination increase; {\"baseline\": {\"connected\": 20047, \"dials\": 80509, \"engaged\": 10095, \"hallucinations\": 311}, \"candidate_selection\": \"prefer observed engagement lower bound among safety-passing candidates\", \"estimated_lift\": 0, \"event_checkpoint\": 237996, \"evidence_as_of\": \"2027-01-07T16:15:00+05:30\", \"latest_recent\": {\"connected\": 349, \"dials\": 1700, \"engaged\": 141, \"hallucinations\": 18}, \"population\": {\"active_enrollments\": 3606, \"method\": \"unconcluded enrollments within campaign cadence; exhausted attempts may still be included\"}, \"recent\": {\"connected\": 405, \"dials\": 1900, \"engaged\": 176, \"hallucinations\": 18}, \"replay\": {\"cohorts\": [], \"method\": \"reweight observed randomized-arm means within shared cohorts; assumes epoch stationarity and unchanged population\", \"unsupported_arms_withhold_estimate\": true, \"weighted_estimated_lift\": null}, \"safety_only\": true, \"validation\": {\"validation_run_id\": \"val_00001\"}}",
   "evidence": {
-    "method": "observed aggregate replay; no causal guarantee",
+    "method": "historical cohort evidence and proposed-allocation replay; causal assumptions stated in evidence",
     "evidence": {
       "recent": {
-        "dials": 1600,
-        "connected": 337,
-        "engaged": 143,
-        "hallucinations": 23
+        "dials": 1900,
+        "connected": 405,
+        "engaged": 176,
+        "hallucinations": 18
       },
       "baseline": {
-        "dials": 80209,
-        "connected": 19957,
-        "engaged": 9998,
-        "hallucinations": 302
+        "dials": 80509,
+        "connected": 20047,
+        "engaged": 10095,
+        "hallucinations": 311
       },
       "validation": {
-        "validation_run_id": "val_00002"
+        "validation_run_id": "val_00001"
       },
       "estimated_lift": 0,
       "safety_only": true,
-      "candidate_selection": "prefer observed engagement lower bound among safety-passing candidates"
+      "candidate_selection": "prefer observed engagement lower bound among safety-passing candidates",
+      "latest_recent": {
+        "dials": 1700,
+        "connected": 349,
+        "engaged": 141,
+        "hallucinations": 18
+      },
+      "evidence_as_of": "2027-01-07T16:15:00+05:30",
+      "event_checkpoint": 237996,
+      "population": {
+        "active_enrollments": 3606,
+        "method": "unconcluded enrollments within campaign cadence; exhausted attempts may still be included"
+      },
+      "replay": {
+        "method": "reweight observed randomized-arm means within shared cohorts; assumes epoch stationarity and unchanged population",
+        "cohorts": [],
+        "weighted_estimated_lift": null,
+        "unsupported_arms_withhold_estimate": true
+      }
     },
-    "affected_leads_method": "upper bound: unconcluded enrollments; includes expired cadence"
+    "affected_leads_method": "upper bound: active-cadence unconcluded enrollments; excludes expired campaigns; may include exhausted attempts"
   },
   "subsequent_calls_on_version": {
-    "dials": 4800,
-    "connected": 950,
-    "engaged": 475,
-    "hallucination_flags": 12
+    "dials": 7600,
+    "connected": 1472,
+    "engaged": 731,
+    "hallucination_flags": 22
   }
 }

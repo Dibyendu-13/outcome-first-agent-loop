@@ -3,7 +3,7 @@
 Run from the repository root:
 
 ```bash
-.venv/bin/python -m controller serve --db controller-data/release_02.sqlite --port 8800
+.venv/bin/python -m controller serve --db controller-data/final_public_02.sqlite --port 8800
 ```
 
 Open http://127.0.0.1:8800. If an older server is already running, stop it with Ctrl+C before restarting.
@@ -15,7 +15,7 @@ not impersonate an approver or provide an unauthenticated configuration-write en
 
 - **Overview:** campaign conclusion rate, separate call KPIs, daily pickup/engagement trends, exceptions,
   workflow cards and recent applied changes. Select a tenant or workflow to update the analytics scope.
-- **Experiments:** actual per-arm dials and connections, current recorded allocation, the minimum sample,
+- **Experiments:** actual independent-person per-arm observations for new runs, current recorded allocation, the minimum sample,
   evaluation look count and last-evaluation explanation. A completed simulation does not leave experiments
   labelled as receiving traffic. No promotion is invented from final observations arriving after a look.
 - **Approvals:** searchable proposal register with status filtering. The detail drawer links the actual
@@ -50,6 +50,8 @@ available for backwards-compatible raw controller status.
 | Post-change evidence | post_apply_verification audit records | Temporal comparison with its uncertainty retained |
 | Credits remaining | persisted simulator state | Last ingested balance; uncertain paid operations are highlighted separately |
 | Event backlog | persisted state.last_event_id minus committed event checkpoint | Unknown until state exists; never a guessed wall-clock latency |
+
+The new experiment view uses the same cohort ID and evidence snapshot as learning and decay monitoring. Legacy run databases retain their original call-level experiment display. `/metrics` exposes operational counters and the measured cycle latency histogram.
 
 The run start is derived from state.ts minus sim_minute, not a hardcoded calendar date. The displayed finished
 period excludes the terminal midnight boundary. Historical-campaign conclusions during the run remain in

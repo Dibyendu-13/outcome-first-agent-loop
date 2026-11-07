@@ -1,0 +1,94 @@
+{
+  "scenario": "scenarios/public_01_dev.yaml",
+  "finished": true,
+  "events": 297010,
+  "ingest_seconds": 5.0384271245857235,
+  "ingest_events_per_second": 58948.95225351129,
+  "controller_wall_seconds": 31.949033125012647,
+  "wall_seconds_per_simulated_day": 3.993629140626581,
+  "database_bytes": 60256256,
+  "peak_controller_rss_bytes": 74285056,
+  "monitoring_evaluation_interval_simulated_minutes": 15,
+  "experiment_evaluation_interval_simulated_minutes": 60,
+  "decision_cycle_seconds": {
+    "count": 480,
+    "p50": 0.02768175001256168,
+    "p95": 0.15023120798286982,
+    "max": 3.0695228750118986
+  },
+  "observed_call_to_evaluation_lag_simulated_minutes": [
+    [
+      1.0,
+      6750
+    ],
+    [
+      2.0,
+      5750
+    ],
+    [
+      3.0,
+      5325
+    ],
+    [
+      4.0,
+      6050
+    ],
+    [
+      5.0,
+      5300
+    ],
+    [
+      6.0,
+      5775
+    ],
+    [
+      7.0,
+      5200
+    ],
+    [
+      8.0,
+      5475
+    ],
+    [
+      9.0,
+      5725
+    ],
+    [
+      10.0,
+      6075
+    ],
+    [
+      11.0,
+      5175
+    ],
+    [
+      12.0,
+      5675
+    ],
+    [
+      13.0,
+      5075
+    ],
+    [
+      14.0,
+      4775
+    ],
+    [
+      15.0,
+      5075
+    ]
+  ],
+  "baseline_reused": true,
+  "unknown_paid_operations": 0,
+  "decision_lag_note": "Cycle latency includes ingestion and evaluation, excludes remote advance; simulated call lag comes from actual call timestamps. Neither includes time to permission or evidence thresholds.",
+  "integrity": "ok",
+  "duplicate_calls": 0,
+  "pending_at_end": 0,
+  "total_evaluation_seconds": 36.392697917006444,
+  "resource_limits": {},
+  "environment": {
+    "platform": "darwin",
+    "cpu_count": 8,
+    "python": "3.13.2 (main, Feb  4 2025, 14:51:09) [Clang 16.0.0 (clang-1600.0.26.6)]"
+  }
+}

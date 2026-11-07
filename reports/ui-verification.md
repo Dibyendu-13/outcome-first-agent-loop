@@ -38,3 +38,11 @@ as confirmed hallucinations. The console remains read-only and does not bypass c
 
 The separate 12-workflow load database projection was measured at 8.5 seconds cold and approximately 3ms
 cached on this host. This measures the UI projection, not controller event-ingestion throughput.
+
+## Final data and metrics smoke check
+
+The latest local server was started against `controller-data/final_public_02.sqlite`. The page,
+`GET /api/dashboard`, and `GET /metrics` each returned HTTP 200. The dashboard response included
+workflow, experiment, incident, proposal, and ingestion records. The metrics response exposed
+the decision-cycle histogram, remaining credits, and ingestion backlog. The updated JavaScript
+passed `node --check`. The screenshots above remain from the earlier release dataset.

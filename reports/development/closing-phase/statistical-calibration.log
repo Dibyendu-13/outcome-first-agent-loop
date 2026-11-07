@@ -1,0 +1,81 @@
+{
+  "seed": 20261107,
+  "null_families": 1000,
+  "cohorts": 2,
+  "epochs": 2,
+  "alternatives": 2,
+  "tested_milestones": [
+    200,
+    400,
+    800
+  ],
+  "declared_milestones": [
+    200,
+    400,
+    800,
+    1600,
+    3200,
+    6400,
+    12800,
+    25600,
+    51200
+  ],
+  "false_promotions": 3,
+  "empirical_false_family_rate": 0.003,
+  "one_sided_95pct_upper_bound": 0.007735244718478839,
+  "primary_power_for_20pp_lift_by_800": 1.0,
+  "power_grid": [
+    {
+      "n_per_arm": 400,
+      "primary_p_for_15pp_lift": 1.179870285046286e-05,
+      "primary_pass": true,
+      "guardrail_equal_rates_pass": false,
+      "guardrail_lower_difference": -0.17239937746550077
+    },
+    {
+      "n_per_arm": 1600,
+      "primary_p_for_15pp_lift": 5.436416442948334e-18,
+      "primary_pass": true,
+      "guardrail_equal_rates_pass": false,
+      "guardrail_lower_difference": -0.08616231188088025
+    },
+    {
+      "n_per_arm": 6400,
+      "primary_p_for_15pp_lift": 1.7812583484674125e-66,
+      "primary_pass": true,
+      "guardrail_equal_rates_pass": false,
+      "guardrail_lower_difference": -0.04299716671463849
+    },
+    {
+      "n_per_arm": 25600,
+      "primary_p_for_15pp_lift": 1.5988854461275463e-259,
+      "primary_pass": true,
+      "guardrail_equal_rates_pass": false,
+      "guardrail_lower_difference": -0.021468457888331183
+    },
+    {
+      "n_per_arm": 51200,
+      "primary_p_for_15pp_lift": 0.0,
+      "primary_pass": true,
+      "guardrail_equal_rates_pass": true,
+      "guardrail_lower_difference": -0.015173449760552515
+    }
+  ],
+  "analytical_budget_per_workflow": {
+    "promotion": 0.02,
+    "guardrail": 0.02,
+    "decay": 0.01,
+    "total": 0.05
+  },
+  "assumptions": [
+    "First observation per independent person within an epoch",
+    "Stationary exchangeable Bernoulli marginal within each compared epoch/cohort",
+    "Fixed event-ID sample prefixes at predeclared sizes",
+    "No between-epoch independence needed for the union bound"
+  ],
+  "limitations": [
+    "Calibration exercises the first three of nine looks and two epochs; the analytic union bound covers the declared family.",
+    "It is not evidence of model-free validity under arbitrary within-epoch temporal or selection drift.",
+    "The exact guardrail is intentionally conservative: unchanged 2pp guardrails need many observations."
+  ]
+}

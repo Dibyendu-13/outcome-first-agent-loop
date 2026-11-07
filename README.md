@@ -1,7 +1,7 @@
 # Controller implementation
 
 The controller is implemented in `controller/`. Start with [the runbook](docs/CONTROLLER.md),
-[the supervisor UI](docs/UI.md), [design and scope decisions](SUBMISSION.md), and [evaluation evidence](reports/README.md).
+[the supervisor UI](docs/UI.md), [design and scope decisions](SUBMISSION.md), and [evaluation evidence](reports/FINAL.md).
 
 ```bash
 python3 -m venv .venv
@@ -15,7 +15,7 @@ CONTROLLER_DB=controller-data/new-run.sqlite ./run.sh http://127.0.0.1:8700
 .venv/bin/python -m controller serve --db controller-data/new-run.sqlite --port 8800
 ```
 
-No external API keys are required. The original assignment follows below.
+No external API keys are required. See [validation and reproduction](docs/VALIDATION.md) for the Linux benchmark, statistical calibration and recovery matrix. The original assignment follows below.
 
 ---
 
